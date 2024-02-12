@@ -58,7 +58,15 @@
 								<li class="nav-item">
 								    <a href="FranCarrascoResume.pdf" download="FranCarrascoResume.pdf" class="nav-link">DOWNLOAD RESUME</a>
 								</li>
-
+								<script>
+								    document.getElementById('downloadLink').addEventListener('click', function(e) {
+								        e.preventDefault(); // Previene la descarga inmediata
+								        var confirmed = confirm("Are you sure you want to download the resume?");
+								        if (confirmed) {
+								            window.location.href = this.href; // Procede con la descarga si el usuario confirma
+								        }
+								    });
+								</script>
 								
 							</ul>
 						</div>
