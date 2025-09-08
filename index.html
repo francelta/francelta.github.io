@@ -72,57 +72,110 @@
             font-weight: 500;
         }
 
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+     /* Animaciones de Animate.css (asegúrate de que este import esté presente) */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
 
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600') no-repeat center center;
+    /* Nueva imagen de fondo, más abstracta y tecnológica */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600') no-repeat center center;
     background-size: cover;
-    display: flex; /* Asegura el centrado vertical */
+    background-position: center 20%; /* Ajusta la posición si la imagen no se ve bien centrada */
+    display: flex; 
     align-items: center;
     justify-content: center;
     text-align: center;
-    position: relative; /* Necesario para el z-index del contenido */
+    position: relative; 
+    overflow: hidden; /* Importante para que no se vea el scroll innecesario si hay elementos fuera */
 }
-.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); /* Capa oscura adicional para mayor contraste */
-    z-index: 0;
-}
+
+/* Eliminar la capa oscura ::before si la habías puesto antes, ya está en el linear-gradient del background */
+
 .hero .container {
     position: relative;
-    z-index: 1; /* Asegura que el contenido esté por encima de la capa oscura */
+    z-index: 1; 
+    max-width: 900px; /* Limita el ancho del contenido para mejor enfoque */
+    padding: 0 15px;
 }
 .hero h1 {
-    font-size: 4.5rem; /* Un tamaño de fuente más grande */
-    color: var(--primary-color);
-    line-height: 1.2; /* Espacio entre líneas para el título */
-    text-shadow: 0 0 15px rgba(0, 191, 255, 0.4); /* Sombra para el texto */
-
+    font-size: 4.8rem; /* Titular más grande y audaz */
+    color: var(--primary-color); /* Color de acento para el titular */
+    line-height: 1.1; 
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.6), 0 0 40px rgba(0, 191, 255, 0.3); /* Sombra más pronunciada */
+    margin-top: -50px; /* Eleva un poco el título */
 }
 .hero p {
-    font-size: 1.6rem; /* Subtítulo más grande */
-    color: var(--text-color); /* Color de texto más claro para el subtítulo */
-    font-weight: 300; /* Fuente más ligera para el subtítulo */
-    line-height: 1.6; /* Mayor espacio entre líneas para el subtítulo */
-    max-width: 800px; /* Limita el ancho para mejor legibilidad */
+    font-size: 1.75rem; /* Subtítulo grande y claro */
+    color: var(--text-color); 
+    font-weight: 300; 
+    line-height: 1.7; /* Mayor espacio entre líneas para una lectura fluida */
+    max-width: 700px; 
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 3rem !important; /* Más espacio debajo del subtítulo */
 }
 
+.tech-highlight {
+    background-color: rgba(0, 191, 255, 0.15); /* Fondo semitransparente con color de acento */
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 50px; /* Bordes redondeados para un aspecto moderno */
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.tech-highlight:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 20px rgba(0, 191, 255, 0.4);
+}
+
+.hero .btn-primary {
+    padding: 15px 35px; /* Botón más grande */
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 5px; /* Bordes ligeramente más cuadrados para contraste */
+    box-shadow: 0 5px 20px rgba(0, 191, 255, 0.3);
+}
+.hero .btn-primary:hover {
+    box-shadow: 0 8px 30px rgba(0, 191, 255, 0.5);
+    transform: translateY(-4px);
+}
+
+
 /* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .hero h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
     .hero p {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+    }
+    .tech-highlight {
+        font-size: 0.95rem;
+        padding: 10px 20px;
+    }
+    .hero .btn-primary {
+        font-size: 1rem;
+        padding: 12px 25px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1.1rem;
+    }
+    .tech-highlight {
+        font-size: 0.85rem;
+        padding: 8px 15px;
     }
 }
 
@@ -291,12 +344,23 @@
 
 <header class="hero d-flex align-items-center justify-content-center text-center">
     <div class="container position-relative z-1">
-        <h1 class="display-3 fw-bold mb-3 animate__animated animate__fadeInDown animate__delay-0-5s">Fran Carrasco</h1>
+        <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown animate__delay-0-5s">
+            Desarrollo Full-Stack Brillante
+        </h1>
         <p class="lead fw-light mb-5 animate__animated animate__fadeInUp animate__delay-1s">
-            <span class="d-block">Desarrollador Full-Stack</span> 
-            <span class="d-block">Transformo ideas en código robusto y escalable.</span>
+            <span class="d-block text-white">Transformo visiones en aplicaciones web robustas y escalables.</span> 
+            <span class="d-block text-white-50">Especialista en Python, Django, JavaScript y Vue.js.</span>
         </p>
-        <a href="#portfolio" class="btn btn-primary btn-lg animate__animated animate__zoomIn animate__delay-1-5s">Ver mis proyectos</a>
+        
+        <div class="d-flex justify-content-center flex-wrap gap-3 mb-5 animate__animated animate__zoomIn animate__delay-1-5s">
+            <span class="tech-highlight py-2 px-3">Python</span>
+            <span class="tech-highlight py-2 px-3">Django</span>
+            <span class="tech-highlight py-2 px-3">Vue.js</span>
+            <span class="tech-highlight py-2 px-3">JavaScript</span>
+            <span class="tech-highlight py-2 px-3">IA & Automatización</span>
+        </div>
+
+        <a href="#portfolio" class="btn btn-primary btn-lg animate__animated animate__fadeInUp animate__delay-2s">Explorar Proyectos</a>
     </div>
 </header>
 
