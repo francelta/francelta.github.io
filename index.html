@@ -1,944 +1,413 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="Fran Carrasco's  Portfolio">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-	<meta name="robots" content="index, follow">
-    <link rel="shortcut icon" type="image/png" href="favicon.png?7241">
-    
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css?9126">
-	<link rel="stylesheet" type="text/css" href="style.css?2460">
-	<link rel="stylesheet" type="text/css" href="./css/animate.css?9998">
-	<link rel="stylesheet" type="text/css" href="./css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/ionicons.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/et-line.min.css">
-	<link href='https://fonts.googleapis.com/css?family=Oleo+Script&display=swap&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,800,40&display=swap&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Ubuntu&display=swap&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,40&display=swap&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <title>Fran Carrasco's  Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fran Carrasco | Desarrollador Full-Stack</title>
+    <meta name="description" content="Portafolio de Fran Carrasco, desarrollador Full-Stack especializado en Python, Django, JavaScript y Vue. Creando soluciones web robustas y escalables.">
+    <meta name="keywords" content="desarrollador, full-stack, python, django, vue, javascript, portfolio, Fran Carrasco">
+    <meta name="robots" content="index, follow">
 
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
-<!-- Analytics -->
- 
-<!-- Analytics END -->
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #00bfff; /* Un azul eléctrico como acento */
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #f0f0f0;
+            --text-muted-color: #a0a0a0;
+            --font-headings: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            font-family: var(--font-body);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        h1 { font-weight: 900; }
+
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand, .nav-link {
+            color: var(--text-color) !important;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .navbar-brand:hover {
+            color: var(--primary-color) !important;
+        }
+        .nav-link.active {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), url('https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 500;
+            padding: 12px 24px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #00a0cc;
+            border-color: #00a0cc;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-primary {
+             border-color: var(--primary-color);
+             color: var(--primary-color);
+             font-weight: 500;
+             padding: 12px 24px;
+             transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+            transform: translateY(-2px);
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+        }
+        .section-title p {
+            color: var(--text-muted-color);
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.1);
+        }
+        .project-card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .project-card-body {
+            padding: 25px;
+        }
+        .project-card-body h5 { color: var(--text-color); }
+        .tech-badge {
+            background-color: rgba(0, 191, 255, 0.1);
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .ai-tool-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #2a2a2a;
+        }
+        .ai-tool-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        form .form-control {
+            background-color: var(--card-bg);
+            border: 1px solid #2a2a2a;
+            color: var(--text-color);
+        }
+        form .form-control:focus {
+            background-color: var(--card-bg);
+            border-color: var(--primary-color);
+            color: var(--text-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 191, 255, 0.25);
+        }
+        
+        footer {
+            background-color: var(--card-bg);
+            padding: 40px 0;
+            text-align: center;
+        }
+        .social-links a {
+            color: var(--text-muted-color);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Animaciones al hacer scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
 </head>
-<body>
 
-<!-- Preloader -->
-<div id="page-loading-blocs-notifaction" class="page-preloader"></div>
-<!-- Preloader END -->
+<body data-bs-spy="scroll" data-bs-target="#navbar">
 
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fran Carrasco</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sobre-mi">Sobre mí</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ia-tools">IA en mi Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                     <li class="nav-item ms-lg-3">
+                        <a href="FranCarrascoResume.pdf" download="FranCarrascoResume_ES.pdf" class="btn btn-outline-primary btn-sm">Descargar CV</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<!-- Main container -->
-<div class="page-container">
-    
-<!-- bloc-1 -->
-<div class="bloc bloc-fill-screen bgc-4758 bloc-bg-texture texture-darken bg-fran-3 d-bloc" id="bloc-1">
-	<div class="container fill-bloc-top-edge sticky-nav">
-		<div class="row">
-			<div class="col-12">
-				<nav class="navbar row navbar-expand-md navbar-dark" role="navigation">
-					<a class="navbar-brand" href="./">Fran Carrasco&nbsp;</a>
-					<button id="nav-toggle" type="button" class="ui-navbar-toggler navbar-toggler border-0 p-0 mr-md-0 ml-auto" data-toggle="collapse" data-target=".navbar-1" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"><svg height="32" viewBox="0 0 32 32" width="32"><path class="svg-menu-icon " d="m2 9h28m-28 7h28m-28 7h28"></path></svg></span>
-					</button>
-					<div class="collapse navbar-collapse navbar-1">
-							<ul class="site-navigation nav navbar-nav ml-auto">
-								<li class="nav-item">
-									<a href="#" class="nav-link" data-scroll-speed="1000" onclick="scrollToTarget('#about',this)">about</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link" data-scroll-speed="1000" onclick="scrollToTarget('#portfolio',this)">portfolio</a>
-								</li>
-								<li class="nav-item">
-								    <a href="FranCarrascoResume.pdf" download="FranCarrascoResume.pdf" class="nav-link">DOWNLOAD RESUME</a>
-								</li>
-								<script>
-								    document.getElementById('downloadLink').addEventListener('click', function(e) {
-								        e.preventDefault(); // Previene la descarga inmediata
-								        var confirmed = confirm("Are you sure you want to download the resume?");
-								        if (confirmed) {
-								            window.location.href = this.href; // Procede con la descarga si el usuario confirma
-								        }
-								    });
-								</script>
-								
-							</ul>
-						</div>
-					<div class="navbar-content-area col-lg-2 col-md-2 align-self-center d-md-block  d-none">
-							<a href="#" class="btn btn-d btn-lg creativity-navigation-button float-lg-right float-md-right" data-scroll-speed="1000" onclick="scrollToTarget('#contact-hero',this)">Contact</a>
-						</div>
-				</nav>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-			<div class="row">
-				<div class="col">
-					<h1 class="text-center creativity-special-heading mg-md">
-						Fran Codes The World<br>
-					</h1>
-					<h3 class="float-none text-center tc-3845 mg-lg">
-						Clean code, powerful solutions
-					</h3>
-					<div class="text-center">
-						<a href="#" class="btn btn-lg creativity-wire-button btn-rd btn-d" data-scroll-speed="1000" onclick="scrollToTarget('#portfolio',this)">View portfolio</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	<div class="container fill-bloc-bottom-edge">
-			<div class="row">
-				<div class="col-12">
-					<div class="text-center">
-						<a href="#" data-scroll-speed="1000" onclick="scrollToTarget('0',this)"><span class="fa fa-angle-down icon-md animated bounce animDelay08"></span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-</div>
-<!-- bloc-1 END -->
+    <header class="hero" id="hero">
+        <div class="container">
+            <h1 class="display-4 animated-heading">Fran Carrasco</h1>
+            <p class="lead mb-4">Desarrollador Full-Stack | Transformo ideas en código robusto y escalable.</p>
+            <a href="#portfolio" class="btn btn-primary btn-lg">Ver mis proyectos</a>
+        </div>
+    </header>
 
-<!-- welcome -->
-<div class="bloc tc-4758 l-bloc" id="welcome">
-	<div class="container bloc-xl">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-				<h2 class="mg-md text-center tc-5648">
-					Bring Your Ideas to Life
-				</h2>
-				<h4 class="text-center tc-5648 mg-lg">
-					I code, I turn the difficult into easy
-				</h4>
-				<div class="text-center">
-					<span class="ion ion-flash icon-md icon-5648"></span>
-				</div>
-			</div>
-		</div>
-		<div class="row voffset-lg">
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull">
-				<h6 class="mg-md text-center">
-					Continuous learning
-				</h6>
-				<h3 class="mg-md text-center tc-4758">
-					At the forefront<br>
-				</h3>
-				<p class="text-center">
-					At the forefront of innovation, embracing continuous learning to stay ahead in an ever-evolving tech landscape.
-				</p>
-				<p class="text-center">
-					<a class="creativity-custom-link" href="#" data-scroll-speed="1000" onclick="scrollToTarget('#design',this)">Learn more &gt;</a><br>
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull">
-				<h6 class="mg-md text-center">
-					Adapting to Any Language
-				</h6>
-				<h3 class="mg-md text-center tc-4758">
-					Versatile Coding<br>
-				</h3>
-				<p class="text-center">
-					Mastering various programming languages, seamlessly transitioning between frameworks to suit project needs with precision.
-				</p>
-				<p class="text-center">
-					<a class="creativity-custom-link" href="#" data-scroll-speed="1000" onclick="scrollToTarget('#branding',this)">Learn more &gt;</a><br>
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull">
-				<h6 class="mg-md text-center">
-					Mastering Multiple Languages, AI, Automation
-				</h6>
-				<h3 class="mg-md text-center tc-4758">
-					Programming Versatility<br>
-				</h3>
-				<p class="text-center">
-					Proficient in PHP, JavaScript, Python, C, Scala. Expert in AI, automation, and web scraping.
-				</p>
-				<p class="text-center">
-					<a class="creativity-custom-link" href="#" data-scroll-speed="1000" onclick="scrollToTarget('#bloc-17',this)">Learn more &gt;</a><br>
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- welcome END -->
+    <main>
+        <section id="sobre-mi">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 fade-in">
+                        <img src="https://images.unsplash.com/photo-1521185496955-15097b20c5fe?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1800" class="img-fluid rounded" alt="Un espacio de trabajo de desarrollador">
+                    </div>
+                    <div class="col-lg-6 fade-in">
+                        <h2 class="mb-3">Código con propósito, soluciones con impacto.</h2>
+                        <p class="text-muted-color">Soy un desarrollador proactivo y resolutivo, apasionado por construir aplicaciones que no solo funcionan, sino que son intuitivas y eficientes. Mi experiencia se centra en el ecosistema de Python con Django y el front-end con Vue.js, aunque siempre estoy explorando nuevas tecnologías para ofrecer el mejor resultado.</p>
+                        <p class="text-muted-color">Disfruto trabajando en equipo y soy un firme creyente de que la colaboración es clave para el éxito de cualquier proyecto. Estoy abierto a oportunidades tanto remotas como presenciales. Fuera del código, me encontrarás haciendo senderismo, buceando o disfrutando de una buena película.</p>
+                        <a href="#contacto" class="btn btn-outline-primary mt-3">Hablemos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- start -->
-<div class="bloc bgc-4758 d-bloc" id="start">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-lg-8 align-self-center col-md-8">
-				<h2 class="mg-md text-sm-center text-center text-lg-left text-md-left">
-					Ready to start collaborating? Let's bring your project to life together.
-				</h2>
-			</div>
-			<div class="align-self-center col-lg-2 col-md-3 offset-md-1 col-8 offset-2 col-sm-4 offset-sm-4 offset-lg-2">
-				<a href="#" class="btn btn-d float-lg-right float-md-right btn-block btn-lg creativity-wire-button btn-style" data-scroll-speed="1000" onclick="scrollToTarget('#contact-hero',this)">Engage</a>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- start END -->
+        <section id="portfolio" class="bg-dark">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Proyectos Destacados</h2>
+                    <p>Una selección de trabajos que demuestran mi capacidad para resolver problemas complejos.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6 fade-in">
+                        <div class="project-card">
+                            <div class="project-card-img" style="background-image: url('https://images.unsplash.com/photo-1463947628408-f8581a2f4aca?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1800');"></div>
+                            <div class="project-card-body">
+                                <h5>Ok Health Check</h5>
+                                <p class="text-muted-color small">Plataforma de bienestar y salud para empresas y particulares.</p>
+                                <div class="mb-3">
+                                    <span class="tech-badge">Django</span>
+                                    <span class="tech-badge">Vue.js</span>
+                                    <span class="tech-badge">API REST</span>
+                                </div>
+                                <a href="https://www.okhealthcheck.com" target="_blank" class="btn btn-sm btn-outline-primary">Visitar Web</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 fade-in">
+                        <div class="project-card">
+                             <div class="project-card-img" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1800');"></div>
+                            <div class="project-card-body">
+                                <h5>Book&Entry (SaaS)</h5>
+                                <p class="text-muted-color small">SaaS de contabilidad que automatiza la entrada de facturas para gestorías profesionales.</p>
+                                <div class="mb-3">
+                                    <span class="tech-badge">Django</span>
+                                    <span class="tech-badge">Vue.js</span>
+                                    <span class="tech-badge">OCR</span>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-4 col-md-6 fade-in">
+                        <div class="project-card">
+                             <div class="project-card-img" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e2775df?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1800');"></div>
+                            <div class="project-card-body">
+                                <h5>Furriel</h5>
+                                <p class="text-muted-color small">Plataforma web multifuncional construida con un stack moderno y escalable.</p>
+                                <div class="mb-3">
+                                    <span class="tech-badge">Django</span>
+                                    <span class="tech-badge">Vue.js</span>
+                                    <span class="tech-badge">PostgreSQL</span>
+                                </div>
+                                <a href="https://www.furriel.net" target="_blank" class="btn btn-sm btn-outline-primary">Visitar Web</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Bloc Group -->
+        <section id="ia-tools">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Potenciando el Desarrollo con IA</h2>
+                    <p>Utilizo herramientas de IA de forma profesional para acelerar y mejorar la calidad de mi código.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 fade-in">
+                        <div class="ai-tool-card">
+                            <i class="fas fa-bolt"></i>
+                            <h5>Cursor</h5>
+                            <p class="text-muted-color small">Para una edición de código inteligente, refactorización y generación de código contextual.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 fade-in">
+                        <div class="ai-tool-card">
+                            <i class="fas fa-brain"></i>
+                            <h5>Gemini & Claude</h5>
+                            <p class="text-muted-color small">Ideales para resolver problemas complejos, entender arquitecturas y generar documentación técnica.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 fade-in">
+                        <div class="ai-tool-card">
+                            <i class="fas fa-comments"></i>
+                            <h5>ChatGPT</h5>
+                            <p class="text-muted-color small">Perfecto para debugging rápido, scripting y brainstorming de nuevas funcionalidades.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 fade-in">
+                        <div class="ai-tool-card">
+                            <i class="fas fa-cogs"></i>
+                            <h5>Workflow Optimizado</h5>
+                             <p class="text-muted-color small">La integración de estas herramientas me permite entregar proyectos más rápido y con un código más limpio y robusto.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Bloc Group -->
-<div class="bloc-group">
+        <section id="contacto" class="bg-dark">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>¿Tienes un proyecto en mente?</h2>
+                    <p>Estoy disponible para colaboraciones y nuevas oportunidades laborales. ¡Hablemos!</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 fade-in">
+                        <form action="https://formspree.io/f/moqgdvwk" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-<!-- quality-1 -->
-<div class="bloc none bloc-tile-2 bgc-5648 d-bloc" id="quality-1">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12 col-lg-8 offset-lg-2 scroll-fx-left-in">
-				<div class="text-center">
-					<span class="et-icon-genius icon-xl icon-1155 creativity-icon"></span>
-				</div>
-				<h3 class="mg-md text-center tc-1155">
-					Expert Craftsmanship<br>
-				</h3>
-				<p class="mg-md text-center tc-3845">
-					Focusing on delivering innovative solutions with precision engineering, ensuring top-notch quality and unmatched performance in every project.
-				</p>
-				<div class="text-center">
-					<a href="#" class="btn btn-d btn-lg creativity-button" data-scroll-speed="1000" onclick="scrollToTarget('#about',this)">Learn more</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- quality-1 END -->
+    <footer>
+        <div class="container">
+            <div class="social-links mb-3">
+                <a href="https://github.com/francelta" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            <p class="text-muted-color">&copy; 2025 Fran Carrasco. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
-<!-- quality-1-photo -->
-<div class="bloc none bloc-tile-2 b-parallax d-bloc" id="quality-1-photo">
-	<div class="parallax bg-Creativity-206 bgc-5648">
-	</div>
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12">
-			</div>
-		</div>
-	</div>
-</div>
-<!-- quality-1-photo END -->
-</div>
-<!-- Bloc Group END -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- qualities -->
-<div class="bloc tc-4758 l-bloc" id="qualities">
-	<div class="container bloc-xl">
-		<div class="row">
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-left-in-fade scroll-fx-zoom-pull">
-				<div class="text-center">
-					<span class="et-icon-lightbulb icon-round creativity-circle-icon icon-lg"></span>
-				</div>
-				<h3 class="mg-md text-center tc-4758">
-					Idea Generation<br>
-				</h3>
-				<p class="text-center">
-					Unlocking Innovation Through Creative Solutions and Inspired Idea Generation.
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-up-in-fade">
-				<div class="text-center">
-					<span class="et-icon-clock icon-round creativity-circle-icon icon-lg"></span>
-				</div>
-				<h3 class="mg-md text-center tc-4758 h3-style">
-					Time Management<br>
-				</h3>
-				<p class="text-center">
-					Efficient Workflow Optimization: Maximizing Productivity and Meeting Deadlines.
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-right-in-fade">
-				<div class="text-center">
-					<span class="et-icon-scope icon-round creativity-circle-icon icon-lg"></span>
-				</div>
-				<h3 class="mg-md text-center tc-4758">
-					Precision Focus<br>
-				</h3>
-				<p class="text-center">
-					Mastering Detail and Precision: Achieving Excellence Through Focused Execution.
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- qualities END -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
 
-<!-- Bloc Group -->
-
-<!-- Bloc Group -->
-<div class="bloc-group">
-
-<!-- quality-2-image -->
-<div class="bloc none bloc-tile-2 b-parallax d-bloc" id="quality-2-image">
-	<div class="parallax bg-Creativity-202 bgc-5648">
-	</div>
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12">
-			</div>
-		</div>
-	</div>
-</div>
-<!-- quality-2-image END -->
-
-<!-- quality-2 -->
-<div class="bloc none bloc-tile-2 bgc-5648 d-bloc" id="quality-2">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12 col-lg-8 offset-lg-2 scroll-fx-right-in">
-				<div class="text-center">
-					<span class="et-icon-dial icon-xl icon-1155 creativity-icon"></span>
-				</div>
-				<h3 class="mg-md text-center tc-1155">
-					<strong>UNIQUE APPROACH</strong>
-				</h3>
-				<p class="mg-md text-center tc-3845">
-					A distinctive approach characterized by originality and creativity, delivering unique solutions and exceptional outcomes.
-				</p>
-				<div class="text-center">
-					<a href="#" class="btn btn-d btn-lg creativity-button" data-scroll-speed="1000" onclick="scrollToTarget('#about',this)">Learn more</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- quality-2 END -->
-</div>
-<!-- Bloc Group END -->
-
-<!-- design -->
-<div class="bloc d-bloc b-parallax" id="design">
-	<div class="parallax bg-Creativity-2012">
-	</div>
-	<div class="container bloc-xxl">
-		<div class="row">
-			<div class="col-lg-6 col-md-8 col-sm-8">
-				<h1 class="mg-md tc-1155">
-					Innovative Automation Solutions
-				</h1>
-				<h4 class="mg-md tc-3845">
-					Revolutionizing workflows with cutting-edge automation solutions, streamlining processes and enhancing efficiency for seamless operations
-				</h4>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- design END -->
-
-<!-- Bloc Group -->
-
-<!-- Bloc Group -->
-<div class="bloc-group">
-
-<!-- bloc-36 -->
-<div class="bloc none bloc-tile-2 bg-Creativity-2015 d-bloc" id="bloc-36">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12">
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-36 END -->
-
-<!-- bloc-37 -->
-<div class="bloc l-bloc none bloc-tile-2" id="bloc-37">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12 scroll-fx-up-in-fade">
-				<h4 class="mg-sm tc-5648">
-					Forward-Thinking Approach<br>
-				</h4>
-				<p class="mg-lg">
-					Adopting a proactive mindset, continuously learning and innovating to anticipate and shape the future of technology.
-				</p>
-			</div>
-			<div class="col-12 scroll-fx-up-in-fade">
-				<h4 class="mg-sm tc-5648">
-					Tech Trailblazer<br>
-				</h4>
-				<p class="mg-lg">
-					Charting new paths in technology, committed to continuous growth and learning to drive innovation and progress.
-				</p>
-			</div>
-			<div class="col-12 scroll-fx-up-in-fade">
-				<h4 class="mg-sm tc-5648">
-					Cutting-Edge Innovations<br>
-				</h4>
-				<p class="mg-lg">
-					Leading the charge with pioneering solutions, staying ahead through relentless learning in the dynamic tech landscape.
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-37 END -->
-</div>
-<!-- Bloc Group END -->
-
-<!-- branding -->
-<div class="bloc tc-4758 bgc-1155 bg-Creativity-208 d-bloc" id="branding">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-				<h1 class="mg-md text-center tc-5648">
-					Versatility in Coding
-				</h1>
-				<p class="mg-md text-center">
-					Proficient in various programming languages, seamlessly navigating frameworks to deliver precise solutions tailored to project requirements.
-				</p>
-				<div class="text-center">
-					<span class="ion ion-ios-bolt icon-md icon-5648"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- branding END -->
-
-<!-- bloc-34 -->
-<div class="bloc tc-4758 l-bloc" id="bloc-34">
-	<div class="container bloc-xl">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-				<h2 class="mg-md text-center tc-5648">
-					Adaptable Framework Mastery
-				</h2>
-				<p class="text-center tc-5648 mg-lg">
-					Mastering diverse frameworks, seamlessly transitioning between them to meet project needs with pinpoint accuracy and efficiency.
-				</p>
-				<div class="text-center">
-					<span class="ion ion-flash icon-md icon-5648"></span>
-				</div>
-			</div>
-		</div>
-		<div class="row voffset-lg">
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-in-fade">
-				<div class="text-center">
-					<span class="creativity-circle-icon icon-semi-rounded-a icon-lg fa fa-code"></span>
-				</div>
-				<h3 class="mg-md text-center tc-4758">
-					Tech Mastery<br>
-				</h3>
-				<p class="text-center">
-					Proficient in PHP, JavaScript, Python, C, Scala, coupled with expertise in AI, automation, and web scraping.
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-in-fade">
-				<div class="text-center">
-					<span class="creativity-circle-icon icon-square icon-lg fa fa-check"></span>
-				</div>
-				<h3 class="mg-md text-center tc-4758">
-					Cross-Disciplinary Proficiency<br>
-				</h3>
-				<p class="text-center">
-					Mastering a range of programming languages alongside advanced skills in AI, automation, and web scraping.
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-in-fade">
-				<div class="text-center">
-					<span class="creativity-circle-icon icon-semi-rounded-b icon-lg fa fa-american-sign-language-interpreting"></span>
-				</div>
-				<h3 class="mg-md text-center tc-4758">
-					Integrated Tech Skills<br>
-				</h3>
-				<p class="text-center">
-					Expertise in various programming languages, complemented by advanced proficiency in AI, automation, and web scraping.
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-34 END -->
-
-<!-- about -->
-<div class="bloc bloc-bg-texture texture-darken tc-3845 bg-fran-2 d-bloc" id="about">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-				<h1 class="mg-md text-center tc-1155">
-					About Me
-				</h1>
-				<p class="mg-md text-center">
-					I am a proactive and collaborative individual who enjoys teamwork. Open to both remote and on-site opportunities. My passions include hiking, diving, reading, watching series and movies, and playing foosball.
-				</p>
-				<div class="text-center">
-					<span class="ion ion-ios-bolt icon-md icon-1155"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- about END -->
-
-<!-- Bloc Group -->
-
-<!-- Bloc Group -->
-<div class="bloc-group">
-
-<!-- bloc-17 -->
-<div class="bloc bloc-tile-4 bgc-3720 l-bloc" id="bloc-17">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12">
-				<h4 class="text-center tc-5648 mg-lg scroll-fx-down-in">
-					Driving proactive initiatives
-				</h4>
-				<p class="mg-md text-center tc-1155 creativity-about-heading scroll-fx-up-in">
-					Proactive
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-17 END -->
-
-<!-- bloc-18 -->
-<div class="bloc bloc-tile-4 none bgc-7970 d-bloc" id="bloc-18">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12">
-				<h4 class="text-center tc-5648 mg-lg scroll-fx-down-in">
-					Fostering collaborative environments
-				</h4>
-				<p class="mg-md text-center tc-1155 creativity-about-heading scroll-fx-zoom-pull scroll-fx-up-in-fade">
-					Collaborative
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-18 END -->
-
-<!-- bloc-19 -->
-<div class="bloc bloc-tile-4 none bgc-3845 tc-5648" id="bloc-19">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12">
-				<h4 class="text-center tc-5648 mg-lg scroll-fx-down-in">
-					Embracing adaptable workstyles
-				</h4>
-				<p class="text-center creativity-about-heading scroll-fx-zoom-pull scroll-fx-up-in-fade">
-					Adaptable
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-19 END -->
-
-<!-- bloc-20 -->
-<div class="bloc bloc-tile-4 bgc-1907 d-bloc" id="bloc-20">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-12">
-				<h4 class="text-center mg-lg tc-1155 scroll-fx-down-in">
-					Fueling passionate endeavors
-				</h4>
-				<p class="mg-md text-center tc-1155 creativity-about-heading scroll-fx-zoom-pull scroll-fx-up-in-fade">
-					Passionate
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-20 END -->
-</div>
-<!-- Bloc Group END -->
-
-<!-- ScrollToTop Button -->
-<button aria-label="Scroll to top button" class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1',this)"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 32 32"><path class="scroll-to-top-btn-icon" d="M30,22.656l-14-13-14,13"/></svg></button>
-<!-- ScrollToTop Button END-->
-
-
-<!-- bloc-25 -->
-<div class="bloc l-bloc tc-4758" id="bloc-25">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-lg-12 offset-lg--1">
-				<div class="row">
-					<div class="col-12">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-25 END -->
-
-<!-- bloc-20 -->
-<div class="bloc bg-fran-6 d-bloc" id="bloc-20">
-	<div class="container bloc-xl">
-		<div class="row bgc-1155">
-			<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-				<h2 class="mg-md text-center tc-4758">
-					Programming Versatility
-				</h2>
-				<p class="text-center mg-lg tc-4758">
-					Mastering a Range of Technologies for Innovative Solutions<br><br>
-				</p>
-				<div class="text-center">
-					<span class="icon-md icon-5648 ion ion-aperture"></span>
-				</div>
-			</div>
-		</div>
-		<div class="row voffset-lg">
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-in-fade">
-				<div class="text-center">
-					<span class="creativity-circle-icon icon-semi-rounded-a icon-lg ion ion-load-a pressed-t "></span>
-				</div>
-				<h3 class="mg-md text-center">
-					Web Development Languages<br>
-				</h3>
-				<p class="text-center tc-1155">
-					Proficient in PHP, JavaScript, HTML, and CSS, specializing in web design and development for dynamic and responsive websites.
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-in-fade">
-				<div class="text-center">
-					<span class="creativity-circle-icon icon-square icon-lg ion ion-pricetags"></span>
-				</div>
-				<h3 class="mg-md text-center">
-					Object-Oriented Programming<br>
-				</h3>
-				<p class="text-center">
-					Expertise in Python, C, and Scala, utilizing object-oriented principles to develop efficient and scalable software solutions.
-				</p>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 scroll-fx-zoom-pull scroll-fx-in-fade">
-				<div class="text-center">
-					<span class="creativity-circle-icon icon-semi-rounded-b icon-lg ion ion-load-c"></span>
-				</div>
-				<h3 class="mg-md text-center">
-					Big Data and AI<br>
-				</h3>
-				<p class="text-center">
-					Advanced skills in big data analysis, machine learning, and web scraping techniques for extracting insights and automating processes.
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-20 END -->
-
-<!-- portfolio -->
-<div class="bloc tc-4758 bgc-1155" id="portfolio">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-				<h1 class="mg-md text-center tc-5648">
-					Explore My Portfolio
-				</h1>
-				<p class="mg-md text-center">
-					Explore my portfolio to view examples of past projects. Please note that some projects may not be available for public viewing.
-				</p>
-				<div class="text-center">
-					<span class="icon-md icon-5648 fab fa-github"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- portfolio END -->
-
-<!-- Bloc Group -->
-
-<!-- Bloc Group -->
-<div class="bloc-group">
-
-<!-- bloc-18 -->
-<div class="bloc bloc-tile-3 none bg-crypto-1 d-bloc" id="bloc-18">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/cryptocurrency-price-tracker" class="btn btn-xl btn-rd btn-padding btn-d" target="_blank">Cryptocurrency Price Tracker<br></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-18 END -->
-
-<!-- bloc-19 -->
-<div class="bloc bloc-tile-3 none bg-cplus d-bloc bloc-bg-texture texture-pixels" id="bloc-19">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://www.cocinasplus.com" class="btn btn-d btn-xl btn-rd btn-padding" target="_blank">Cocinasplus Website</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-19 END -->
-
-<!-- bloc-20 -->
-<div class="bloc bloc-tile-3 bg-eth-1 d-bloc" id="bloc-20">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/eth_bot" class="btn btn-d btn-xl btn-rd btn-padding" target="_blank">Ethereum's Bot<br></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-20 END -->
-</div>
-<!-- Bloc Group END -->
-
-<!-- Bloc Group -->
-
-<!-- Bloc Group -->
-<div class="bloc-group">
-
-<!-- bloc-21 -->
-<div class="bloc bloc-tile-3 none bg-excel-csv d-bloc" id="bloc-21">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/excel_to_csv" class="btn btn-xl btn-rd btn-padding btn-d " target="_blank">From Excel to CSV</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-21 END -->
-
-<!-- bloc-22 -->
-<div class="bloc bloc-tile-3 none bg-text-to-speech d-bloc" id="bloc-22">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/text_to_speech" class="btn btn-d btn-xl btn-rd btn-padding" target="_blank">Text to Speech</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-22 END -->
-
-<!-- bloc-23 -->
-<div class="bloc bloc-tile-3 bg-ocr-analyzer d-bloc" id="bloc-23">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/ocr_analyzer" class="btn btn-d btn-xl btn-rd btn-padding" target="_blank">OCR Analyzer</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-23 END -->
-</div>
-<!-- Bloc Group END -->
-
-<!-- Bloc Group -->
-
-<!-- Bloc Group -->
-<div class="bloc-group">
-
-<!-- bloc-27 -->
-<div class="bloc bloc-tile-3 none bg-scrap3 d-bloc" id="bloc-27">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/scrap_to_db_management" class="btn btn-d btn-xl btn-padding btn-rd" target="_blank">Scrapping and data complex processing</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-27 END -->
-
-<!-- bloc-28 -->
-<div class="bloc bloc-tile-3 none bg-pyspark-1 d-bloc" id="bloc-28">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/pyspark_trade_analysis" class="btn btn-d btn-xl btn-rd btn-padding" target="_blank">Pyspark Trade Analysis</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-28 END -->
-
-<!-- bloc-29 -->
-<div class="bloc bloc-tile-3 bg-nodejs-1 d-bloc" id="bloc-29">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-12">
-				<div class="text-center">
-					<a href="https://github.com/francelta/nodejs_compress_image" class="btn btn-d btn-rd btn-padding btn-xl" target="_blank">Node.js Image Compression Script<br></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-29 END -->
-</div>
-<!-- Bloc Group END -->
-
-<!-- contact-hero -->
-<div class="bloc tc-4758 bgc-3845" id="contact-hero">
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-				<h1 class="mg-md text-center tc-5648">
-					Contact Me
-				</h1>
-				<p class="mg-md text-center">
-					Feel free to reach out for inquiries, collaborations, or job opportunities. I'm open to discussing potential employment opportunities.<br>
-				</p>
-				<div class="text-center">
-					<span class="icon-md icon-5648 ion ion-android-mail"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- contact-hero END -->
-
-<!-- bloc-29 -->
-<div class="bloc l-bloc none" id="bloc-29">
-	<div class="container bloc-no-padding">
-		<div class="row voffset-lg row-margin-bottom">
-			<div class="col-12 bloc-margin-bottom creativity-side-padding">
-		
-				<form action="https://formspree.io/f/moqgdvwk"
-  method="POST" id="form_1" data-form-type="blocs-form" novalidate="" data-success-msg="Your message has been sent." data-fail-msg="Sorry it seems that our mail server is not responding, Sorry for the inconvenience!" class="form-margin-top">
-					<div class="form-group">
-						<label>
-							Name
-						</label>
-						<input id="name" class="form-control" required="">
-					</div>
-					<div class="form-group">
-						<label>
-							Email
-						</label>
-						<input name="email" id="email" class="form-control" type="email" required="" data-error-validation-msg="Not a valid email address">
-					</div>
-					<div class="form-group">
-						<label>
-							Message
-						</label><textarea name="message" id="message" class="form-control" rows="4" cols="50" required=""></textarea>
-					</div> 
-					<button class="bloc-button btn btn-d btn-block creativity-wire-black-button" type="submit">
-						Submit
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-29 END -->
-
-<!-- bloc-13 -->
-<div class="bloc bloc-bg-texture texture-darken-strong b-parallax l-bloc" id="bloc-13">
-	<div class="parallax bg-Creativity-201">
-	</div>
-	<div class="container bloc-lg">
-		<div class="row">
-			<div class="col-lg-3 col-sm-6 col-md-3">
-				<h2 class="mg-md text-center tc-1155 scroll-fx-in-fade scroll-fx-zoom-pull">
-					78,288+
-				</h2>
-				<p class="mg-md text-center tc-3845 animated fadeInUp" data-appear-anim-style="fadeInUp">
-					Lines of code
-				</p>
-			</div>
-			<div class="col-lg-3 col-sm-6 col-md-3">
-				<h2 class="mg-md text-center tc-1155 scroll-fx-in-fade scroll-fx-zoom-pull">
-					52<br>
-				</h2>
-				<p class="mg-md text-center tc-3845 animated fadeInUp animDelay02" data-appear-anim-style="fadeInUp">
-					Finished projects
-				</p>
-			</div>
-			<div class="col-lg-3 col-sm-6 col-md-3">
-				<h2 class="mg-md text-center tc-1155 scroll-fx-in-fade scroll-fx-zoom-pull">
-					4,023<br>
-				</h2>
-				<p class="mg-md text-center tc-3845 animated fadeInUp animDelay04" data-appear-anim-style="fadeInUp">
-					Cups of coffee
-				</p>
-			</div>
-			<div class="col-lg-3 col-sm-6 col-md-3">
-				<h2 class="mg-md text-center tc-1155 scroll-fx-zoom-pull scroll-fx-in-fade">
-					Countless<br>
-				</h2>
-				<p class="mg-md text-center tc-3845 animated fadeInUp animDelay06" data-appear-anim-style="fadeInUp">
-					Sleepless nights
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-13 END -->
-
-<!-- bloc-15 -->
-<div class="bloc bgc-5648 tc-3845 d-bloc" id="bloc-15">
-	<div class="container bloc-md">
-		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-6">
-				<p class="mg-md tc-1155 navbar-brand">
-					<strong>Fran Carrasco</strong>
-				</p>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-6">
-				<h4 class="mg-md tc-1155">
-					<strong>Location</strong>
-				</h4>
-				<p>
-					Mijas, La Costa del Sol, Málaga<br>Spain
-				</p>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-6">
-				<h4 class="mg-md tc-1155">
-					<strong>Contact</strong>
-				</h4>
-				<p>
-					Tel. +34 610 850 524<br><a class="ltc-1155" href="mailto:blocstemplates@gmail.com">francelta@gmail.com</a><br>
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- bloc-15 END -->
-
-</div>
-<!-- Main container END -->
-    
-
-
-<!-- Additional JS -->
-<script src="./js/jquery.js?5232"></script>
-<script src="./js/bootstrap.bundle.js?456"></script>
-<script src="./js/blocs.js?9233"></script>
-<script src="./js/jqBootstrapValidation.js"></script>
-<script src="./js/formHandler.js?6703"></script>
-<script src="./js/lazysizes.min.js" defer></script>
-<script src="./js/universal-parallax.min.js?7872"></script>
-<script src="./js/scrollFX.js?8787"></script>
-<!-- Additional JS END -->
-
+            document.querySelectorAll('.fade-in').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
 
 </body>
 </html>
