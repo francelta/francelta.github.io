@@ -42,7 +42,20 @@
         }
         
         h1 { font-weight: 900; }
+.navbar .navbar-text {
+    color: var(--text-muted-color); /* Color de texto legible pero discreto */
+    font-size: 0.9rem; /* Un poco más pequeño para no competir con los links */
+    transition: color 0.3s;
+}
 
+.navbar .navbar-text:hover {
+    color: var(--text-color); /* Color más brillante al pasar el ratón */
+}
+
+.navbar .navbar-text i {
+    color: var(--primary-color); /* Color de acento para los iconos */
+    margin-right: 6px; /* Pequeño espacio entre el icono y el texto */
+}
         .navbar {
             background-color: rgba(18, 18, 18, 0.8);
             backdrop-filter: blur(10px);
