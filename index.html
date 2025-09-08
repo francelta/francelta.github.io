@@ -72,22 +72,59 @@
             font-weight: 500;
         }
 
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), url('https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600') no-repeat center center;
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted-color);
-        }
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600') no-repeat center center;
+    background-size: cover;
+    display: flex; /* Asegura el centrado vertical */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative; /* Necesario para el z-index del contenido */
+}
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Capa oscura adicional para mayor contraste */
+    z-index: 0;
+}
+.hero .container {
+    position: relative;
+    z-index: 1; /* Asegura que el contenido esté por encima de la capa oscura */
+}
+.hero h1 {
+    font-size: 4.5rem; /* Un tamaño de fuente más grande */
+    color: var(--primary-color);
+    line-height: 1.2; /* Espacio entre líneas para el título */
+    text-shadow: 0 0 15px rgba(0, 191, 255, 0.4); /* Sombra para el texto */
+
+}
+.hero p {
+    font-size: 1.6rem; /* Subtítulo más grande */
+    color: var(--text-color); /* Color de texto más claro para el subtítulo */
+    font-weight: 300; /* Fuente más ligera para el subtítulo */
+    line-height: 1.6; /* Mayor espacio entre líneas para el subtítulo */
+    max-width: 800px; /* Limita el ancho para mejor legibilidad */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+    .hero p {
+        font-size: 1.2rem;
+    }
+}
 
         .btn-primary {
             background-color: var(--primary-color);
@@ -252,13 +289,16 @@
     </div>
 </nav>
 
-    <header class="hero" id="hero">
-        <div class="container">
-            <h1 class="display-4 animated-heading">Fran Carrasco</h1>
-            <p class="lead mb-4">Desarrollador Full-Stack | Transformo ideas en código robusto y escalable.</p>
-            <a href="#portfolio" class="btn btn-primary btn-lg">Ver mis proyectos</a>
-        </div>
-    </header>
+<header class="hero d-flex align-items-center justify-content-center text-center">
+    <div class="container position-relative z-1">
+        <h1 class="display-3 fw-bold mb-3 animate__animated animate__fadeInDown animate__delay-0-5s">Fran Carrasco</h1>
+        <p class="lead fw-light mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+            <span class="d-block">Desarrollador Full-Stack</span> 
+            <span class="d-block">Transformo ideas en código robusto y escalable.</span>
+        </p>
+        <a href="#portfolio" class="btn btn-primary btn-lg animate__animated animate__zoomIn animate__delay-1-5s">Ver mis proyectos</a>
+    </div>
+</header>
 
     <main>
         <section id="sobre-mi">
