@@ -15,7 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -512,14 +514,64 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <img src="bookandentry_mockup.jpg" class="img-fluid rounded" alt="Mockup de Book&Entry">
+                <div class="case-study-header">
+                    <span class="case-badge animate__animated animate__fadeIn">ESTUDIO DE CASO</span>
+                    <h2 class="gradient-text animate__animated animate__fadeInUp">Book&Entry <span class="accent-text">|</span> Automatización Contable</h2>
+                </div>
+                
+                <div class="case-timeline">
+                    <div class="case-item animate__animated animate__fadeInLeft">
+                        <div class="case-icon">
+                            <i class="fas fa-bullseye pulse-icon"></i>
+                        </div>
+                        <div class="case-content">
+                            <h5 class="case-title">El Reto</h5>
+                            <p>Las gestorías profesionales invertían un <mark class="highlight-text">promedio de 30 horas semanales</mark> por trabajador en la contabilización manual de facturas, un proceso lento y propenso a errores.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="case-item animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+                        <div class="case-icon">
+                            <i class="fas fa-triangle-exclamation pulse-icon"></i>
+                        </div>
+                        <div class="case-content">
+                            <h5 class="case-title">El Problema</h5>
+                            <p>Los contables llevan siglos contabilizando manualmente las facturas, siendo <mark class="highlight-text">poco receptivos a utilizar tecnología</mark> para automatizar sus procesos laborales.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="case-item animate__animated animate__fadeInLeft" style="animation-delay: 0.4s;">
+                        <div class="case-icon">
+                            <i class="fas fa-lightbulb pulse-icon"></i>
+                        </div>
+                        <div class="case-content">
+                            <h5 class="case-title">La Solución</h5>
+                            <p>Desarrollé un <mark class="highlight-text">SaaS con Django y Vue.js</mark> que utiliza tecnología OCR avanzada para escanear, interpretar y contabilizar facturas de forma semi-automática y automática, integrándose perfectamente con los sistemas existentes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="case-item animate__animated animate__fadeInLeft" style="animation-delay: 0.6s;">
+                        <div class="case-icon">
+                            <i class="fas fa-chart-line pulse-icon"></i>
+                        </div>
+                        <div class="case-content">
+                            <h5 class="case-title">El Impacto</h5>
+                            <p>La capacidad de ser <mark class="highlight-text">semi-automática</mark> permite al contable revisar el asiento antes de incluirlo en los libros. El resultado: <span class="stat-highlight">85% menos</span> de tiempo en procesamiento, permitiendo enfocarse en tareas de mayor valor.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4 animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
+                    <a href="#contacto" class="btn btn-glow">
+                        <i class="fas fa-rocket me-2"></i>Solicitar Demo
+                    </a>
+                </div>
             </div>
             <div class="col-lg-6">
-                <span class="text-primary">ESTUDIO DE CASO</span>
-                <h2 class="mb-3">Book&Entry: Automatización Contable para Gestorías</h2>
-                <p><strong>El Reto:</strong> Las gestorías profesionales invertían un promedio de 20 horas semanales en la entrada manual de facturas, un proceso lento y propenso a errores.</p>
-                <p><strong>La Solución:</strong> Desarrollé un SaaS con Django y Vue.js que utiliza tecnología OCR avanzada para escanear, interpretar y contabilizar facturas automáticamente, integrándose con los sistemas existentes.</p>
-                <p><strong>El Impacto:</strong> Se logró una reducción del 85% en el tiempo de procesamiento de facturas, permitiendo a los contables centrarse en tareas de mayor valor.</p>
+                <div class="image-gallery">
+                    <img src="bookentry2.png" class="img-fluid rounded shadow-lg animate__animated animate__fadeInRight mb-4" alt="Mockup de Book&Entry - Vista 1">
+                    <img src="bookentry3.png" class="img-fluid rounded shadow-lg animate__animated animate__fadeInRight" style="animation-delay: 0.2s;" alt="Mockup de Book&Entry - Vista 2">
+                </div>
             </div>
         </div>
     </div>
@@ -538,7 +590,7 @@
             </div>
             <div class="col-md-3">
                 <h4>Frontend</h4>
-                <p class="text-muted-color">JavaScript, Vue.js, HTML5, CSS3, Bootstrap</p>
+                <p class="text-muted-color">JavaScript, Vue.js, Vite, HTML5, CSS3, Tailwind, Bootstrap</p>
             </div>
             <div class="col-md-3">
                 <h4>IA & Automatización</h4>
@@ -614,6 +666,218 @@
             });
         });
     </script>
+
+    <style>
+        /* Estilos para el estudio de caso mejorado */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
+
+        .case-study-header {
+            margin-bottom: 2rem;
+        }
+
+        .case-badge {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            font-family: 'Poppins', var(--font-headings);
+            font-weight: 800;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, #66d9ff 50%, #99e6ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .accent-text {
+            color: var(--primary-color);
+            -webkit-text-fill-color: var(--primary-color);
+            font-weight: 300;
+        }
+
+        .case-timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-left: 10px;
+        }
+
+        .case-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20px;
+            height: calc(100% - 50px);
+            width: 4px;
+            background: linear-gradient(to bottom, #00f7ff, rgba(0, 191, 255, 0.2));
+            z-index: 0;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.5) inset;
+            animation: glow-pulse 2s infinite;
+        }
+        
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.6); }
+            50% { box-shadow: 0 0 20px rgba(0, 191, 255, 1); }
+            100% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.6); }
+        }
+
+        .case-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .case-icon {
+            min-width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(0, 191, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 191, 255, 0.2);
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .case-item:hover .case-icon {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 191, 255, 0.4);
+        }
+
+        .pulse-icon {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .case-content {
+            background-color: rgba(30, 30, 30, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            width: 100%;
+        }
+
+        .case-item:hover .case-content {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 191, 255, 0.2);
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        .case-title {
+            color: var(--primary-color);
+            font-family: var(--font-headings);
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-text {
+            background: transparent;
+            color: var(--primary-color);
+            font-weight: 600;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 191, 255, 0.2);
+            z-index: -1;
+            border-radius: 3px;
+        }
+
+        .stat-highlight {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), #66d9ff);
+            color: var(--dark-bg);
+            padding: 3px 10px;
+            border-radius: 6px;
+            box-shadow: 0 3px 8px rgba(0, 191, 255, 0.3);
+            display: inline-block;
+            transform: rotate(-2deg);
+        }
+
+        .btn-glow {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            border: none;
+            padding: 12px 28px;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: glow 3s infinite;
+        }
+
+        .btn-glow:hover {
+            background: #00a0cc;
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 191, 255, 0.5);
+        }
+
+        @keyframes glow {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+    </style>
 
 </body>
 </html>
