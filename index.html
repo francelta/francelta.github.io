@@ -299,7 +299,70 @@
             opacity: 1;
             transform: translateY(0);
         }
+@media (max-width: 768px) {
 
+    /* Secciones con menos espacio vertical para que no se sientan tan largas */
+    section {
+        padding: 60px 0;
+    }
+
+    /* Títulos de sección más compactos */
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    /* Mejoras en el navbar para el menú desplegado */
+    .navbar-nav {
+        text-align: center;
+        margin-top: 1rem;
+    }
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Columnas con margen inferior para separarlas verticalmente */
+    .row > [class^="col-"] {
+        margin-bottom: 2rem;
+    }
+    .row > [class^="col-"]:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Tarjetas de proyecto y herramientas de IA con menos padding */
+    .project-card-body, .ai-tool-card {
+        padding: 20px;
+    }
+
+    /* La sección "Sobre mí" con la imagen arriba y el texto abajo */
+    #sobre-mi .col-lg-6 {
+        text-align: center;
+    }
+    #sobre-mi img {
+        margin-bottom: 2rem;
+    }
+    
+    /* El Estudio de Caso se adapta a una sola columna */
+    #estudio-caso-bookandentry .row {
+        flex-direction: column-reverse; /* Pone las imágenes arriba del texto */
+    }
+    #estudio-caso-bookandentry .image-gallery {
+        margin-bottom: 2rem;
+    }
+    .gradient-text {
+        font-size: 2rem; /* Título del caso de estudio más pequeño */
+    }
+
+    /* Columnas del proceso y arsenal tecnológico apiladas */
+    #proceso .col-md-3, #habilidades .col-md-3 {
+        border-bottom: 1px solid #2a2a2a;
+        padding-bottom: 1.5rem;
+    }
+    #proceso .col-md-3:last-child, #habilidades .col-md-3:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
     </style>
 </head>
 
