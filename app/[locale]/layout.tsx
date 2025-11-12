@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.ico" }
 };
 
+export function generateStaticParams() {
+  return [{ locale: 'es' }, { locale: 'en' }];
+}
+
 export default function RootLayout({
   children,
   params: { locale }

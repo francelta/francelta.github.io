@@ -42,3 +42,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# blog markdown files (opcional - descomenta si no quieres subirlos)
+# /blog/*.md
