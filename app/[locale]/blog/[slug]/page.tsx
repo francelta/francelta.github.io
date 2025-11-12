@@ -51,9 +51,15 @@ const blog_posts_data: Record<string, BlogPost> = {
 };
 
 export async function generateStaticParams() {
-  return Object.keys(blog_posts_data).map((slug) => ({
-    slug,
-  }));
+  const locales = ['es', 'en'];
+  const slugs = Object.keys(blog_posts_data);
+  
+  return locales.flatMap((locale) =>
+    slugs.map((slug) => ({
+      locale,
+      slug,
+    }))
+  );
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -74,14 +80,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 function get_blog_content(slug: string): string {
   try {
     const blog_dir = path.join(process.cwd(), 'blog');
-    const file_path = path.join(blog_dir, `blog-${slug === 'vibe-coding' ? '1' : slug === 'tdd-owasp' ? '2' : '3'}-${slug}.md`);
+    const file_path = path.join(blog_dir, `${slug}.md`);
     return fs.readFileSync(file_path, 'utf-8');
   } catch {
     return '';
   }
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export default function BlogPostPage({ params }: { params: { slug: string; locale: string } }) {
   const post = blog_posts_data[params.slug];
 
   if (!post) {
@@ -155,7 +161,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <header className="border-b border-neutral-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <Link 
-            href="/blog" 
+            href={`/${params.locale}/blog`} 
             className="inline-flex items-center gap-2 text-neutral-400 hover:text-accent-500 transition-colors mb-6"
           >
             <ArrowLeft size={20} />
@@ -239,7 +245,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         {/* Back to blog */}
         <div className="mt-12 mb-16 text-center">
           <Link
-            href="/blog"
+            href={`/${params.locale}/blog`}
             className="inline-flex items-center gap-2 px-8 py-3 border-2 border-neutral-700 text-neutral-300 rounded-full font-semibold hover:border-accent-500 hover:text-accent-500 transition-all duration-200"
           >
             Ver todos los artículos
