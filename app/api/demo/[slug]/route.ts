@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
+import { existsSync } from 'fs';
 
 const DEMO_PROJECTS: Record<string, string> = {
   'prototipo-produccion-rapida': 'prototipo-produccion-rapida/demo.html',
@@ -26,28 +27,28 @@ export async function GET(
   }
 
   try {
-    // Intentar múltiples rutas posibles (local y Vercel)
-    const possiblePaths = [
-      join(process.cwd(), 'public', 'demos', demoPath),
-      join(process.cwd(), 'demos', demoPath),
-      join(process.cwd(), 'out', 'demos', demoPath),
-    ];
+    // En Vercel, los archivos de public/ se sirven desde la URL pública
+    // Intentar primero leer del sistema de archivos (local dev)
+    const localPath = join(process.cwd(), 'public', 'demos', demoPath);
+    let htmlContent: string;
 
-    let htmlContent: string | null = null;
-    let lastError: Error | null = null;
-
-    for (const filePath of possiblePaths) {
-      try {
-        htmlContent = await readFile(filePath, 'utf-8');
-        break; // Si funciona, salir del loop
-      } catch (err) {
-        lastError = err instanceof Error ? err : new Error(String(err));
-        continue; // Intentar siguiente ruta
+    if (existsSync(localPath)) {
+      // Desarrollo local: leer del sistema de archivos
+      htmlContent = await readFile(localPath, 'utf-8');
+    } else {
+      // Producción (Vercel): obtener desde la URL pública
+      const baseUrl = process.env.VERCEL_URL 
+        ? `https://${process.env.VERCEL_URL}` 
+        : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+      
+      const publicUrl = `${baseUrl}/demos/${demoPath}`;
+      const response = await fetch(publicUrl);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch from ${publicUrl}: ${response.status} ${response.statusText}`);
       }
-    }
-
-    if (!htmlContent) {
-      throw lastError || new Error(`File not found in any of: ${possiblePaths.join(', ')}`);
+      
+      htmlContent = await response.text();
     }
 
     // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")
