@@ -3,11 +3,14 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Clock } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 /**
  * BlogSection Component - Blog posts showcase
  */
 export default function BlogSection() {
+  const pathname = usePathname();
+  const locale = pathname.split('/')[1] || 'es';
   const blog_posts = [
     {
       title: 'Más Allá del "Vibe Coding": Por Qué Dejé de Escribir Código y Empecé a Dirigir Agentes',
@@ -104,7 +107,7 @@ export default function BlogSection() {
 
                 {/* Read More Link */}
                 <a
-                  href={post.link}
+                  href={`/${locale}${post.link}`}
                   className="inline-flex items-center gap-2 text-accent-500 font-semibold hover:gap-3 transition-all duration-200"
                 >
                   Leer más
@@ -124,7 +127,7 @@ export default function BlogSection() {
           className="text-center mt-12"
         >
           <a
-            href="/blog"
+            href={`/${locale}/blog`}
             className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-neutral-700 text-neutral-300 rounded-full font-semibold hover:border-accent-500 hover:text-accent-500 transition-all duration-200"
           >
             Ver todos los artículos
