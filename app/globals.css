@@ -1,44 +1,21 @@
+@import "@fontsource/cal-sans";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-zinc-950 text-neutral-300;
+    @apply bg-zinc-950 text-neutral-300 font-sans;
     
-    /* El patrón de grid sutil de Pronexus */
+    /* El patrón de grid sutil */
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 24px 24px;
   }
-}
-
-:root {
-  --background: #09090b; /* zinc-950 */
-  --foreground: #d4d4d8; /* neutral-300 */
-  --accent: #22d3ee; /* cyan-400 */
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  html {
+    @apply scroll-smooth;
   }
-
-  .accent-text {
-    color: var(--accent);
-  }
-
-  .accent-border {
-    border-color: var(--accent);
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-white; /* Aplica Cal Sans a las cabeceras */
   }
 }
-

@@ -1,41 +1,29 @@
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import PrinciplesSection from "@/components/PrinciplesSection";
-import SkillsSection from "@/components/SkillsSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import AgentsSection from "@/components/AgentsSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import ContactSection from "@/components/ContactSection";
-import { locales } from '@/i18n';
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import StudioSection from '@/components/StudioSection';
+import ProjectsSection from '@/components/ProjectsSection';
+import BlogSection from '@/components/BlogSection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
 
 /**
- * Generate static params for all supported locales
- * Required for static export with dynamic routes
- * @returns {Array<Object>} Array of locale objects
+ * HomePage - Main portfolio page with all sections
  */
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
-
-/**
- * Main page component - Single Page Application (SPA)
- * Renders all sections of the portfolio in order
- * @returns {JSX.Element} Main page with all portfolio sections
- */
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <>
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <PrinciplesSection />
-      <SkillsSection />
-      <ExperienceSection />
-      <AgentsSection />
-      <ProjectsSection />
-      <ContactSection />
-    </main>
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <StudioSection />
+        <ProjectsSection />
+        <BlogSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </>
   );
 }
 
