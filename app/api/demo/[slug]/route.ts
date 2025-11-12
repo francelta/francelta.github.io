@@ -25,7 +25,26 @@ export async function GET(
 
   try {
     const filePath = join(process.cwd(), 'public', 'demos', demoPath);
-    const htmlContent = await readFile(filePath, 'utf-8');
+    let htmlContent = await readFile(filePath, 'utf-8');
+
+    // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")
+    const projectDir = demoPath.split('/')[0];
+    const basePath = `/demos/${projectDir}`;
+
+    // Reemplazar rutas relativas por absolutas
+    // href="style.css" -> href="/demos/proyecto/style.css"
+    // src="script.js" -> src="/demos/proyecto/script.js"
+    htmlContent = htmlContent.replace(
+      /(href|src)=(["'])([^"']+\.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|json))\2/gi,
+      (match, attr, quote, file) => {
+        // Si ya es una ruta absoluta o URL externa, no cambiar
+        if (file.startsWith('/') || file.startsWith('http://') || file.startsWith('https://') || file.startsWith('//') || file.startsWith('./')) {
+          return match;
+        }
+        // Convertir ruta relativa a absoluta
+        return `${attr}=${quote}${basePath}/${file}${quote}`;
+      }
+    );
 
     return new NextResponse(htmlContent, {
       status: 200,
