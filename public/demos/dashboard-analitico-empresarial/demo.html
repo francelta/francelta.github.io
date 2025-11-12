@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Analítico Empresarial - Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3b82f6;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .metric-trend {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .metric-trend.positive {
+            color: #22c55e;
+        }
+
+        .metric-trend.negative {
+            color: #ef4444;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chart-controls button {
+            padding: 0.5rem 1rem;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .chart-controls button.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .chart-controls button:hover {
+            background: #e5e7eb;
+        }
+
+        .chart-controls button.active:hover {
+            background: #2563eb;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .architecture-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .architecture-diagram {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+
+        .layer {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+        }
+
+        .layer.frontend {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 3px solid #3b82f6;
+        }
+
+        .layer.backend {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid #22c55e;
+        }
+
+        .layer.database {
+            background: rgba(234, 179, 8, 0.1);
+            border-left: 3px solid #eab308;
+        }
+
+        .layer-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Dashboard Analítico Empresarial</h1>
+            <p class="subtitle">Métricas en Tiempo Real para Estrategias de Digitalización y Ventas</p>
+            <div class="tech-stack">
+                <span class="tech-badge">Vue.js 3</span>
+                <span class="tech-badge">Django REST Framework</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Chart.js</span>
+            </div>
+        </header>
+
+        <!-- KPI Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Ventas Totales (30 días)</div>
+                <div class="metric-value">€<span id="totalVentas">0</span></div>
+                <div class="metric-trend positive">+12.5% vs mes anterior</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Digitalización Promedio</div>
+                <div class="metric-value"><span id="digitalizacion">0</span>%</div>
+                <div class="metric-trend positive">+8.3% vs trimestre anterior</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Empresas Activas</div>
+                <div class="metric-value"><span id="empresas">0</span></div>
+                <div class="metric-trend positive">+3 nuevas este mes</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Objetivos Completados</div>
+                <div class="metric-value"><span id="objetivos">0</span>/15</div>
+                <div class="metric-trend positive">73% tasa de completitud</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card full-width">
+                <div class="chart-header">
+                    <div class="chart-title">Tendencia de Ventas</div>
+                    <div class="chart-controls">
+                        <button class="active" data-period="7">7 días</button>
+                        <button data-period="30">30 días</button>
+                        <button data-period="90">90 días</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ventasChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Ventas por Canal</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="canalChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Digitalización por Categoría</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="digitalizacionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Section -->
+        <div class="architecture-section">
+            <h2 style="margin-bottom: 1.5rem;">🏗️ Arquitectura del Sistema</h2>
+            
+            <div class="architecture-diagram">
+                <div class="layer frontend">
+                    <div class="layer-title">🎨 FRONTEND - Vue.js SPA</div>
+                    <div>• DashboardChart Component (Chart.js)</div>
+                    <div>• Axios HTTP Client</div>
+                    <div>• Reactive Data Binding</div>
+                    <div>• Real-time Updates</div>
+                </div>
+
+                <div style="text-align: center; padding: 1rem; color: #3b82f6; font-size: 2rem;">↓ REST API (JSON) ↓</div>
+
+                <div class="layer backend">
+                    <div class="layer-title">⚙️ BACKEND - Django REST Framework</div>
+                    <div>• API Endpoints (/api/ventas/, /api/dashboard/stats/)</div>
+                    <div>• Serializers (VentaSerializer, MetricaSerializer)</div>
+                    <div>• Django ORM Models</div>
+                    <div>• Authentication & Permissions</div>
+                </div>
+
+                <div style="text-align: center; padding: 1rem; color: #22c55e; font-size: 2rem;">↓ SQL Queries ↓</div>
+
+                <div class="layer database">
+                    <div class="layer-title">💾 DATABASE - PostgreSQL</div>
+                    <div>• Tables: empresas, ventas, metricas_digitalizacion</div>
+                    <div>• Optimized Indexes</div>
+                    <div>• Foreign Keys & Relationships</div>
+                    <div>• Aggregations (SUM, AVG, COUNT)</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 2rem 0 1rem;">Flujo de Datos en Tiempo Real</h3>
+            <ol style="line-height: 2; color: #4b5563;">
+                <li><strong>Usuario</strong> abre dashboard en navegador</li>
+                <li><strong>Vue.js</strong> monta componente DashboardChart</li>
+                <li><strong>Axios</strong> hace petición GET a Django API</li>
+                <li><strong>Django</strong> ejecuta query a PostgreSQL con aggregations</li>
+                <li><strong>Serializer</strong> convierte datos a JSON</li>
+                <li><strong>Response</strong> enviada al frontend</li>
+                <li><strong>Chart.js</strong> renderiza gráfico con los datos</li>
+                <li><strong>Usuario</strong> visualiza métricas en tiempo real</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Variable global para el gráfico
+        let ventasChart = null;
+        let currentPeriod = 30;
+
+        // Función para generar datos mock basados en el período
+        function generateMockData(days) {
+            const ventasPorDia = [];
+            
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                ventasPorDia.push({
+                    fecha: date.toISOString().split('T')[0],
+                    total: Math.random() * 15000 + 5000
+                });
+            }
+            
+            return ventasPorDia;
+        }
+
+        // Datos de ejemplo
+        const mockData = {
+            totalVentas: 245780,
+            digitalizacion: 67,
+            empresas: 24,
+            objetivos: 11,
+            ventasPorDia: generateMockData(30),
+            ventasPorCanal: [
+                { canal: 'Online', value: 125000 },
+                { canal: 'Tienda Física', value: 85000 },
+                { canal: 'B2B', value: 30000 },
+                { canal: 'Teléfono', value: 5780 }
+            ],
+            digitalizacionPorCategoria: [
+                { categoria: 'Cloud Computing', porcentaje: 85 },
+                { categoria: 'Ventas Online', porcentaje: 78 },
+                { categoria: 'Analytics y BI', porcentaje: 65 },
+                { categoria: 'Marketing Digital', porcentaje: 60 },
+                { categoria: 'Automatización', porcentaje: 55 },
+                { categoria: 'IA y ML', porcentaje: 40 }
+            ]
+        };
+
+        // Actualizar KPIs
+        document.getElementById('totalVentas').textContent = mockData.totalVentas.toLocaleString('es-ES');
+        document.getElementById('digitalizacion').textContent = mockData.digitalizacion;
+        document.getElementById('empresas').textContent = mockData.empresas;
+        document.getElementById('objetivos').textContent = mockData.objetivos;
+
+        // Función para crear/actualizar el gráfico de ventas
+        function createVentasChart(days) {
+            const ventasCtx = document.getElementById('ventasChart').getContext('2d');
+            
+            // Destruir gráfico anterior si existe
+            if (ventasChart) {
+                ventasChart.destroy();
+            }
+            
+            // Generar nuevos datos
+            const ventasPorDia = generateMockData(days);
+            
+            // Crear nuevo gráfico
+            ventasChart = new Chart(ventasCtx, {
+                type: 'line',
+                data: {
+                    labels: ventasPorDia.map(d => {
+                        const date = new Date(d.fecha);
+                        return date.getDate() + '/' + (date.getMonth() + 1);
+                    }),
+                    datasets: [{
+                        label: 'Ventas (€)',
+                        data: ventasPorDia.map(d => d.total),
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    return 'Ventas: €' + context.parsed.y.toLocaleString('es-ES');
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (value) => '€' + (value / 1000).toFixed(0) + 'k'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Crear gráfico inicial
+        createVentasChart(currentPeriod);
+
+        // Gráfico por Canal (Dona)
+        const canalCtx = document.getElementById('canalChart').getContext('2d');
+        new Chart(canalCtx, {
+            type: 'doughnut',
+            data: {
+                labels: mockData.ventasPorCanal.map(c => c.canal),
+                datasets: [{
+                    data: mockData.ventasPorCanal.map(c => c.value),
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(34, 197, 94, 0.8)',
+                        'rgba(234, 179, 8, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                return context.label + ': €' + context.parsed.toLocaleString('es-ES');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Digitalización (Barras)
+        const digitalizacionCtx = document.getElementById('digitalizacionChart').getContext('2d');
+        new Chart(digitalizacionCtx, {
+            type: 'bar',
+            data: {
+                labels: mockData.digitalizacionPorCategoria.map(d => d.categoria),
+                datasets: [{
+                    label: 'Adopción (%)',
+                    data: mockData.digitalizacionPorCategoria.map(d => d.porcentaje),
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: (value) => value + '%'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Control de período
+        document.querySelectorAll('.chart-controls button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Actualizar botón activo
+                document.querySelectorAll('.chart-controls button').forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Obtener período y actualizar
+                const period = parseInt(button.getAttribute('data-period'));
+                currentPeriod = period;
+                
+                console.log('Cambiando a período:', period, 'días');
+                
+                // Recrear el gráfico con nuevos datos
+                createVentasChart(period);
+            });
+        });
+    </script>
+</body>
+</html>
+

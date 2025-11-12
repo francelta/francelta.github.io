@@ -14,7 +14,7 @@ export default function ProjectsSection() {
       description: 'De "Idea a URL en producción" en menos de 10 minutos. Portfolio QA Engineer con IA, modo oscuro profesional y despliegue automatizado',
       image: '/projects/project-1.png',
       tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Firebase Hosting'],
-      demo: '/prototipo-produccion-rapida/demo.html',
+      demo: '/demos/prototipo-produccion-rapida/demo.html',
       github: 'https://github.com/francelta/prototipo-produccion-rapida',
     },
     {
@@ -22,7 +22,7 @@ export default function ProjectsSection() {
       description: 'Módulo TypeScript que demuestra control absoluto sobre IA generativa. Código generado que sigue estándares estrictos: snake_case, PascalCase, JSDoc completo',
       image: '/projects/project-2.png',
       tags: ['TypeScript', 'JSDoc', 'Code Standards', 'AI-Guided'],
-      demo: '/desarrollo-contextualizado-estandarizado/demo.html',
+      demo: '/demos/desarrollo-contextualizado-estandarizado/demo.html',
       github: 'https://github.com/francelta/desarrollo-contextualizado-estandarizado',
     },
     {
@@ -30,7 +30,7 @@ export default function ProjectsSection() {
       description: 'Análisis arquitectónico completo generado por agente IA: microservicios, diagramas Mermaid, seguridad OWASP y escalabilidad. De requisitos a documentación técnica profesional',
       image: '/projects/project-3.png',
       tags: ['AI Agents', 'Architecture', 'Microservices', 'Mermaid'],
-      demo: '/orquestacion-auditoria-agentes/demo.html',
+      demo: '/demos/orquestacion-auditoria-agentes/demo.html',
       github: 'https://github.com/francelta/orquestacion-auditoria-agentes',
     },
     {
@@ -38,7 +38,7 @@ export default function ProjectsSection() {
       description: 'Servicio de códigos OTP desarrollado con Test-Driven Development: 17 tests escritos ANTES del código. Demuestra TDD + estándares + seguridad OWASP con hashing y expiración',
       image: '/projects/project-4.png',
       tags: ['TDD', 'TypeScript', 'Vitest', 'Security'],
-      demo: '/desarrollo-tdd/demo.html',
+      demo: '/demos/desarrollo-tdd/demo.html',
       github: 'https://github.com/francelta/desarrollo-tdd',
     },
     {
@@ -46,7 +46,7 @@ export default function ProjectsSection() {
       description: 'Transformación automática de notas de reunión a historias Gherkin: de informal a estructurado en 3 minutos. Integración con Linear/Jira vía Model Context Protocol',
       image: '/projects/project-5.png',
       tags: ['MCP', 'Gherkin', 'BDD', 'Requirements'],
-      demo: '/gestion-requisitos-flujo-trabajo-mcp/demo.html',
+      demo: '/demos/gestion-requisitos-flujo-trabajo-mcp/demo.html',
       github: 'https://github.com/francelta/gestion-requisitos-flujo-trabajo-mcp',
     },
     {
@@ -54,7 +54,7 @@ export default function ProjectsSection() {
       description: 'Análisis técnico tipo Notebook LM: Python vs JavaScript para IA. 8 fuentes académicas sintetizadas en 3 minutos con citas, mapas mentales y referencias verificables',
       image: '/projects/project-6.png',
       tags: ['Research', 'Notebook LM', 'AI Analysis', 'Citations'],
-      demo: '/investigacion-aprendizaje-acelerado-referencias/demo.html',
+      demo: '/demos/investigacion-aprendizaje-acelerado-referencias/demo.html',
       github: 'https://github.com/francelta/investigacion-aprendizaje-acelerado-referencias',
     },
     {
@@ -62,7 +62,7 @@ export default function ProjectsSection() {
       description: 'Dashboard en tiempo real con Vue.js + Django REST + PostgreSQL: métricas de digitalización, análisis de ventas por canal, objetivos estratégicos y Chart.js para visualización',
       image: '/projects/project-6.png',
       tags: ['Vue.js', 'Django REST', 'PostgreSQL', 'Chart.js'],
-      demo: '/dashboard-analitico-empresarial/demo.html',
+      demo: '/demos/dashboard-analitico-empresarial/demo.html',
       github: 'https://github.com/francelta/dashboard-analitico-empresarial',
     },
     {
@@ -70,7 +70,7 @@ export default function ProjectsSection() {
       description: 'Sistema automatizado que genera posts para LinkedIn desde artículos de blog: RSS Feed → Web Scraping → Claude Haiku AI → LinkedIn. 100% automatizado, ahorra 15 min/artículo',
       image: '/projects/project-1.png',
       tags: ['n8n', 'Claude Haiku', 'Automation', 'LinkedIn API'],
-      demo: '/workflow-automatizado-n8n/demo.html',
+      demo: '/demos/workflow-automatizado-n8n/demo.html',
       github: 'https://github.com/francelta/workflow-automatizado-n8n',
     },
   ];
