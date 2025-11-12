@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// Para obtener __dirname en ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const DEMO_PROJECTS: Record<string, string> = {
   'prototipo-produccion-rapida': 'prototipo-produccion-rapida/demo.html',
@@ -27,28 +33,55 @@ export async function GET(
   }
 
   try {
-    // En Vercel, los archivos de public/ se sirven desde la URL pública
-    // Intentar primero leer del sistema de archivos (local dev)
-    const localPath = join(process.cwd(), 'public', 'demos', demoPath);
-    let htmlContent: string;
+    // En Vercel, los archivos de public/ están en el directorio .next/server
+    // Intentar múltiples rutas posibles
+    const possiblePaths = [
+      // Desarrollo local
+      join(process.cwd(), 'public', 'demos', demoPath),
+      // Vercel - archivos copiados durante build
+      join(process.cwd(), '.next', 'server', 'app', 'public', 'demos', demoPath),
+      // Vercel - ruta alternativa
+      join(process.cwd(), 'public', 'demos', demoPath),
+      // Fallback: ruta relativa desde el archivo actual
+      join(__dirname, '..', '..', '..', '..', 'public', 'demos', demoPath),
+    ];
 
-    if (existsSync(localPath)) {
-      // Desarrollo local: leer del sistema de archivos
-      htmlContent = await readFile(localPath, 'utf-8');
-    } else {
-      // Producción (Vercel): obtener desde la URL pública
-      const baseUrl = process.env.VERCEL_URL 
-        ? `https://${process.env.VERCEL_URL}` 
-        : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-      
-      const publicUrl = `${baseUrl}/demos/${demoPath}`;
-      const response = await fetch(publicUrl);
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch from ${publicUrl}: ${response.status} ${response.statusText}`);
+    let htmlContent: string | null = null;
+    let lastError: Error | null = null;
+
+    for (const filePath of possiblePaths) {
+      try {
+        if (existsSync(filePath)) {
+          htmlContent = await readFile(filePath, 'utf-8');
+          break;
+        }
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err));
+        continue;
       }
+    }
+
+    if (!htmlContent) {
+      // Si ninguna ruta funciona, intentar leer desde la URL pública usando el request
+      const url = new URL(request.url);
+      const baseUrl = `${url.protocol}//${url.host}`;
+      const publicUrl = `${baseUrl}/demos/${demoPath}`;
       
-      htmlContent = await response.text();
+      try {
+        const response = await fetch(publicUrl, {
+          headers: {
+            'User-Agent': 'Next.js-Demo-API',
+          },
+        });
+        
+        if (response.ok) {
+          htmlContent = await response.text();
+        } else {
+          throw new Error(`Failed to fetch: ${response.status} ${response.statusText}. Tried paths: ${possiblePaths.join(', ')}`);
+        }
+      } catch (fetchError) {
+        throw lastError || new Error(`File not found. Tried paths: ${possiblePaths.join(', ')}. Fetch error: ${fetchError instanceof Error ? fetchError.message : String(fetchError)}`);
+      }
     }
 
     // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")
