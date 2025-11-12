@@ -15,17 +15,40 @@ const DEMO_PROJECTS: Record<string, string> = {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> | { slug: string } }
 ) {
-  const demoPath = DEMO_PROJECTS[params.slug];
+  // Next.js 15+ usa Promise<params>, Next.js 14 usa params directo
+  const resolvedParams = await Promise.resolve(params);
+  const demoPath = DEMO_PROJECTS[resolvedParams.slug];
 
   if (!demoPath) {
-    return new NextResponse('Demo not found', { status: 404 });
+    return new NextResponse(`Demo not found: ${resolvedParams.slug}`, { status: 404 });
   }
 
   try {
-    const filePath = join(process.cwd(), 'public', 'demos', demoPath);
-    let htmlContent = await readFile(filePath, 'utf-8');
+    // Intentar múltiples rutas posibles (local y Vercel)
+    const possiblePaths = [
+      join(process.cwd(), 'public', 'demos', demoPath),
+      join(process.cwd(), 'demos', demoPath),
+      join(process.cwd(), 'out', 'demos', demoPath),
+    ];
+
+    let htmlContent: string | null = null;
+    let lastError: Error | null = null;
+
+    for (const filePath of possiblePaths) {
+      try {
+        htmlContent = await readFile(filePath, 'utf-8');
+        break; // Si funciona, salir del loop
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err));
+        continue; // Intentar siguiente ruta
+      }
+    }
+
+    if (!htmlContent) {
+      throw lastError || new Error(`File not found in any of: ${possiblePaths.join(', ')}`);
+    }
 
     // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")
     const projectDir = demoPath.split('/')[0];
@@ -57,7 +80,10 @@ export async function GET(
     });
   } catch (error) {
     console.error('Error loading demo:', error);
-    return new NextResponse('Demo not found', { status: 404 });
+    console.error('Slug:', resolvedParams.slug);
+    console.error('Demo path:', demoPath);
+    console.error('File path:', join(process.cwd(), 'public', 'demos', demoPath));
+    return new NextResponse(`Demo not found: ${error instanceof Error ? error.message : 'Unknown error'}`, { status: 404 });
   }
 }
 
