@@ -79,7 +79,34 @@ export async function GET(
         }
       }
       
-      // Si aún está vacío, lanzar error con información detallada
+      // Si aún está vacío, intentar fetch desde URL pública como último recurso
+      if (!htmlContent || htmlContent.trim().length === 0) {
+        console.warn('⚠️ All filesystem methods failed, trying fetch from public URL...');
+        
+        try {
+          const url = new URL(request.url);
+          const baseUrl = `${url.protocol}//${url.host}`;
+          const publicUrl = `${baseUrl}/demos/${demoPath}`;
+          
+          console.log(`Attempting fetch from: ${publicUrl}`);
+          const response = await fetch(publicUrl, {
+            headers: {
+              'User-Agent': 'Next.js-Demo-API-Internal',
+            },
+          });
+          
+          if (response.ok) {
+            htmlContent = await response.text();
+            console.log(`✓ Fetch successful, length: ${htmlContent.length}`);
+          } else {
+            console.error(`✗ Fetch failed: ${response.status} ${response.statusText}`);
+          }
+        } catch (fetchError) {
+          console.error('✗ Fetch error:', fetchError instanceof Error ? fetchError.message : String(fetchError));
+        }
+      }
+      
+      // Si aún está vacío después de todos los intentos, lanzar error
       if (!htmlContent || htmlContent.trim().length === 0) {
         const availableSlugs = Object.keys(DEMO_CONTENT).filter(key => {
           const content = DEMO_CONTENT[key];
