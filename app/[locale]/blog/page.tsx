@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   description: 'Artículos sobre desarrollo con IA, TDD, OWASP y orquestación de agentes',
 };
 
+// Necesario para static export
+export function generateStaticParams() {
+  return [{ locale: 'es' }, { locale: 'en' }];
+}
+
 const blog_posts = [
   {
     slug: 'vibe-coding',
@@ -38,14 +43,15 @@ const blog_posts = [
   },
 ];
 
-export default function BlogPage() {
+export default function BlogPage({ params }: { params: { locale: string } }) {
+  const { locale } = params;
   return (
     <div className="min-h-screen bg-zinc-950 text-neutral-300">
       {/* Header */}
       <header className="border-b border-neutral-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <Link 
-            href="/#blog" 
+            href={`/${locale}#blog`} 
             className="inline-flex items-center gap-2 text-neutral-400 hover:text-accent-500 transition-colors mb-6"
           >
             <ArrowLeft size={20} />
@@ -106,7 +112,7 @@ export default function BlogPage() {
                   </p>
 
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/${locale}/blog/${post.slug}`}
                     className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-zinc-950 rounded-full font-semibold hover:bg-accent-500/90 transition-all duration-200 hover:scale-105"
                   >
                     Leer artículo completo
