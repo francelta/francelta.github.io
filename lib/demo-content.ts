@@ -21,7 +21,8 @@ function readDemoFile(projectPath: string): string {
   }
 }
 
-export const DEMO_CONTENT: Record<string, string> = {
+// Leer todos los archivos demo.html
+const allDemos: Record<string, string> = {
   'prototipo-produccion-rapida': readDemoFile('prototipo-produccion-rapida/demo.html'),
   'desarrollo-contextualizado-estandarizado': readDemoFile('desarrollo-contextualizado-estandarizado/demo.html'),
   'orquestacion-auditoria-agentes': readDemoFile('orquestacion-auditoria-agentes/demo.html'),
@@ -31,4 +32,24 @@ export const DEMO_CONTENT: Record<string, string> = {
   'dashboard-analitico-empresarial': readDemoFile('dashboard-analitico-empresarial/demo.html'),
   'workflow-automatizado-n8n': readDemoFile('workflow-automatizado-n8n/demo.html'),
 };
+
+// Validar que workflow-automatizado-n8n se leyó correctamente
+if (!allDemos['workflow-automatizado-n8n'] || allDemos['workflow-automatizado-n8n'].trim().length === 0) {
+  console.error('CRITICAL: workflow-automatizado-n8n/demo.html is empty or failed to read!');
+  console.error('Attempted path:', join(process.cwd(), 'public', 'demos', 'workflow-automatizado-n8n/demo.html'));
+  console.error('Current working directory:', process.cwd());
+  // Intentar leer de nuevo con ruta absoluta
+  try {
+    const absolutePath = join(process.cwd(), 'public', 'demos', 'workflow-automatizado-n8n/demo.html');
+    const retryContent = readFileSync(absolutePath, 'utf-8');
+    if (retryContent && retryContent.trim().length > 0) {
+      console.log('✓ Retry successful, content length:', retryContent.length);
+      allDemos['workflow-automatizado-n8n'] = retryContent;
+    }
+  } catch (retryError) {
+    console.error('Retry also failed:', retryError);
+  }
+}
+
+export const DEMO_CONTENT: Record<string, string> = allDemos;
 

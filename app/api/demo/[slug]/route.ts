@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DEMO_CONTENT } from '@/lib/demo-content';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { existsSync } from 'fs';
 
 const DEMO_PROJECTS: Record<string, string> = {
   'prototipo-produccion-rapida': 'prototipo-produccion-rapida/demo.html',
@@ -28,9 +31,26 @@ export async function GET(
     // Obtener el contenido del HTML desde el módulo que lo leyó durante el build
     let htmlContent = DEMO_CONTENT[resolvedParams.slug];
 
+    // Si el contenido está vacío (puede pasar en Vercel si no se leyó durante build),
+    // intentar leerlo directamente en runtime como fallback
     if (!htmlContent || htmlContent.trim().length === 0) {
-      const availableSlugs = Object.keys(DEMO_CONTENT).filter(key => DEMO_CONTENT[key] && DEMO_CONTENT[key].trim().length > 0);
-      throw new Error(`Demo content not found or empty for slug: ${resolvedParams.slug}. Available slugs: ${availableSlugs.join(', ')}`);
+      console.warn(`Demo content empty for ${resolvedParams.slug}, attempting to read from filesystem...`);
+      const fallbackPath = join(process.cwd(), 'public', 'demos', demoPath);
+      
+      if (existsSync(fallbackPath)) {
+        try {
+          htmlContent = readFileSync(fallbackPath, 'utf-8');
+          console.log(`Successfully read ${resolvedParams.slug} from filesystem`);
+        } catch (err) {
+          console.error(`Failed to read from filesystem:`, err);
+        }
+      }
+      
+      // Si aún está vacío, lanzar error
+      if (!htmlContent || htmlContent.trim().length === 0) {
+        const availableSlugs = Object.keys(DEMO_CONTENT).filter(key => DEMO_CONTENT[key] && DEMO_CONTENT[key].trim().length > 0);
+        throw new Error(`Demo content not found or empty for slug: ${resolvedParams.slug}. Available slugs: ${availableSlugs.join(', ')}`);
+      }
     }
 
     // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")
