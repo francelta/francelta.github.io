@@ -16,7 +16,7 @@ export default function BlogSection() {
       date: '15 Oct 2024',
       read_time: '8 min',
       category: 'Filosofía',
-      link: '#',
+      link: '/blog/vibe-coding',
     },
     {
       title: 'La IA como "Becario" Vulnerable: Mi Flujo TDD y OWASP en la Era de GenAI',
@@ -25,7 +25,7 @@ export default function BlogSection() {
       date: '3 Oct 2024',
       read_time: '12 min',
       category: 'Metodología',
-      link: '#',
+      link: '/blog/tdd-owasp',
     },
     {
       title: 'Caso de Estudio: Cómo Orquesté un Equipo de Agentes para Construir este Mismo Portafolio',
@@ -34,7 +34,7 @@ export default function BlogSection() {
       date: '21 Sep 2024',
       read_time: '10 min',
       category: 'Caso Real',
-      link: '#',
+      link: '/blog/caso-estudio',
     },
   ];
 
@@ -124,7 +124,7 @@ export default function BlogSection() {
           className="text-center mt-12"
         >
           <a
-            href="#"
+            href="/blog"
             className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-neutral-700 text-neutral-300 rounded-full font-semibold hover:border-accent-500 hover:text-accent-500 transition-all duration-200"
           >
             Ver todos los artículos
