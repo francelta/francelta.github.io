@@ -10,6 +10,14 @@ import { ExternalLink, Github } from 'lucide-react';
 export default function ProjectsSection() {
   const projects = [
     {
+      title: 'Aceleración de MVP (Prototipo de Producción Rápida)',
+      description: 'De "Idea a URL en producción" en menos de 10 minutos. Portfolio QA Engineer con IA, modo oscuro profesional y despliegue automatizado',
+      image: '/projects/project-1.png',
+      tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Firebase Hosting'],
+      demo: 'https://francelta.github.io/prototipo-produccion-rapida/',
+      github: 'https://github.com/francelta/prototipo-produccion-rapida',
+    },
+    {
       title: 'Red Neuronal OCR para Documentos',
       description: 'Sistema de identificación automática de campos en DNI, NIE y pasaportes con 97.83% de precisión usando deep learning',
       image: '/projects/project-1.png',
