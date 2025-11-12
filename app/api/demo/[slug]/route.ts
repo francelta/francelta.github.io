@@ -33,15 +33,19 @@ export async function GET(
   }
 
   try {
-    // En Vercel, los archivos de public/ están en el directorio .next/server
+    // En Vercel, los archivos pueden estar en diferentes ubicaciones
     // Intentar múltiples rutas posibles
     const possiblePaths = [
       // Desarrollo local
       join(process.cwd(), 'public', 'demos', demoPath),
+      // Vercel - ruta principal
+      '/var/task/public/demos/' + demoPath,
+      // Vercel - ruta alternativa (según el error)
+      '/vercel/path0/public/demos/' + demoPath,
+      // Vercel - otra posible ubicación
+      join(process.cwd(), 'public', 'demos', demoPath),
       // Vercel - archivos copiados durante build
       join(process.cwd(), '.next', 'server', 'app', 'public', 'demos', demoPath),
-      // Vercel - ruta alternativa
-      join(process.cwd(), 'public', 'demos', demoPath),
       // Fallback: ruta relativa desde el archivo actual
       join(__dirname, '..', '..', '..', '..', 'public', 'demos', demoPath),
     ];
@@ -62,25 +66,45 @@ export async function GET(
     }
 
     if (!htmlContent) {
-      // Si ninguna ruta funciona, intentar leer desde la URL pública usando el request
-      const url = new URL(request.url);
-      const baseUrl = `${url.protocol}//${url.host}`;
-      const publicUrl = `${baseUrl}/demos/${demoPath}`;
+      // Último recurso: intentar leer desde la URL pública
+      // Pero primero, intentar con la ruta de Vercel que vimos en el error
+      const vercelPaths = [
+        '/vercel/path0/public/demos/' + demoPath,
+        '/var/task/public/demos/' + demoPath,
+      ];
       
-      try {
-        const response = await fetch(publicUrl, {
-          headers: {
-            'User-Agent': 'Next.js-Demo-API',
-          },
-        });
-        
-        if (response.ok) {
-          htmlContent = await response.text();
-        } else {
-          throw new Error(`Failed to fetch: ${response.status} ${response.statusText}. Tried paths: ${possiblePaths.join(', ')}`);
+      for (const vercelPath of vercelPaths) {
+        try {
+          if (existsSync(vercelPath)) {
+            htmlContent = await readFile(vercelPath, 'utf-8');
+            break;
+          }
+        } catch (err) {
+          continue;
         }
-      } catch (fetchError) {
-        throw lastError || new Error(`File not found. Tried paths: ${possiblePaths.join(', ')}. Fetch error: ${fetchError instanceof Error ? fetchError.message : String(fetchError)}`);
+      }
+      
+      // Si aún no funciona, intentar fetch desde URL pública
+      if (!htmlContent) {
+        const url = new URL(request.url);
+        const baseUrl = `${url.protocol}//${url.host}`;
+        const publicUrl = `${baseUrl}/demos/${demoPath}`;
+        
+        try {
+          const response = await fetch(publicUrl, {
+            headers: {
+              'User-Agent': 'Next.js-Demo-API',
+            },
+          });
+          
+          if (response.ok) {
+            htmlContent = await response.text();
+          } else {
+            throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+          }
+        } catch (fetchError) {
+          throw new Error(`File not found. Tried paths: ${possiblePaths.join(', ')}. Vercel paths: ${vercelPaths.join(', ')}. Fetch error: ${fetchError instanceof Error ? fetchError.message : String(fetchError)}`);
+        }
       }
     }
 
