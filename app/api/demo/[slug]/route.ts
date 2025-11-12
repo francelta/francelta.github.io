@@ -28,8 +28,9 @@ export async function GET(
     // Obtener el contenido del HTML desde el módulo que lo leyó durante el build
     let htmlContent = DEMO_CONTENT[resolvedParams.slug];
 
-    if (!htmlContent) {
-      throw new Error(`Demo content not found for slug: ${resolvedParams.slug}`);
+    if (!htmlContent || htmlContent.trim().length === 0) {
+      const availableSlugs = Object.keys(DEMO_CONTENT).filter(key => DEMO_CONTENT[key] && DEMO_CONTENT[key].trim().length > 0);
+      throw new Error(`Demo content not found or empty for slug: ${resolvedParams.slug}. Available slugs: ${availableSlugs.join(', ')}`);
     }
 
     // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")

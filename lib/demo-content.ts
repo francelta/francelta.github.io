@@ -8,10 +8,16 @@ import { join } from 'path';
 function readDemoFile(projectPath: string): string {
   try {
     const filePath = join(process.cwd(), 'public', 'demos', projectPath);
-    return readFileSync(filePath, 'utf-8');
+    const content = readFileSync(filePath, 'utf-8');
+    if (!content || content.trim().length === 0) {
+      console.warn(`Warning: Demo file ${projectPath} is empty`);
+      return '';
+    }
+    return content;
   } catch (error) {
     console.error(`Error reading demo file ${projectPath}:`, error);
-    return '';
+    console.error(`File path attempted: ${join(process.cwd(), 'public', 'demos', projectPath)}`);
+    return ''; // Devolver string vacío en lugar de lanzar error
   }
 }
 
