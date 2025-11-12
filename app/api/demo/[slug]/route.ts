@@ -28,30 +28,82 @@ export async function GET(
   }
 
   try {
+    // DEBUG: Log información del request
+    console.log('=== DEMO API DEBUG START ===');
+    console.log('Requested slug:', resolvedParams.slug);
+    console.log('Demo path:', demoPath);
+    console.log('All DEMO_CONTENT keys:', Object.keys(DEMO_CONTENT));
+    console.log('DEMO_CONTENT keys with content:', Object.keys(DEMO_CONTENT).filter(k => DEMO_CONTENT[k] && DEMO_CONTENT[k].trim().length > 0));
+    
     // Obtener el contenido del HTML desde el módulo que lo leyó durante el build
     let htmlContent = DEMO_CONTENT[resolvedParams.slug];
+    
+    console.log(`Content for ${resolvedParams.slug}:`, {
+      exists: htmlContent !== undefined,
+      isNull: htmlContent === null,
+      isEmpty: htmlContent === '',
+      length: htmlContent?.length || 0,
+      trimmedLength: htmlContent?.trim().length || 0,
+      firstChars: htmlContent?.substring(0, 50) || 'N/A'
+    });
 
     // Si el contenido está vacío (puede pasar en Vercel si no se leyó durante build),
     // intentar leerlo directamente en runtime como fallback
     if (!htmlContent || htmlContent.trim().length === 0) {
-      console.warn(`Demo content empty for ${resolvedParams.slug}, attempting to read from filesystem...`);
-      const fallbackPath = join(process.cwd(), 'public', 'demos', demoPath);
+      console.warn(`⚠️ Demo content empty for ${resolvedParams.slug}, attempting fallback methods...`);
+      console.log('Current working directory:', process.cwd());
       
-      if (existsSync(fallbackPath)) {
-        try {
-          htmlContent = readFileSync(fallbackPath, 'utf-8');
-          console.log(`Successfully read ${resolvedParams.slug} from filesystem`);
-        } catch (err) {
-          console.error(`Failed to read from filesystem:`, err);
+      // Intentar múltiples rutas de fallback
+      const fallbackPaths = [
+        join(process.cwd(), 'public', 'demos', demoPath),
+        join(process.cwd(), 'demos', demoPath),
+        '/var/task/public/demos/' + demoPath,
+        '/vercel/path0/public/demos/' + demoPath,
+      ];
+      
+      console.log('Trying fallback paths:', fallbackPaths);
+      
+      for (const fallbackPath of fallbackPaths) {
+        console.log(`  Trying: ${fallbackPath}`);
+        if (existsSync(fallbackPath)) {
+          console.log(`  ✓ Path exists!`);
+          try {
+            htmlContent = readFileSync(fallbackPath, 'utf-8');
+            console.log(`  ✓ Successfully read from filesystem, length: ${htmlContent.length}`);
+            break;
+          } catch (err) {
+            console.error(`  ✗ Failed to read:`, err instanceof Error ? err.message : String(err));
+          }
+        } else {
+          console.log(`  ✗ Path does not exist`);
         }
       }
       
-      // Si aún está vacío, lanzar error
+      // Si aún está vacío, lanzar error con información detallada
       if (!htmlContent || htmlContent.trim().length === 0) {
-        const availableSlugs = Object.keys(DEMO_CONTENT).filter(key => DEMO_CONTENT[key] && DEMO_CONTENT[key].trim().length > 0);
+        const availableSlugs = Object.keys(DEMO_CONTENT).filter(key => {
+          const content = DEMO_CONTENT[key];
+          const hasContent = content && content.trim().length > 0;
+          console.log(`  Key "${key}": hasContent=${hasContent}, length=${content?.length || 0}`);
+          return hasContent;
+        });
+        
+        console.error('❌ FINAL ERROR: All methods failed');
+        console.error('Available slugs with content:', availableSlugs);
+        console.error('DEMO_CONTENT full state:', JSON.stringify({
+          keys: Object.keys(DEMO_CONTENT),
+          contentLengths: Object.fromEntries(
+            Object.entries(DEMO_CONTENT).map(([k, v]) => [k, v?.length || 0])
+          )
+        }, null, 2));
+        
         throw new Error(`Demo content not found or empty for slug: ${resolvedParams.slug}. Available slugs: ${availableSlugs.join(', ')}`);
       }
+    } else {
+      console.log(`✓ Content loaded from DEMO_CONTENT, length: ${htmlContent.length}`);
     }
+    
+    console.log('=== DEMO API DEBUG END ===');
 
     // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")
     const projectDir = demoPath.split('/')[0];
