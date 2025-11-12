@@ -59,11 +59,19 @@ export default function ProjectsSection() {
     },
     {
       title: 'Dashboard Analítico Empresarial',
-      description: 'Panel de control con métricas en tiempo real para estrategias de digitalización y ventas',
+      description: 'Dashboard en tiempo real con Vue.js + Django REST + PostgreSQL: métricas de digitalización, análisis de ventas por canal, objetivos estratégicos y Chart.js para visualización',
       image: '/projects/project-6.png',
       tags: ['Vue.js', 'Django REST', 'PostgreSQL', 'Chart.js'],
-      demo: '#',
-      github: '#',
+      demo: '/dashboard-analitico-empresarial/index.html',
+      github: 'https://github.com/francelta/dashboard-analitico-empresarial',
+    },
+    {
+      title: 'Workflow de Automatización con IA y N8N',
+      description: 'Sistema automatizado que genera posts para LinkedIn desde artículos de blog: RSS Feed → Web Scraping → Claude Haiku AI → LinkedIn. 100% automatizado, ahorra 15 min/artículo',
+      image: '/projects/project-1.png',
+      tags: ['n8n', 'Claude Haiku', 'Automation', 'LinkedIn API'],
+      demo: '/workflow-automatizado-n8n/index.html',
+      github: 'https://github.com/francelta/workflow-automatizado-n8n',
     },
   ];
 

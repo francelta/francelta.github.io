@@ -71,7 +71,32 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
         * **Citas:** El texto debe incluir marcadores como `[Fuente 1]` y `[Fuente 2]`.
         * Una sección "Fuentes Utilizadas" (ej. `[Fuente 1] Documentación oficial de TensorFlow.js`).
         * Un "Mapa Mental" generado en formato de lista Markdown.
+**Proyecto 7: Dashboard Analítico Empresarial**
+* **Carpeta:** `public/dashboard-analitico-empresarial`
+* **Acción del Agente:**
+    1.  Crea la carpeta `public/dashboard-analitico-empresarial`.
+    2.  **Crea una subcarpeta `backend/`** (simulando Django REST):
+        * `backend/models.py`: Genera un modelo de ejemplo (ej. `Venta` o `Metrica`).
+        * `backend/serializers.py`: Genera un `ModelSerializer` para ese modelo.
+    3.  **Crea una subcarpeta `frontend/`** (simulando Vue.js + Chart.js):
+        * `frontend/src/components/DashboardChart.vue`: Genera un componente de Vue que importe `Chart` de `chart.js` y muestre una configuración de gráfico de ejemplo (`<canvas>`).
+    4.  **Crea el `README.md` principal:**
+        * Debe explicar la arquitectura completa (Vue.js -> API REST Django -> PostgreSQL).
+        * Debe explicar cómo este dashboard mide "métricas en tiempo real para estrategias de digitalización".
+        * Debe incluir un diagrama de la arquitectura.
 
+---
+**Proyecto 8: Workflow de Automatización con IA y n8n**
+* **Carpeta:** `public/workflow-automatizado-n8n`
+* **Acción del Agente:**
+    1.  Crea la carpeta `public/workflow-automatizado-n8n`.
+    2.  **Crea el `README.md`:**
+        * Explica el objetivo: "Automatizar la creación de contenido para redes sociales a partir de un blog usando IA y N8N".
+        * Explica la arquitectura del workflow: `Trigger (RSS Feed)` -> `Scrape AI (Extracción)` -> `Agente IA (Resumen Haiku)` -> `Acción (Post en LinkedIn)`.
+        * Incluye un diagrama de Mermaid para el flujo.
+    3.  **Crea un `workflow.n8n.json` (Simulado):**
+        * Genera un archivo JSON que *simule* la estructura de un workflow de N8N. Debe incluir un array de `nodes` con al menos 4 nodos (ej. `n8n-nodes-base.rssFeed`, `n8n-nodes-base.scrapeWebsite`, `n8n-nodes-ai-agent.aiAgent`, `n8n-nodes-base.linkedIn`).
+        * El nodo `aiAgent` debe mostrar el uso de un LLM (ej. `model: 'haiku'`) para demostrar la selección de modelo.
 ## 4. Flujo de Trabajo (Tu Plan de Acción)
 
 1.  El usuario te llamará pidiendo un proyecto (ej. "Crea el Proyecto 4").
