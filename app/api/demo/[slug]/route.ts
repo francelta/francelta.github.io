@@ -1,13 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
-import { existsSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-// Para obtener __dirname en ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { DEMO_CONTENT } from '@/lib/demo-content';
 
 const DEMO_PROJECTS: Record<string, string> = {
   'prototipo-produccion-rapida': 'prototipo-produccion-rapida/demo.html',
@@ -33,79 +25,11 @@ export async function GET(
   }
 
   try {
-    // En Vercel, los archivos pueden estar en diferentes ubicaciones
-    // Intentar múltiples rutas posibles
-    const possiblePaths = [
-      // Desarrollo local
-      join(process.cwd(), 'public', 'demos', demoPath),
-      // Vercel - ruta principal
-      '/var/task/public/demos/' + demoPath,
-      // Vercel - ruta alternativa (según el error)
-      '/vercel/path0/public/demos/' + demoPath,
-      // Vercel - otra posible ubicación
-      join(process.cwd(), 'public', 'demos', demoPath),
-      // Vercel - archivos copiados durante build
-      join(process.cwd(), '.next', 'server', 'app', 'public', 'demos', demoPath),
-      // Fallback: ruta relativa desde el archivo actual
-      join(__dirname, '..', '..', '..', '..', 'public', 'demos', demoPath),
-    ];
-
-    let htmlContent: string | null = null;
-    let lastError: Error | null = null;
-
-    for (const filePath of possiblePaths) {
-      try {
-        if (existsSync(filePath)) {
-          htmlContent = await readFile(filePath, 'utf-8');
-          break;
-        }
-      } catch (err) {
-        lastError = err instanceof Error ? err : new Error(String(err));
-        continue;
-      }
-    }
+    // Obtener el contenido del HTML desde el módulo que lo leyó durante el build
+    let htmlContent = DEMO_CONTENT[resolvedParams.slug];
 
     if (!htmlContent) {
-      // Último recurso: intentar leer desde la URL pública
-      // Pero primero, intentar con la ruta de Vercel que vimos en el error
-      const vercelPaths = [
-        '/vercel/path0/public/demos/' + demoPath,
-        '/var/task/public/demos/' + demoPath,
-      ];
-      
-      for (const vercelPath of vercelPaths) {
-        try {
-          if (existsSync(vercelPath)) {
-            htmlContent = await readFile(vercelPath, 'utf-8');
-            break;
-          }
-        } catch (err) {
-          continue;
-        }
-      }
-      
-      // Si aún no funciona, intentar fetch desde URL pública
-      if (!htmlContent) {
-        const url = new URL(request.url);
-        const baseUrl = `${url.protocol}//${url.host}`;
-        const publicUrl = `${baseUrl}/demos/${demoPath}`;
-        
-        try {
-          const response = await fetch(publicUrl, {
-            headers: {
-              'User-Agent': 'Next.js-Demo-API',
-            },
-          });
-          
-          if (response.ok) {
-            htmlContent = await response.text();
-          } else {
-            throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
-          }
-        } catch (fetchError) {
-          throw new Error(`File not found. Tried paths: ${possiblePaths.join(', ')}. Vercel paths: ${vercelPaths.join(', ')}. Fetch error: ${fetchError instanceof Error ? fetchError.message : String(fetchError)}`);
-        }
-      }
+      throw new Error(`Demo content not found for slug: ${resolvedParams.slug}`);
     }
 
     // Obtener el directorio base del proyecto (ej: "prototipo-produccion-rapida")
@@ -140,7 +64,6 @@ export async function GET(
     console.error('Error loading demo:', error);
     console.error('Slug:', resolvedParams.slug);
     console.error('Demo path:', demoPath);
-    console.error('File path:', join(process.cwd(), 'public', 'demos', demoPath));
     return new NextResponse(`Demo not found: ${error instanceof Error ? error.message : 'Unknown error'}`, { status: 404 });
   }
 }
