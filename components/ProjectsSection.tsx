@@ -14,7 +14,7 @@ export default function ProjectsSection() {
       description: 'De "Idea a URL en producción" en menos de 10 minutos. Portfolio QA Engineer con IA, modo oscuro profesional y despliegue automatizado',
       image: '/projects/project-1.png',
       tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Firebase Hosting'],
-      demo: 'https://francelta.github.io/prototipo-produccion-rapida/',
+      demo: '/prototipo-produccion-rapida',
       github: 'https://github.com/francelta/prototipo-produccion-rapida',
     },
     {
