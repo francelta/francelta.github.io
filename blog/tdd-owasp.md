@@ -1,5 +1,3 @@
-# La IA como "Becario" Vulnerable: Mi Flujo TDD y OWASP en la Era de GenAI
-
 Me encanta mi equipo de agentes de IA, pero **no confío en ellos**. En absoluto.
 
 Mi metáfora de trabajo es simple: trato a cada agente de GenAI como si fuera un **"becario" (intern)** increíblemente rápido, brillante y productivo, pero completamente ingenuo y sin experiencia en el mundo real. Es un becario capaz de escribir una API REST completa en 30 segundos, pero que felizmente introducirá una **vulnerabilidad de Inyección SQL** porque no entiende el *por qué* de la sanitización de entradas.

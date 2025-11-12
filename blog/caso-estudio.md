@@ -1,5 +1,3 @@
-# Caso de Estudio: Cómo Orquesté un Equipo de Agentes para Construir este Mismo Portafolio
-
 El portafolio que estás viendo ahora mismo es la prueba tangible de mi filosofía. No pasé semanas moviendo divs en React.tsx ni peleándome con configuraciones de webpack.
 
 **Este sitio no fue escrito por mí; fue dirigido por mí.**

@@ -1,5 +1,3 @@
-# Más Allá del "Vibe Coding": Por Qué Dejé de Escribir Código y Empecé a Dirigir Agentes
-
 **"Vibe coding"**. Es el término que ha surgido para describir a un desarrollador que pide a una IA que "haga una app de tareas" y acepta ciegamente el resultado. Es rápido, es mágico y, superficialmente, parece productivo. Pero es una ilusión. Es el equivalente moderno a copiar y pegar código de Stack Overflow sin entenderlo. Este tipo de desarrollo está creando una nueva generación de **"código spaghetti"**: aplicaciones que son funcionales en la superficie, pero fundamentalmente frágiles, inseguras e imposibles de mantener.
 
 El **45% del código ya lo escribe una IA**. Esta cifra no hará más que aumentar. Ante esta realidad, tenemos dos opciones: convertirnos en "operadores de prompts" glorificados, pidiendo código a ciegas, o evolucionar hacia un nuevo rol. Yo he elegido el segundo. Mi trabajo ya no es escribir código línea por línea; **mi trabajo es ser el Arquitecto y Piloto de un sistema que lo escribe**.
