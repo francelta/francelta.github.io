@@ -22,6 +22,15 @@ export const metadata: Metadata = {
 };
 
 /**
+ * Generate static params for all supported locales
+ * Required for static export with dynamic routes
+ * @returns {Array<Object>} Array of locale objects
+ */
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+/**
  * Root layout component for the application
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components

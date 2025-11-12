@@ -7,6 +7,16 @@ import ExperienceSection from "@/components/ExperienceSection";
 import AgentsSection from "@/components/AgentsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
+import { locales } from '@/i18n';
+
+/**
+ * Generate static params for all supported locales
+ * Required for static export with dynamic routes
+ * @returns {Array<Object>} Array of locale objects
+ */
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 /**
  * Main page component - Single Page Application (SPA)
