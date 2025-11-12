@@ -1,0 +1,171 @@
+{
+  "navbar": {
+    "brand": "FC",
+    "links": {
+      "hero": "Inicio",
+      "about": "Sobre Mí",
+      "principles": "Principios",
+      "skills": "Habilidades",
+      "experience": "Experiencia",
+      "agents": "Agentes",
+      "projects": "Proyectos",
+      "contact": "Contacto"
+    }
+  },
+  "hero": {
+    "title": "FRAN CARRASCO",
+    "typing_sequence": {
+      "subtitle_1": "Desarrollador Full-Stack",
+      "subtitle_2": "Arquitecto y Piloto de IA",
+      "subtitle_3": "Orquestador de Agentes GenAI",
+      "subtitle_4": "Experto en Seguridad por Diseño",
+      "subtitle_5": "Especialista en TDD y OWASP"
+    },
+    "tagline": "Transformando ideas en soluciones digitales con IA"
+  },
+  "about": {
+    "title": "Mi Filosofía: El Arquitecto y Piloto",
+    "paragraph_1": "Desarrollador Full-Stack con más de 6 años de experiencia en el desarrollo de aplicaciones web, automatizaciones y redes neuronales con Python. Me especializo en producir código claro y mantenible.",
+    "paragraph_3": "He colaborado con equipos de distintos tamaños en múltiples proyectos y soy capaz de trabajar tanto en remoto como en oficina, según las necesidades de la empresa.",
+    "highlights": {
+      "genai_dev": "Desarrollo impulsado por IA (GenAI)",
+      "architect_pilot": "Arquitecto y Piloto",
+      "tdd": "TDD",
+      "security_by_design": "Seguridad por Diseño",
+      "ai_percentage": "45%",
+      "speed_percentage": "55%"
+    }
+  },
+  "principles": {
+    "title": "Metodologías Avanzadas (GenAI)",
+    "items": [
+      {
+        "title": "Orquestación de Agentes y Control de Flujos",
+        "description": "Actúo como \"Director de Orquesta\" gestionando Sub-Agentes (mini-J.A.R.V.I.S.) especializados en tareas de PM, Testing, Arquitectura o Auditoría de seguridad. Selección estratégica de LLMs según la tarea: Sonet (v4.5) para máxima inteligencia, Opus para razonamiento complejo, Haiku para roles acotados."
+      },
+      {
+        "title": "Contextualización de Proyectos y Prompt Engineering",
+        "description": "Utilización de archivos de contexto como agents.md y carpetas de contexto para definir la misión del proyecto, estándares de código (ej. snake_case) y referencias (ej. esquema de base de datos en SQL). Maximización de la efectividad de la IA mediante contexto estructurado."
+      },
+      {
+        "title": "Flujo de Desarrollo Asistido por IA",
+        "description": "Implementación de TDD (Test-Driven Development), utilizando la IA para generar suites de tests extensas (más de 20-40 tests por feature). Transformación de requisitos a formato GHERKIN para la creación de criterios de aceptación. Integración con herramientas de gestión mediante MCP."
+      },
+      {
+        "title": "Seguridad y Auditoría",
+        "description": "Aplicación del principio de Security by Design para mitigar código vulnerable generado por IA (Vulnerability as a Service). Conocimiento y mitigación de vulnerabilidades web comunes de OWASP Top 10, como el Broken Access Control y ataques de fuerza bruta."
+      },
+      {
+        "title": "Investigación y Aprendizaje Acelerado",
+        "description": "Uso de herramientas de IA (como Notebook LM) para acotar fuentes de conocimiento, generar resúmenes, mapas mentales, tarjetas didácticas (flashcards) y cuestionarios, eliminando las alucinaciones de la IA mediante la referenciación de fuentes."
+      },
+      {
+        "title": "Automatización de Workflows (No-Code/Low-Code)",
+        "description": "Experiencia con herramientas Open Source como N8N para crear flujos de trabajo complejos (workflows), incluyendo el uso de Scrape AI para la obtención de datos web no disponibles por API. Desarrollo rápido de MVPs integrando backends (ej. Firebase Studio, Google Sheets)."
+      }
+    ]
+  },
+  "skills": {
+    "title": "Tecnologías y Herramientas",
+    "categories": {
+      "languages": {
+        "title": "Lenguajes de Programación",
+        "items": ["C", "Python", "SQL/PL", "JavaScript", "PHP", "HTML/CSS", "BI", "bash", "TypeScript"]
+      },
+      "frameworks": {
+        "title": "Frameworks",
+        "items": ["Flask", "Django", "React", "Vue.js", "LitElement", "CodeIgniter", "Laravel", "Bootstrap", "Tailwind", "Next.js"]
+      },
+      "ai_tools": {
+        "title": "Herramientas de IA",
+        "items": ["Cursor.ia", "windsurf", "GitHub Copilot", "Notebook LM", "N8N", "Cloud Code", "Gemini", "ChatGPT", "MCP Protocol"]
+      },
+      "operating_systems": {
+        "label": "Sistemas Operativos",
+        "value": "Unix, Linux, Windows"
+      }
+    }
+  },
+  "experience": {
+    "title": "Experiencia Profesional",
+    "jobs": [
+      {
+        "title": "Desarrollador Full-Stack",
+        "company_and_dates": "IT Marketing Media-line SLU (Feb 2024 – Oct 2024, Málaga, España)",
+        "responsibilities": [
+          "Defino e implemento estrategias de digitalización para negocios de diversos sectores, empleando métodos científicos y Pruebas de Concepto (PoC) para mejorar significativamente sus ventas.",
+          "Planifico meticulosamente y aplico enfoques innovadores, adaptando soluciones tecnológicas a las necesidades de cada empresa para maximizar eficiencia y rentabilidad.",
+          "Me centro en aprovechar tecnología de vanguardia y datos para optimizar procesos y alcanzar un rendimiento superior en ventas."
+        ],
+        "technologies": "Python (Django, Flask, Restframework), Librerías (Selenium, unittest, pandas, requests, Pillow, NumPy, OpenCV), PHP, HTML5, JavaScript, GitHub, Jenkins pipelines, Asana, Fork, Bash scripts, GNU/Linux"
+      },
+      {
+        "title": "Desarrollador Full-Stack",
+        "company_and_dates": "Cocinasplus design SLU (Feb 2021 – Feb 2023, Málaga, España)",
+        "responsibilities": [
+          "Modernicé un sitio web obsoleto para hacerlo responsivo y conforme a estándares actuales.",
+          "Diseñé planes y scripts de prueba que redujeron la redundancia de pruebas en un 60% y garantizaron resultados más estables.",
+          "Desarrollé una aplicación de escritorio para automatizar la validación de bases de datos, aumentando la eficiencia en un 75%.",
+          "Automaticé procesos costosos que antes dependían de servicios de suscripción e integré varias funcionalidades."
+        ],
+        "technologies": "Python (Django, Flask), Librerías (BeautifulSoup, pytest, pandas, requests, Pillow, NumPy, OpenCV), PHP, HTML5, JavaScript, GitHub, Jenkins pipelines, Asana, Fork, PowerShell scripts"
+      },
+      {
+        "title": "Desarrollador Full-Stack (Junior)",
+        "company_and_dates": "Check-in scan (Jun 2019 – Feb 2021)",
+        "responsibilities": [
+          "Programé formularios en JavaScript para interactuar con la base de datos y realizar llamadas a API externas, mejorando la eficiencia operativa y la experiencia del usuario.",
+          "Implementé mejoras para optimizar el sitio web y hacerlo más responsivo, contribuyendo a un aumento del 55% en ventas.",
+          "Utilicé Python para desarrollar redes neuronales (Keras, TensorFlow) enfocadas en la identificación de campos en documentos de identidad (DNI, NIE, pasaporte, permiso de conducir), alcanzando un 97,83% de precisión, superior a soluciones comerciales previas."
+        ],
+        "technologies": "Python, Librerías (Keras, TensorFlow, pytest, pandas, requests, Pillow, NumPy, OpenCV), PHP (CodeIgniter 3, Laravel), HTML5, JavaScript (React, Vue.js), GitHub, Asana, Fork, PowerShell y Bash scripts"
+      },
+      {
+        "title": "Gerente",
+        "company_and_dates": "Masterservices S.L. (Mar 2012 – Feb 2018)",
+        "responsibilities": [
+          "Dirigí una empresa de servicios para comunidades de propietarios, gestionando hasta 25 empleados.",
+          "Adquirí habilidades administrativas y de recursos humanos, negociaciones y resolución de conflictos, esenciales para el éxito de una PyME."
+        ],
+        "technologies": "Gestión empresarial, Recursos Humanos, Negociación, Resolución de conflictos"
+      }
+    ],
+    "technologies_label": "Tecnologías"
+  },
+  "agents": {
+    "title": "Mi Equipo de Agentes",
+    "items": [
+      {
+        "name": "agente_cv_integrator",
+        "description": "// TODO: Descripción"
+      },
+      {
+        "name": "agente_i18n",
+        "description": "// TODO: Descripción"
+      },
+      {
+        "name": "agente_deploy_main",
+        "description": "// TODO: Descripción"
+      },
+      {
+        "name": "agente_generador_de_proyectos",
+        "description": "// TODO: Descripción"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Proyectos",
+    "project_label": "Proyecto",
+    "placeholder_description": "// TODO: Descripción del proyecto",
+    "placeholder_note": "// Será generado por agente_generador_de_proyectos"
+  },
+  "contact": {
+    "title": "Contacto",
+    "placeholder": "// TODO: Enlaces a GitHub, LinkedIn",
+    "links": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  }
+}
+
