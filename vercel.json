@@ -1,9 +1,12 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "out",
+  "framework": null,
   "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/prototipo-produccion-rapida/(.*)",
+      "source": "/(prototipo-produccion-rapida|desarrollo-contextualizado-estandarizado|orquestacion-auditoria-agentes|desarrollo-tdd|gestion-requisitos-flujo-trabajo-mcp|investigacion-aprendizaje-acelerado-referencias|dashboard-analitico-empresarial|workflow-automatizado-n8n)/(.*).html",
       "headers": [
         {
           "key": "Content-Type",
@@ -12,133 +15,12 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/desarrollo-contextualizado-estandarizado/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
         },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
         }
       ]
-    },
-    {
-      "source": "/orquestacion-auditoria-agentes/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/desarrollo-tdd/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/gestion-requisitos-flujo-trabajo-mcp/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/investigacion-aprendizaje-acelerado-referencias/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/dashboard-analitico-empresarial/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/workflow-automatizado-n8n/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/prototipo-produccion-rapida",
-      "destination": "/prototipo-produccion-rapida/index.html"
-    },
-    {
-      "source": "/desarrollo-contextualizado-estandarizado",
-      "destination": "/desarrollo-contextualizado-estandarizado/index.html"
-    },
-    {
-      "source": "/orquestacion-auditoria-agentes",
-      "destination": "/orquestacion-auditoria-agentes/index.html"
-    },
-    {
-      "source": "/desarrollo-tdd",
-      "destination": "/desarrollo-tdd/index.html"
-    },
-    {
-      "source": "/gestion-requisitos-flujo-trabajo-mcp",
-      "destination": "/gestion-requisitos-flujo-trabajo-mcp/index.html"
-    },
-    {
-      "source": "/investigacion-aprendizaje-acelerado-referencias",
-      "destination": "/investigacion-aprendizaje-acelerado-referencias/index.html"
-    },
-    {
-      "source": "/dashboard-analitico-empresarial",
-      "destination": "/dashboard-analitico-empresarial/index.html"
-    },
-    {
-      "source": "/workflow-automatizado-n8n",
-      "destination": "/workflow-automatizado-n8n/index.html"
     }
   ]
 }
