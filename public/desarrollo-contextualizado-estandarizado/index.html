@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: Price Manager - Desarrollo Estandarizado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #06b6d4;
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #06b6d4;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+
+        .demo-section {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: #06b6d4;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            color: #e2e8f0;
+            font-size: 1rem;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #06b6d4;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        button {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #06b6d4;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            color: #06b6d4;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .price-breakdown {
+            margin-bottom: 1rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #334155;
+        }
+
+        .price-label {
+            color: #94a3b8;
+        }
+
+        .price-value {
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .final-price {
+            font-size: 2rem;
+            color: #06b6d4;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #06b6d4;
+        }
+
+        .discounts-applied {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 3px solid #06b6d4;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 6px;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: #06b6d4;
+            color: #0f172a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.25rem;
+        }
+
+        .standards-showcase {
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid #06b6d4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .code-sample {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            color: #06b6d4;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Price Manager Demo</h1>
+            <p class="subtitle">Demostración de Desarrollo Contextualizado y Estandarizado</p>
+        </header>
+
+        <div class="demo-section">
+            <h2 style="color: #06b6d4; margin-bottom: 1.5rem;">Calculadora de Precios</h2>
+            <div class="demo-grid">
+                <div>
+                    <div class="input-group">
+                        <label for="productId">ID del Producto</label>
+                        <input type="text" id="productId" value="PRD-001" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="basePrice">Precio Base</label>
+                        <input type="number" id="basePrice" value="100" step="0.01" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="currency">Moneda</label>
+                        <select id="currency">
+                            <option value="USD">USD - Dólar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - Libra</option>
+                            <option value="MXN">MXN - Peso</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="taxRate">Tasa de Impuesto (%)</label>
+                        <input type="number" id="taxRate" value="21" step="0.01" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="discountPercentage">Descuento Porcentaje (%)</label>
+                        <input type="number" id="discountPercentage" value="10" step="0.01" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="discountFixed">Descuento Fijo</label>
+                        <input type="number" id="discountFixed" value="0" step="0.01" />
+                    </div>
+
+                    <div class="input-group checkbox-group">
+                        <input type="checkbox" id="isMember" />
+                        <label for="isMember" style="margin-bottom: 0;">¿Es miembro? (5% adicional)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="promoCode">Código Promocional</label>
+                        <input type="text" id="promoCode" placeholder="Prueba: SAVE10" />
+                    </div>
+
+                    <button onclick="calculatePrice()">Calcular Precio Final</button>
+                </div>
+
+                <div>
+                    <div class="result-card">
+                        <div class="result-title">Desglose de Precio</div>
+                        <div class="price-breakdown">
+                            <div class="price-row">
+                                <span class="price-label">Precio Base:</span>
+                                <span class="price-value" id="resultBasePrice">$0.00</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Descuentos:</span>
+                                <span class="price-value" id="resultDiscount" style="color: #22c55e;">-$0.00</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Subtotal:</span>
+                                <span class="price-value" id="resultSubtotal">$0.00</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Impuestos:</span>
+                                <span class="price-value" id="resultTax">$0.00</span>
+                            </div>
+                        </div>
+                        <div class="final-price" id="resultFinalPrice">$0.00</div>
+                        <div class="discounts-applied" id="discountsApplied" style="display: none;">
+                            <strong style="color: #06b6d4;">Descuentos Aplicados:</strong>
+                            <div id="discountBadges"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="standards-showcase">
+            <h2 style="color: #06b6d4; margin-bottom: 1rem;">✅ Estándares Aplicados</h2>
+            <p style="color: #94a3b8; margin-bottom: 1.5rem;">
+                Este código demuestra control total sobre la IA generativa, siguiendo estrictamente las convenciones definidas:
+            </p>
+
+            <h3 style="color: #06b6d4; font-size: 1.1rem; margin-top: 1.5rem;">1. Nomenclatura snake_case</h3>
+            <div class="code-sample">
+                <span class="highlight">function</span> calculate_final_price(...)<br>
+                <span class="highlight">const</span> applied_discounts = [];<br>
+                <span class="highlight">let</span> current_price = product.base_price;
+            </div>
+
+            <h3 style="color: #06b6d4; font-size: 1.1rem; margin-top: 1.5rem;">2. Tipos PascalCase</h3>
+            <div class="code-sample">
+                <span class="highlight">type</span> ProductPrice = { ... }<br>
+                <span class="highlight">type</span> DiscountOptions = { ... }<br>
+                <span class="highlight">type</span> PriceCalculationResult = { ... }
+            </div>
+
+            <h3 style="color: #06b6d4; font-size: 1.1rem; margin-top: 1.5rem;">3. Documentación JSDoc Completa</h3>
+            <div class="code-sample">
+                /**<br>
+                 * Calcula el precio final...<br>
+                 * <span class="highlight">@param</span> {ProductPrice} product<br>
+                 * <span class="highlight">@returns</span> {PriceCalculationResult}<br>
+                 * <span class="highlight">@example</span> ...<br>
+                 */
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulación de la lógica de price_manager.ts
+        function calculate_final_price(product, discount_options = {}) {
+            const applied_discounts = [];
+            let current_price = product.base_price;
+            let total_discount = 0;
+
+            // Descuento por porcentaje
+            if (discount_options.discount_percentage) {
+                const percentage_discount = current_price * (discount_options.discount_percentage / 100);
+                total_discount += percentage_discount;
+                current_price -= percentage_discount;
+                applied_discounts.push(`${discount_options.discount_percentage}% descuento`);
+            }
+
+            // Descuento fijo
+            if (discount_options.discount_fixed) {
+                total_discount += discount_options.discount_fixed;
+                current_price -= discount_options.discount_fixed;
+                applied_discounts.push(`$${discount_options.discount_fixed} descuento fijo`);
+            }
+
+            // Descuento de membresía
+            if (discount_options.is_member) {
+                const member_discount = current_price * 0.05;
+                total_discount += member_discount;
+                current_price -= member_discount;
+                applied_discounts.push('5% descuento de miembro');
+            }
+
+            // Código promocional
+            if (discount_options.promo_code === 'SAVE10') {
+                const promo_discount = current_price * 0.10;
+                total_discount += promo_discount;
+                current_price -= promo_discount;
+                applied_discounts.push('Código promocional SAVE10');
+            }
+
+            // Calcular impuestos
+            const tax_amount = current_price * product.tax_rate;
+            const final_price = current_price + tax_amount;
+
+            return {
+                base_price: product.base_price,
+                discount_amount: total_discount,
+                tax_amount,
+                final_price: Math.round(final_price * 100) / 100,
+                currency: product.currency,
+                applied_discounts,
+                subtotal: current_price
+            };
+        }
+
+        function format_price(price, currency) {
+            const currency_symbols = {
+                USD: '$',
+                EUR: '€',
+                GBP: '£',
+                MXN: '$'
+            };
+            const symbol = currency_symbols[currency] || currency;
+            return `${symbol}${price.toFixed(2)}`;
+        }
+
+        function calculatePrice() {
+            // Obtener valores del formulario
+            const product = {
+                product_id: document.getElementById('productId').value,
+                base_price: parseFloat(document.getElementById('basePrice').value),
+                currency: document.getElementById('currency').value,
+                tax_rate: parseFloat(document.getElementById('taxRate').value) / 100
+            };
+
+            const discount_options = {
+                discount_percentage: parseFloat(document.getElementById('discountPercentage').value) || 0,
+                discount_fixed: parseFloat(document.getElementById('discountFixed').value) || 0,
+                is_member: document.getElementById('isMember').checked,
+                promo_code: document.getElementById('promoCode').value
+            };
+
+            // Calcular
+            const result = calculate_final_price(product, discount_options);
+
+            // Mostrar resultados
+            document.getElementById('resultBasePrice').textContent = format_price(result.base_price, result.currency);
+            document.getElementById('resultDiscount').textContent = '-' + format_price(result.discount_amount, result.currency);
+            document.getElementById('resultSubtotal').textContent = format_price(result.subtotal, result.currency);
+            document.getElementById('resultTax').textContent = format_price(result.tax_amount, result.currency);
+            document.getElementById('resultFinalPrice').textContent = format_price(result.final_price, result.currency);
+
+            // Mostrar descuentos aplicados
+            if (result.applied_discounts.length > 0) {
+                document.getElementById('discountsApplied').style.display = 'block';
+                const badgesContainer = document.getElementById('discountBadges');
+                badgesContainer.innerHTML = result.applied_discounts
+                    .map(d => `<span class="discount-badge">${d}</span>`)
+                    .join('');
+            } else {
+                document.getElementById('discountsApplied').style.display = 'none';
+            }
+        }
+
+        // Calcular al cargar la página
+        window.addEventListener('load', calculatePrice);
+    </script>
+</body>
+</html>
+
