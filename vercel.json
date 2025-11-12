@@ -6,7 +6,7 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/(prototipo-produccion-rapida|desarrollo-contextualizado-estandarizado|orquestacion-auditoria-agentes|desarrollo-tdd|gestion-requisitos-flujo-trabajo-mcp|investigacion-aprendizaje-acelerado-referencias|dashboard-analitico-empresarial|workflow-automatizado-n8n)/(.*).html",
+      "source": "/(prototipo-produccion-rapida|desarrollo-contextualizado-estandarizado|orquestacion-auditoria-agentes|desarrollo-tdd|gestion-requisitos-flujo-trabajo-mcp|investigacion-aprendizaje-acelerado-referencias|dashboard-analitico-empresarial|workflow-automatizado-n8n)/demo.html",
       "headers": [
         {
           "key": "Content-Type",
@@ -19,6 +19,15 @@
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
+        }
+      ]
+    },
+    {
+      "source": "/(prototipo-produccion-rapida|desarrollo-contextualizado-estandarizado|orquestacion-auditoria-agentes|desarrollo-tdd|gestion-requisitos-flujo-trabajo-mcp|investigacion-aprendizaje-acelerado-referencias|dashboard-analitico-empresarial|workflow-automatizado-n8n)/(.*)\.(css|js|json|png|jpg|jpeg|gif|svg|woff|woff2|ttf)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }

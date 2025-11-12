@@ -68,7 +68,7 @@ Realizarás esta misión en 6 fases:
       );
     }
     ```
-
+revisa todo el proyecto paa comprobar que no faltan campos por traducir
 ### Fase 5: Implementación del Language Switcher
 1.  **Crear Componente:** Crea un nuevo componente `components/LanguageSwitcher.tsx`.
 2.  **Lógica:** Este componente debe mostrar las dos opciones de idioma (ej. "ES" / "EN"). Debe usar el componente `Link` de `next-intl` para permitir al usuario cambiar el `locale` (ruta) actual.
