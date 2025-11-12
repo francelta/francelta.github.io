@@ -15,7 +15,7 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
 
 ---
 **Proyecto 1: Aceleración de MVP (Prototipo de Producción Rápida)**
-* **Carpeta:** `projects/proyecto-1-mvp`
+* **Carpeta:** `projects/prototipo-produccion-rapida`
 * **Acción del Agente:**
     1.  Crea la carpeta.
     2.  Genera un `index.html` simple y `style.css` para un "Portfolio Básico" o "Web de QA".
@@ -24,7 +24,7 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
 
 ---
 **Proyecto 2: Desarrollo Contextualizado y Estandarizado**
-* **Carpeta:** `projects/proyecto-2-estandares`
+* **Carpeta:** `projects/desarrollo-contextualizado-estandarizado`
 * **Acción del Agente:**
     1.  Crea la carpeta.
     2.  Genera un archivo `price_manager.ts`.
@@ -33,7 +33,7 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
 
 ---
 **Proyecto 3: Orquestación y Auditoría de Agentes (Arquitectura)**
-* **Carpeta:** `projects/proyecto-3-arquitectura`
+* **Carpeta:** `projects/orquestacion-auditoria-agentes`
 * **Acción del Agente:**
     1.  Crea la carpeta.
     2.  Este proyecto no es sobre código, es sobre *la salida de otro agente*.
@@ -44,7 +44,7 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
 
 ---
 **Proyecto 4: Desarrollo Seguro con TDD (Test-Driven Development)**
-* **Carpeta:** `projects/proyecto-4-tdd`
+* **Carpeta:** `projects/desarrollo-tdd`
 * **Acción del Agente:**
     1.  Crea la carpeta.
     2.  Genera `otp_service.ts` (lógica para generar un código OTP). Esta lógica debe cumplir con `snake_case`.
@@ -53,7 +53,7 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
 
 ---
 **Proyecto 5: Gestión de Requisitos y Flujo de Trabajo (MCP)**
-* **Carpeta:** `projects/proyecto-5-mcp`
+* **Carpeta:** `projects/gestion-requisitos-flujo-trabajo-mcp`
 * **Acción del Agente:**
     1.  Crea la carpeta.
     2.  Crea `notas-reunion.md` (un brainstorming simple, ej: "Necesitamos login. Los usuarios deben ver tareas.").
@@ -62,7 +62,7 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
 
 ---
 **Proyecto 6: Investigación y Aprendizaje Acelerado con Referencias**
-* **Carpeta:** `projects/proyecto-6-investigacion`
+* **Carpeta:** `projects/investigacion-aprendizaje-acelerado-referencias`
 * **Acción del Agente:**
     1.  Crea la carpeta.
     2.  Crea un `README.md` que *simule* una salida de Notebook LM. El README debe incluir:
@@ -79,19 +79,11 @@ Cuando el usuario te pida "Crea el Proyecto X", consultarás esta lista:
 3.  Crearás la carpeta y los archivos especificados para ese proyecto.
 4.  Al final de tu respuesta, proporcionarás el bloque de comandos Git exacto para que el usuario pueda subir ESE proyecto a su propio repositorio.
 
-## 5. Plantilla de Salida (Comandos Git para el Usuario)
+## 5. Plantilla de Salida 
 
 Cuando termines de generar los archivos, siempre terminarás tu respuesta con este texto:
 
 "He generado los archivos para **[Nombre del Proyecto]** en la carpeta `projects/[nombre-carpeta]`.
-
-Aquí están los comandos para convertir esta carpeta en su propio repositorio de GitHub:
-
-```bash
-# 1. Ve a GitHub y crea un nuevo repositorio vacío (ej. 'portfolio-project-tdd')
-# 2. Copia la URL .git de ese nuevo repositorio.
-# 3. Ejecuta estos comandos en tu terminal:
-
 # Navega a la carpeta específica del proyecto
 cd projects/[nombre-carpeta]
 
@@ -100,7 +92,9 @@ git init -b main
 git add .
 git commit -m "feat: Archivos de ejemplo para el [Nombre del Proyecto]"
 
-# Enlaza y sube al repositorio que acabas de crear en GitHub
-# (Reemplaza la URL de ejemplo con la tuya)
-git remote add origin [https://github.com/francelta/](https://github.com/francelta/)[nombre-repo-github].git
+
+# 
+git remote add origin [https://github.com/francelta/](https://github.com/francelta/)[Nombre del Proyecto].git
 git push -u origin main
+
+
