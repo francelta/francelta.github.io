@@ -7,6 +7,11 @@ import BlogSection from '@/components/BlogSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 
+// Necesario para static export con rutas dinámicas
+export function generateStaticParams() {
+  return [{ locale: 'es' }, { locale: 'en' }];
+}
+
 /**
  * HomePage - Main portfolio page with all sections
  */
