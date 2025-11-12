@@ -14,7 +14,7 @@ export default function ProjectsSection() {
       description: 'De "Idea a URL en producción" en menos de 10 minutos. Portfolio QA Engineer con IA, modo oscuro profesional y despliegue automatizado',
       image: '/projects/project-1.png',
       tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Firebase Hosting'],
-      demo: '/prototipo-produccion-rapida',
+      demo: '/prototipo-produccion-rapida/index.html',
       github: 'https://github.com/francelta/prototipo-produccion-rapida',
     },
     {
@@ -134,6 +134,8 @@ export default function ProjectsSection() {
                 <div className="flex gap-3">
                   <a
                     href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-accent-500 text-zinc-950 rounded-lg font-semibold hover:bg-accent-500/90 transition-colors"
                   >
                     <ExternalLink size={18} />
@@ -141,6 +143,8 @@ export default function ProjectsSection() {
                   </a>
                   <a
                     href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-neutral-700 text-neutral-300 rounded-lg font-semibold hover:border-accent-500 hover:text-accent-500 transition-colors"
                   >
                     <Github size={18} />
