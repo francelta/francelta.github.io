@@ -22,9 +22,9 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-md bg-zinc-950/80 border-b border-cyan-400/20">
+    <nav className="sticky top-0 z-50 w-full backdrop-blur-md bg-black/50 border-b border-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <h1 className="text-2xl font-bold text-cyan-400">{t('brand')}</h1>
           </div>
@@ -34,7 +34,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-neutral-300 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-neutral-300 hover:text-cyan-400 transition-colors px-3 py-2 rounded-md text-sm font-medium"
                 >
                   {link.label}
                 </a>

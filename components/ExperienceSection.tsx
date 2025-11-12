@@ -30,15 +30,16 @@ export default function ExperienceSection() {
   }));
 
   return (
-    <section id="experience" className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-32 bg-zinc-900/50">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-6xl mx-auto"
-      >
-        <h2 className="text-3xl md:text-5xl font-bold text-cyan-400 mb-12 text-center">
+    <motion.section 
+      id="experience" 
+      className="py-24 sm:py-32"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-cyan-400 text-center">
           {t('title')}
         </h2>
         <div className="space-y-8">
@@ -47,9 +48,9 @@ export default function ExperienceSection() {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="border border-cyan-400/20 rounded-lg p-6 bg-zinc-900 hover:border-cyan-400/50 hover:bg-zinc-800/50 transition-all duration-300 shadow-lg hover:shadow-cyan-400/10"
+              className="bg-zinc-900 border border-neutral-800 rounded-lg p-6 transition-all duration-300 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-400/10"
             >
               <h3 className="text-2xl font-semibold text-cyan-400 mb-2">
                 {job.title}
@@ -64,7 +65,7 @@ export default function ExperienceSection() {
                   </li>
                 ))}
               </ul>
-              <div className="pt-4 border-t border-cyan-400/20">
+              <div className="pt-4 border-t border-neutral-800">
                 <p className="text-xs text-neutral-400">
                   <span className="text-cyan-400 font-semibold">{t('technologies_label')}:</span> {job.technologies}
                 </p>
@@ -72,7 +73,7 @@ export default function ExperienceSection() {
             </motion.div>
           ))}
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </motion.section>
   );
 }

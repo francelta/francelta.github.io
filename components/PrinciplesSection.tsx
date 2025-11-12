@@ -26,15 +26,16 @@ export default function PrinciplesSection() {
   }));
 
   return (
-    <section id="principles" className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-32 bg-zinc-900/50">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-6xl mx-auto"
-      >
-        <h2 className="text-3xl md:text-5xl font-bold text-cyan-400 mb-12 text-center">
+    <motion.section 
+      id="principles" 
+      className="py-24 sm:py-32"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-cyan-400 text-center">
           {t('title')}
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -43,9 +44,9 @@ export default function PrinciplesSection() {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-6 border border-cyan-400/20 rounded-lg bg-zinc-900 hover:border-cyan-400/50 hover:bg-zinc-800/50 transition-all duration-300 shadow-lg hover:shadow-cyan-400/10"
+              className="bg-zinc-900 border border-neutral-800 rounded-lg p-6 transition-all duration-300 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-400/10"
             >
               <h3 className="text-xl font-semibold text-cyan-400 mb-4">
                 {principle.title}
@@ -56,8 +57,8 @@ export default function PrinciplesSection() {
             </motion.div>
           ))}
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </motion.section>
   );
 }
 

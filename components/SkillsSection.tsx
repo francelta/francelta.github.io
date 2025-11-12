@@ -16,15 +16,16 @@ export default function SkillsSection() {
   const ai_tools: string[] = t.raw('categories.ai_tools.items');
 
   return (
-    <section id="skills" className="min-h-screen flex items-center justify-center px-4 py-24 sm:py-32">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-6xl mx-auto"
-      >
-        <h2 className="text-3xl md:text-5xl font-bold text-cyan-400 mb-12 text-center">
+    <motion.section 
+      id="skills" 
+      className="py-24 sm:py-32"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-cyan-400 text-center">
           {t('title')}
         </h2>
         
@@ -42,7 +43,7 @@ export default function SkillsSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="bg-zinc-800 text-cyan-400 rounded-full px-4 py-2 text-sm font-medium border border-cyan-400/30 hover:bg-zinc-700 hover:border-cyan-400/50 transition-all duration-300"
+                  className="bg-zinc-900 border border-neutral-800 text-cyan-400 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-400/10"
                 >
                   {lang}
                 </motion.span>
@@ -63,7 +64,7 @@ export default function SkillsSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="bg-zinc-800 text-cyan-400 rounded-full px-4 py-2 text-sm font-medium border border-cyan-400/30 hover:bg-zinc-700 hover:border-cyan-400/50 transition-all duration-300"
+                  className="bg-zinc-900 border border-neutral-800 text-cyan-400 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-400/10"
                 >
                   {framework}
                 </motion.span>
@@ -84,7 +85,7 @@ export default function SkillsSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="bg-zinc-800 text-cyan-400 rounded-full px-4 py-2 text-sm font-medium border border-cyan-400/30 hover:bg-zinc-700 hover:border-cyan-400/50 transition-all duration-300"
+                  className="bg-zinc-900 border border-neutral-800 text-cyan-400 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-400/10"
                 >
                   {tool}
                 </motion.span>
@@ -93,20 +94,14 @@ export default function SkillsSection() {
           </div>
 
           {/* Operating Systems */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-center text-neutral-300 text-sm pt-8"
-          >
+          <div className="text-center text-neutral-300 text-sm pt-8">
             <p>
               <span className="text-cyan-400 font-semibold">{t('categories.operating_systems.label')}:</span> {t('categories.operating_systems.value')}
             </p>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </motion.section>
   );
 }
 
