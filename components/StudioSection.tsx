@@ -51,7 +51,7 @@ export default function StudioSection() {
               Combino <span className="text-accent-500 font-semibold">+6 años de experiencia</span> en 
               desarrollo tradicional con las capacidades de la{' '}
               <span className="text-accent-500 font-semibold">IA generativa</span>, actuando como 
-              "Arquitecto y Piloto" que orquesta agentes especializados.
+              &quot;Arquitecto y Piloto&quot; que orquesta agentes especializados.
             </p>
             <p className="text-lg text-neutral-400 leading-relaxed">
               Mi enfoque: <span className="text-accent-500">TDD</span> para calidad, 

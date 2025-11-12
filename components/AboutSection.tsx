@@ -47,7 +47,7 @@ export default function AboutSection() {
             <p className="text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
               Desarrollador Full-Stack con <span className="text-accent-500 font-semibold">+6 años de experiencia</span> en 
               aplicaciones web, automatización y machine learning. Especializado en <span className="text-accent-500 font-semibold">GenAI</span>, 
-              actúo como "Arquitecto y Piloto" orquestando agentes de IA para acelerar el desarrollo en un 55%.
+              actúo como &quot;Arquitecto y Piloto&quot; orquestando agentes de IA para acelerar el desarrollo en un 55%.
             </p>
           </div>
 
