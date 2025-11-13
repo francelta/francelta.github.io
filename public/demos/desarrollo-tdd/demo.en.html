@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: OTP Service - TDD (Test-Driven Development)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 3px solid #22c55e;
+            padding-bottom: 2rem;
+        }
+
+        .tdd-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #0f172a;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #22c55e;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #94a3b8;
+        }
+
+        .tdd-flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tdd-step {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .tdd-step:hover {
+            border-color: #22c55e;
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #0f172a;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            color: #22c55e;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-status {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-section {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #22c55e;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .otp-generator {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #22c55e;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .otp-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #22c55e;
+            letter-spacing: 0.5rem;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+        }
+
+        .expiry-info {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #0f172a;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 0.5rem;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button.secondary {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .validation-section {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.5rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+
+        .result {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .result.success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .result.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .tests-section {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .test-suite {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .test-item {
+            background: rgba(30, 41, 59, 0.5);
+            border-left: 3px solid #22c55e;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .test-icon {
+            font-size: 1.2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .code-example {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            color: #22c55e;
+        }
+
+        @media (max-width: 768px) {
+            .tdd-flow,
+            .demo-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="tdd-badge">🧪 Test-Driven Development</div>
+            <h1>🔐 OTP Service Demo</h1>
+            <p class="subtitle">OTP code service developed with TDD</p>
+        </header>
+
+        <!-- TDD Flow -->
+        <div class="tdd-flow">
+            <div class="tdd-step">
+                <div class="step-number">1</div>
+                <div class="step-status">❌</div>
+                <div class="step-title">RED</div>
+                <p style="color: #94a3b8; font-size: 0.9rem;">Write failing tests</p>
+            </div>
+            <div class="tdd-step">
+                <div class="step-number">2</div>
+                <div class="step-status">✅</div>
+                <div class="step-title">GREEN</div>
+                <p style="color: #94a3b8; font-size: 0.9rem;">Implement minimum code</p>
+            </div>
+            <div class="tdd-step">
+                <div class="step-number">3</div>
+                <div class="step-status">🔄</div>
+                <div class="step-title">REFACTOR</div>
+                <p style="color: #94a3b8; font-size: 0.9rem;">Improve and optimize</p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">17</div>
+                <div class="stat-label">Total Tests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Tests Passing</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Coverage</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Functions</div>
+            </div>
+        </div>
+
+        <!-- Demo Interactiva -->
+        <div class="demo-section">
+            <h2>🎮 Interactive OTP Generator</h2>
+            <div class="demo-grid">
+                <!-- Generador -->
+                <div>
+                    <div class="otp-generator">
+                        <h3 style="color: #22c55e; margin-bottom: 1rem;">Generate OTP</h3>
+                        <div class="otp-display" id="otpDisplay">------</div>
+                        <div class="expiry-info">
+                            Expires in: <span id="expiryTime">--:--</span>
+                        </div>
+                        <button onclick="generateOTP()">🔄 Generate New OTP</button>
+                        <button class="secondary" onclick="copyOTP()">📋 Copy Code</button>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(34, 197, 94, 0.1); border-radius: 8px;">
+                        <h4 style="color: #22c55e; margin-bottom: 0.5rem;">📊 Generation Statistics</h4>
+                        <p style="color: #cbd5e1; font-size: 0.9rem;">
+                            Codes generated: <strong id="generatedCount">0</strong><br>
+                            Unique codes: <strong id="uniqueCount">0</strong><br>
+                            Uniqueness rate: <strong id="uniqueRate">100%</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Validación -->
+                <div>
+                    <div class="validation-section">
+                        <h3 style="color: #22c55e; margin-bottom: 1rem;">Validate OTP</h3>
+                        <p style="color: #94a3b8; margin-bottom: 1rem;">
+                            Enter the OTP code to validate it:
+                        </p>
+                        <input 
+                            type="text" 
+                            id="otpInput" 
+                            placeholder="000000" 
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                        />
+                        <button onclick="validateOTP()">✓ Validate Code</button>
+                        <div id="validationResult"></div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(30, 41, 59, 0.5); border-radius: 8px;">
+                        <h4 style="color: #22c55e; margin-bottom: 0.5rem;">🛡️ Security</h4>
+                        <ul style="color: #cbd5e1; font-size: 0.9rem; margin-left: 1.5rem;">
+                            <li>✅ Cryptographic randomness</li>
+                            <li>✅ SHA-256 hash</li>
+                            <li>✅ Automatic expiration</li>
+                            <li>✅ Format validation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tests Suite -->
+        <div class="tests-section">
+            <h2>🧪 Test Suite (17/17 Passing)</h2>
+            
+            <h3 style="color: #22c55e; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 1rem;">
+                Code Generation
+            </h3>
+            <div class="test-suite">
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must generate a 6-digit code</span>
+                </div>
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must not repeat codes in 100 generations</span>
+                </div>
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must generate codes within valid range</span>
+                </div>
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must include leading zeros</span>
+                </div>
+            </div>
+
+            <h3 style="color: #22c55e; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 1rem;">
+                Validation
+            </h3>
+            <div class="test-suite">
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must validate a correct OTP</span>
+                </div>
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must reject an incorrect OTP</span>
+                </div>
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must reject codes with incorrect length</span>
+                </div>
+            </div>
+
+            <h3 style="color: #22c55e; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 1rem;">
+                Security and Expiration
+            </h3>
+            <div class="test-suite">
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must generate consistent hash</span>
+                </div>
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must detect expired OTPs</span>
+                </div>
+                <div class="test-item">
+                    <span class="test-icon">✅</span>
+                    <span>must maintain uniqueness under high frequency</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Standards -->
+        <div class="demo-section">
+            <h2>✅ Code Standards Applied</h2>
+            <h3 style="color: #22c55e; font-size: 1.2rem; margin-bottom: 1rem;">snake_case + JSDoc</h3>
+            <div class="code-example">
+<span style="color: #94a3b8;">/**</span>
+<span style="color: #94a3b8;"> * Generates a random 6-digit OTP code</span>
+<span style="color: #94a3b8;"> * @returns {string} OTP code</span>
+<span style="color: #94a3b8;"> */</span>
+<span class="highlight">export function</span> generate_otp(): string {
+  <span style="color: #94a3b8;">// Cryptographic randomness</span>
+  <span class="highlight">const</span> random_number = crypto.randomInt(<span style="color: #fbbf24;">0</span>, <span style="color: #fbbf24;">1000000</span>);
+  <span class="highlight">return</span> random_number.toString().padStart(<span style="color: #fbbf24;">6</span>, <span style="color: #a78bfa;">'0'</span>);
+}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentOTP = '';
+        let expiryDate = null;
+        let generatedCodes = [];
+        let expiryTimer = null;
+
+        function generateOTP() {
+            // Simulate crypto.randomInt
+            const randomNumber = Math.floor(Math.random() * 1000000);
+            currentOTP = randomNumber.toString().padStart(6, '0');
+            
+            // Save for statistics
+            generatedCodes.push(currentOTP);
+            
+            // Update display
+            document.getElementById('otpDisplay').textContent = currentOTP;
+            
+            // Set expiration (5 minutes)
+            expiryDate = new Date(Date.now() + 5 * 60 * 1000);
+            
+            // Update statistics
+            updateStats();
+            
+            // Start expiry timer
+            startExpiryTimer();
+            
+            // Clear validation result
+            document.getElementById('validationResult').innerHTML = '';
+        }
+
+        function startExpiryTimer() {
+            if (expiryTimer) clearInterval(expiryTimer);
+            
+            expiryTimer = setInterval(() => {
+                if (!expiryDate) return;
+                
+                const now = Date.now();
+                const timeLeft = expiryDate.getTime() - now;
+                
+                if (timeLeft <= 0) {
+                    document.getElementById('expiryTime').textContent = '00:00 (Expired)';
+                    document.getElementById('expiryTime').style.color = '#ef4444';
+                    clearInterval(expiryTimer);
+                    return;
+                }
+                
+                const minutes = Math.floor(timeLeft / 60000);
+                const seconds = Math.floor((timeLeft % 60000) / 1000);
+                
+                document.getElementById('expiryTime').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('expiryTime').style.color = '#22c55e';
+            }, 1000);
+        }
+
+        function updateStats() {
+            const uniqueCodes = new Set(generatedCodes);
+            document.getElementById('generatedCount').textContent = generatedCodes.length;
+            document.getElementById('uniqueCount').textContent = uniqueCodes.size;
+            
+            const uniqueRate = generatedCodes.length > 0 
+                ? ((uniqueCodes.size / generatedCodes.length) * 100).toFixed(1)
+                : 100;
+            document.getElementById('uniqueRate').textContent = uniqueRate + '%';
+        }
+
+        function validateOTP() {
+            const input = document.getElementById('otpInput').value;
+            const resultDiv = document.getElementById('validationResult');
+            
+            // Validate format
+            if (!/^\d{6}$/.test(input)) {
+                resultDiv.innerHTML = '<div class="result error">❌ Invalid format. Must be 6 digits.</div>';
+                return;
+            }
+            
+            // Validate expiration
+            if (expiryDate && Date.now() > expiryDate.getTime()) {
+                resultDiv.innerHTML = '<div class="result error">⏰ OTP expired. Generate a new one.</div>';
+                return;
+            }
+            
+            // Validate code
+            if (input === currentOTP) {
+                resultDiv.innerHTML = '<div class="result success">✅ Valid code. Verification successful.</div>';
+            } else {
+                resultDiv.innerHTML = '<div class="result error">❌ Incorrect code. Try again.</div>';
+            }
+        }
+
+        function copyOTP() {
+            if (!currentOTP || currentOTP === '------') {
+                alert('Generate an OTP first');
+                return;
+            }
+            
+            navigator.clipboard.writeText(currentOTP).then(() => {
+                alert('✅ OTP copied to clipboard: ' + currentOTP);
+            });
+        }
+
+        // Allow validation with Enter
+        document.getElementById('otpInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                validateOTP();
+            }
+        });
+
+        // Generate initial OTP
+        window.addEventListener('load', generateOTP);
+    </script>
+</body>
+</html>
+

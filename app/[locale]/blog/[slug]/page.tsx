@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import fs from 'fs';
 import path from 'path';
 
@@ -17,42 +18,9 @@ interface BlogPost {
   category: string;
 }
 
-const blog_posts_data: Record<string, BlogPost> = {
-  'vibe-coding': {
-    slug: 'vibe-coding',
-    title: 'Más Allá del "Vibe Coding": Por Qué Dejé de Escribir Código y Empecé a Dirigir Agentes',
-    excerpt: 'El 45% del código ya lo escribe una IA. El trabajo ya no es teclear, es orquestar.',
-    content: '', // Se carga dinámicamente
-    image: '/blog/blog-1.png',
-    date: '15 de Octubre, 2024',
-    read_time: '8 min',
-    category: 'Filosofía',
-  },
-  'tdd-owasp': {
-    slug: 'tdd-owasp',
-    title: 'La IA como "Becario" Vulnerable: Mi Flujo TDD y OWASP en la Era de GenAI',
-    excerpt: 'La IA genera código con vulnerabilidades. Mi trabajo es aplicar "Seguridad por Diseño" y TDD para auditarla.',
-    content: '',
-    image: '/blog/blog-2.png',
-    date: '3 de Octubre, 2024',
-    read_time: '12 min',
-    category: 'Metodología',
-  },
-  'caso-estudio': {
-    slug: 'caso-estudio',
-    title: 'Caso de Estudio: Cómo Orquesté un Equipo de Agentes para Construir este Mismo Portafolio',
-    excerpt: 'Este sitio no fue escrito por mí, fue dirigido por mí. Desgloso el "equipo" de agentes que usé.',
-    content: '',
-    image: '/blog/blog-3.png',
-    date: '21 de Septiembre, 2024',
-    read_time: '10 min',
-    category: 'Caso Real',
-  },
-};
-
 export async function generateStaticParams() {
   const locales = ['es', 'en'];
-  const slugs = Object.keys(blog_posts_data);
+  const slugs = ['vibe-coding', 'tdd-owasp', 'caso-estudio'];
   
   return locales.flatMap((locale) =>
     slugs.map((slug) => ({
@@ -62,14 +30,15 @@ export async function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = blog_posts_data[params.slug];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string; locale: string }> | { slug: string; locale: string } }): Promise<Metadata> {
+  const { slug, locale } = await Promise.resolve(params);
+  const t = await getTranslations({ locale, namespace: 'blog' });
   
-  if (!post) {
-    return {
-      title: 'Artículo no encontrado',
-    };
-  }
+  const postKey = slug === 'vibe-coding' ? 'vibeCoding' : slug === 'tdd-owasp' ? 'tddOwasp' : 'caseStudy';
+  const post = {
+    title: t(`posts.${postKey}.title`),
+    excerpt: t(`posts.${postKey}.excerpt`),
+  };
 
   return {
     title: `${post.title} - Fran Carrasco`,
@@ -77,24 +46,36 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-function get_blog_content(slug: string): string {
+function get_blog_content(slug: string, locale: string): string {
   try {
     const blog_dir = path.join(process.cwd(), 'blog');
-    const file_path = path.join(blog_dir, `${slug}.md`);
+    const file_path = path.join(blog_dir, locale === 'en' ? `${slug}.en.md` : `${slug}.md`);
     return fs.readFileSync(file_path, 'utf-8');
   } catch {
     return '';
   }
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string; locale: string } }) {
-  const post = blog_posts_data[params.slug];
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string; locale: string }> | { slug: string; locale: string } }) {
+  const { slug, locale } = await Promise.resolve(params);
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'blog' });
 
-  if (!post) {
-    notFound();
-  }
+  const postKey = slug === 'vibe-coding' ? 'vibeCoding' : slug === 'tdd-owasp' ? 'tddOwasp' : 'caseStudy';
+  
+  const post = {
+    slug,
+    title: t(`posts.${postKey}.title`),
+    excerpt: t(`posts.${postKey}.excerpt`),
+    image: slug === 'vibe-coding' ? '/blog/blog-1.png' : slug === 'tdd-owasp' ? '/blog/blog-2.png' : '/blog/blog-3.png',
+    date: locale === 'es' 
+      ? (slug === 'vibe-coding' ? '15 de Octubre, 2024' : slug === 'tdd-owasp' ? '3 de Octubre, 2024' : '21 de Septiembre, 2024')
+      : (slug === 'vibe-coding' ? 'October 15, 2024' : slug === 'tdd-owasp' ? 'October 3, 2024' : 'September 21, 2024'),
+    read_time: slug === 'vibe-coding' ? '8 min' : slug === 'tdd-owasp' ? '12 min' : '10 min',
+    category: slug === 'vibe-coding' ? t('categories.philosophy') : slug === 'tdd-owasp' ? t('categories.methodology') : t('categories.caseStudy'),
+  };
 
-  const content = get_blog_content(params.slug);
+  const content = get_blog_content(slug, locale);
   
   // Convertir markdown simple a HTML (básico)
   const html_content = content
@@ -161,11 +142,11 @@ export default function BlogPostPage({ params }: { params: { slug: string; local
       <header className="border-b border-neutral-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <Link 
-            href={`/${params.locale}/blog`} 
+            href={`/${locale}/blog`} 
             className="inline-flex items-center gap-2 text-neutral-400 hover:text-accent-500 transition-colors mb-6"
           >
             <ArrowLeft size={20} />
-            Volver al blog
+            {t('backToBlog')}
           </Link>
         </div>
       </header>
@@ -204,11 +185,11 @@ export default function BlogPostPage({ params }: { params: { slug: string; local
           </span>
           <span className="flex items-center gap-2">
             <Clock size={18} />
-            {post.read_time} de lectura
+            {post.read_time} {t('readingTime')}
           </span>
           <button className="flex items-center gap-2 hover:text-accent-500 transition-colors ml-auto">
             <Share2 size={18} />
-            Compartir
+            {t('share')}
           </button>
         </div>
 
@@ -225,8 +206,8 @@ export default function BlogPostPage({ params }: { params: { slug: string; local
               <span className="text-2xl font-bold text-accent-500">FC</span>
             </div>
             <div>
-              <h3 className="font-display font-semibold text-lg text-white">Fran Carrasco</h3>
-              <p className="text-neutral-400">Desarrollador Full-Stack · Arquitecto de IA · +6 años experiencia</p>
+              <h3 className="font-display font-semibold text-lg text-white">{t('author')}</h3>
+              <p className="text-neutral-400">{t('authorDescription')}</p>
             </div>
           </div>
           <div className="mt-4 flex gap-4">
@@ -245,10 +226,10 @@ export default function BlogPostPage({ params }: { params: { slug: string; local
         {/* Back to blog */}
         <div className="mt-12 mb-16 text-center">
           <Link
-            href={`/${params.locale}/blog`}
+            href={`/${locale}/blog`}
             className="inline-flex items-center gap-2 px-8 py-3 border-2 border-neutral-700 text-neutral-300 rounded-full font-semibold hover:border-accent-500 hover:text-accent-500 transition-all duration-200"
           >
-            Ver todos los artículos
+            {t('viewAllArticles')}
           </Link>
         </div>
       </article>

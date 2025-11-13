@@ -2,18 +2,20 @@
 
 import { motion } from 'framer-motion';
 import { Heart, Code2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 /**
  * Footer Component - Site footer with credits and links
  */
 export default function Footer() {
+  const t = useTranslations('footer');
   const current_year = new Date().getFullYear();
 
   const footer_links = [
-    { label: 'Inicio', href: '#hero' },
-    { label: 'Proyectos', href: '#projects' },
-    { label: 'Blog', href: '#blog' },
-    { label: 'Contacto', href: '#contact' },
+    { label: t('links.home'), href: '#hero' },
+    { label: t('links.projects'), href: '#projects' },
+    { label: t('links.blog'), href: '#blog' },
+    { label: t('links.contact'), href: '#contact' },
   ];
 
   return (
@@ -33,8 +35,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-neutral-400 text-sm leading-relaxed">
-              Desarrollador Full-Stack con +6 años de experiencia. 
-              Python, JavaScript, Machine Learning y desarrollo asistido por IA.
+              {t('description')}
             </p>
           </motion.div>
 
@@ -46,7 +47,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <h3 className="text-white font-display font-semibold mb-4">
-              Enlaces Rápidos
+              {t('quickLinks')}
             </h3>
             <ul className="space-y-2">
               {footer_links.map((link) => (
@@ -70,7 +71,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h3 className="text-white font-display font-semibold mb-4">
-              Stack Principal
+              {t('mainStack')}
             </h3>
             <div className="flex flex-wrap gap-2">
               {['Python', 'Django', 'React', 'Vue.js', 'TensorFlow', 'PostgreSQL'].map(
@@ -97,10 +98,10 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
             <p className="flex items-center gap-2">
-              © {current_year} Fran Carrasco. Todos los derechos reservados.
+              © {current_year} {t('copyright')}
             </p>
             <p className="flex items-center gap-2">
-              Hecho con <Heart className="w-4 h-4 text-accent-500 fill-accent-500" /> y{' '}
+              {t('madeWith')} <Heart className="w-4 h-4 text-accent-500 fill-accent-500" /> {t('and')}{' '}
               <Code2 className="w-4 h-4 text-accent-500" />
             </p>
           </div>

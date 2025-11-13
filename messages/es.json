@@ -1,0 +1,172 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "work": "Mi trabajo",
+    "blog": "Blog",
+    "contact": "Contáctame"
+  },
+  "hero": {
+    "name": "Fran Carrasco",
+    "roles": {
+      "fullstack": "Desarrollador Full-Stack",
+      "architect": "Arquitecto y Piloto de IA",
+      "ml": "Ingeniero de Machine Learning",
+      "automation": "Especialista en Automatización"
+    },
+    "description": "+6 años desarrollando aplicaciones web, automatizaciones y redes neuronales. Especializado en TDD, Security by Design y desarrollo asistido por IA (45% código con IA).",
+    "cta": {
+      "viewWork": "Ver mi trabajo",
+      "contact": "Contacto"
+    },
+    "scrollIndicator": "Desplázate para explorar",
+    "alt": "Fran Carrasco"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "description": "Desarrollador Full-Stack con +6 años de experiencia en aplicaciones web, automatización y machine learning. Especializado en GenAI, actúo como \"Arquitecto y Piloto\" orquestando agentes de IA para acelerar el desarrollo en un 55%.",
+    "features": {
+      "fullstack": {
+        "title": "Desarrollo Full-Stack",
+        "description": "Python (Django, Flask), JavaScript (React, Vue.js), PHP (Laravel) y bases de datos SQL"
+      },
+      "security": {
+        "title": "Seguridad por Diseño",
+        "description": "OWASP Top 10, hashing robusto, prevención de ataques y auditorías de seguridad"
+      },
+      "tdd": {
+        "title": "TDD & Automatización",
+        "description": "pytest, unittest, Jenkins CI/CD - Más de 40 tests por feature"
+      },
+      "ai": {
+        "title": "IA & Machine Learning",
+        "description": "TensorFlow, Keras, OpenCV - Redes neuronales con 97.83% de precisión"
+      }
+    }
+  },
+  "studio": {
+    "title": "Mi Filosofía 💡",
+    "description1": "Combino <experience>+6 años de experiencia</experience> en desarrollo tradicional con las capacidades de la <genai>IA generativa</genai>, actuando como \"Arquitecto y Piloto\" que orquesta agentes especializados.",
+    "description2": "Mi enfoque: <tdd>TDD</tdd> para calidad, <security>Security by Design</security> para protección, y <automation>automatización</automation> para eficiencia. Resultado: 55% más rápido, 45% de código asistido por IA, 0% de compromiso en calidad.",
+    "principles": {
+      "orchestration": {
+        "title": "Orquestación de Agentes",
+        "description": "Dirijo sub-agentes especializados (PM, Testing, Arquitectura, Auditoría) como mini-J.A.R.V.I.S."
+      },
+      "tdd": {
+        "title": "TDD & Calidad",
+        "description": "Suites de 20-40 tests por feature, criterios GERKIN y reducción de bugs en producción"
+      },
+      "security": {
+        "title": "Security by Design",
+        "description": "Mitigación de vulnerabilidades OWASP, código seguro y auditorías proactivas"
+      },
+      "automation": {
+        "title": "Automatización Total",
+        "description": "N8N workflows, scraping inteligente, CI/CD y eficiencia del 75% en validaciones"
+      }
+    }
+  },
+  "projects": {
+    "title": "Mi trabajo",
+    "subtitle": "Una selección de proyectos que demuestran mi experiencia en desarrollo full-stack, seguridad y arquitectura de sistemas",
+    "buttons": {
+      "demo": "Demo",
+      "code": "Código"
+    },
+    "items": {
+      "mvp": {
+        "title": "Aceleración de MVP (Prototipo de Producción Rápida)",
+        "description": "De \"Idea a URL en producción\" en menos de 10 minutos. Portfolio QA Engineer con IA, modo oscuro profesional y despliegue automatizado"
+      },
+      "standardized": {
+        "title": "Desarrollo Contextualizado y Estandarizado",
+        "description": "Módulo TypeScript que demuestra control absoluto sobre IA generativa. Código generado que sigue estándares estrictos: snake_case, PascalCase, JSDoc completo"
+      },
+      "orchestration": {
+        "title": "Orquestación y Auditoría de Agentes",
+        "description": "Análisis arquitectónico completo generado por agente IA: microservicios, diagramas Mermaid, seguridad OWASP y escalabilidad. De requisitos a documentación técnica profesional"
+      },
+      "tdd": {
+        "title": "Desarrollo Seguro con TDD",
+        "description": "Servicio de códigos OTP desarrollado con Test-Driven Development: 17 tests escritos ANTES del código. Demuestra TDD + estándares + seguridad OWASP con hashing y expiración"
+      },
+      "mcp": {
+        "title": "Gestión de Requisitos y Flujo de Trabajo (MCP)",
+        "description": "Transformación automática de notas de reunión a historias Gherkin: de informal a estructurado en 3 minutos. Integración con Linear/Jira vía Model Context Protocol"
+      },
+      "research": {
+        "title": "Investigación y Aprendizaje Acelerado con Referencias",
+        "description": "Análisis técnico tipo Notebook LM: Python vs JavaScript para IA. 8 fuentes académicas sintetizadas en 3 minutos con citas, mapas mentales y referencias verificables"
+      },
+      "dashboard": {
+        "title": "Dashboard Analítico Empresarial",
+        "description": "Dashboard en tiempo real con Vue.js + Django REST + PostgreSQL: métricas de digitalización, análisis de ventas por canal, objetivos estratégicos y Chart.js para visualización"
+      },
+      "n8n": {
+        "title": "Workflow de Automatización con IA y N8N",
+        "description": "Sistema automatizado que genera posts para LinkedIn desde artículos de blog: RSS Feed → Web Scraping → Claude Haiku AI → LinkedIn. 100% automatizado, ahorra 15 min/artículo"
+      }
+    }
+  },
+  "blog": {
+    "title": "También escribo...",
+    "subtitle": "Comparto conocimientos sobre IA, desarrollo de software y mejores prácticas de ingeniería",
+    "readMore": "Leer más",
+    "viewAll": "Ver todos los artículos",
+    "pageTitle": "Blog",
+    "pageSubtitle": "Artículos sobre desarrollo con IA, TDD, OWASP y orquestación de agentes",
+    "backToPortfolio": "Volver al portafolio",
+    "backToBlog": "Volver al blog",
+    "readFullArticle": "Leer artículo completo",
+    "readingTime": "de lectura",
+    "share": "Compartir",
+    "viewAllArticles": "Ver todos los artículos",
+    "author": "Fran Carrasco",
+    "authorDescription": "Desarrollador Full-Stack · Arquitecto de IA · +6 años experiencia",
+    "categories": {
+      "philosophy": "Filosofía",
+      "methodology": "Metodología",
+      "caseStudy": "Caso Real"
+    },
+    "posts": {
+      "vibeCoding": {
+        "title": "Más Allá del \"Vibe Coding\": Por Qué Dejé de Escribir Código y Empecé a Dirigir Agentes",
+        "excerpt": "El 45% del código ya lo escribe una IA. El trabajo ya no es teclear, es orquestar. Esta es mi filosofía como \"Piloto de IA\"."
+      },
+      "tddOwasp": {
+        "title": "La IA como \"Becario\" Vulnerable: Mi Flujo TDD y OWASP en la Era de GenAI",
+        "excerpt": "La IA genera código con vulnerabilidades (Vulnerability as a Service). Mi trabajo es aplicar \"Seguridad por Diseño\" y TDD para auditarla. La confianza cero es la nueva norma."
+      },
+      "caseStudy": {
+        "title": "Caso de Estudio: Cómo Orquesté un Equipo de Agentes para Construir este Mismo Portafolio",
+        "excerpt": "Este sitio no fue escrito por mí, fue dirigido por mí. Desgloso el \"equipo\" de agentes (agente_bootstrap, agente_visual...) que usé en Cursor para clonar y personalizar este sitio en horas, no semanas."
+      }
+    }
+  },
+  "contact": {
+    "title": "Conectemos",
+    "description": "¿Necesitas desarrollo full-stack, automatización o machine learning? Trabajo tanto remoto como presencial. Disponible para proyectos freelance y colaboraciones.",
+    "email": "francelta@gmail.com",
+    "findMe": "O encuéntrame en",
+    "location": "Málaga, España • +6 años de experiencia • Disponible para remoto y presencial",
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "description": "Desarrollador Full-Stack con +6 años de experiencia. Python, JavaScript, Machine Learning y desarrollo asistido por IA.",
+    "quickLinks": "Enlaces Rápidos",
+    "mainStack": "Stack Principal",
+    "links": {
+      "home": "Inicio",
+      "projects": "Proyectos",
+      "blog": "Blog",
+      "contact": "Contacto"
+    },
+    "copyright": "Fran Carrasco. Todos los derechos reservados.",
+    "madeWith": "Hecho con",
+    "and": "y"
+  }
+}

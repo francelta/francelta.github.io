@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: Requirements Management with MCP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 3px solid #8b5cf6;
+            padding-bottom: 2rem;
+        }
+
+        .mcp-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #8b5cf6;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #94a3b8;
+        }
+
+        .transformation-flow {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+
+        .flow-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 2rem;
+            min-height: 400px;
+        }
+
+        .flow-card.input {
+            border-color: #ef4444;
+        }
+
+        .flow-card.output {
+            border-color: #22c55e;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .card-title.input {
+            color: #ef4444;
+        }
+
+        .card-title.output {
+            color: #22c55e;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            font-size: 3rem;
+            color: #8b5cf6;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .agent-box {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .agent-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-steps {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .content-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .content-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content-box::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+
+        .content-box::-webkit-scrollbar-thumb {
+            background: #8b5cf6;
+            border-radius: 4px;
+        }
+
+        .informal {
+            color: #fbbf24;
+        }
+
+        .formal {
+            color: #22c55e;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8b5cf6;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8b5cf6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .comparison-section {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #8b5cf6;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th {
+            background: rgba(139, 92, 246, 0.2);
+            color: #8b5cf6;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #8b5cf6;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge.success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .badge.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .mcp-integration {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8b5cf6;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .integration-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .integration-step {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #8b5cf6;
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .benefit-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-left: 3px solid #8b5cf6;
+            padding: 1.5rem;
+            border-radius: 6px;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 968px) {
+            .transformation-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="mcp-badge">🔄 Model Context Protocol</div>
+            <h1>📝 Requirements Management with MCP</h1>
+            <p class="subtitle">From Informal Notes to Structured User Stories</p>
+        </header>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">3min</div>
+                <div class="stat-label">Transformation Time</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">25</div>
+                <div class="stat-label">Stories Generated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">97%</div>
+                <div class="stat-label">Time Reduction</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Requirements Coverage</div>
+            </div>
+        </div>
+
+        <!-- Transformation Flow -->
+        <div class="transformation-flow">
+            <!-- Input -->
+            <div class="flow-card input">
+                <div class="card-header">
+                    <span style="font-size: 2rem;">📄</span>
+                    <div class="card-title input">Input: Meeting Notes</div>
+                </div>
+                <div class="content-box">
+<span class="informal"># Meeting Notes
+
+## Authentication
+- Users need to be able to 
+  register with email and password
+- We need login, obviously
+- It would also be good to have Google OAuth
+- Users should be able to recover 
+  their password if they forget it
+
+## Main Dashboard
+- When you enter, you should see all 
+  your pending tasks immediately
+- It would be great to have filters: by 
+  project, by priority, by date
+- A calendar view would also 
+  be useful
+
+## Task Management
+- Create new tasks with title 
+  and description
+- Be able to assign tasks to other 
+  team members
+- Change status: Todo, 
+  In Progress, Done
+- Add deadlines
+- Priorities: High, Medium, Low
+...
+</span>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <span class="badge error">❌ Informal</span>
+                    <span class="badge error">❌ Disorganized</span>
+                    <span class="badge error">❌ No criteria</span>
+                </div>
+            </div>
+
+            <!-- Agent -->
+            <div>
+                <div class="flow-arrow">→</div>
+                <div class="agent-box">
+                    <div class="agent-title">🤖 AI Agent</div>
+                    <div class="agent-steps">
+                        1. Analyzes<br>
+                        2. Structures<br>
+                        3. Enriches<br>
+                        4. Validates
+                    </div>
+                </div>
+                <div class="flow-arrow">→</div>
+            </div>
+
+            <!-- Output -->
+            <div class="flow-card output">
+                <div class="card-header">
+                    <span style="font-size: 2rem;">✅</span>
+                    <div class="card-title output">Output: User Stories</div>
+                </div>
+                <div class="content-box">
+<span class="formal">Scenario: Successful registration of new user
+  Given that I am a new user
+  When I access the registration page
+  And I provide a valid email 
+    "user@example.com"
+  And I provide a secure password 
+    "Pass123!@#"
+  And I confirm the password
+  And I accept the terms and conditions
+  Then my account must be created 
+    successfully
+  And I must receive a verification email
+  And I must be redirected to the dashboard
+
+Scenario: Successful login with credentials
+  Given that I am a registered user 
+    with email "user@example.com"
+  And my password is "Pass123!@#"
+  When I access the login page
+  And I provide my correct credentials
+  Then I must be authenticated successfully
+  And I must see my personal dashboard
+...
+</span>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <span class="badge success">✅ Structured</span>
+                    <span class="badge success">✅ Gherkin</span>
+                    <span class="badge success">✅ Testable</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-section">
+            <h2>📊 Comparison: Before vs After</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Meeting Notes</th>
+                        <th>User Stories</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Format</strong></td>
+                        <td>Informal, loose points</td>
+                        <td>Structured Gherkin</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ambiguity</strong></td>
+                        <td>High ("would be good", "obviously")</td>
+                        <td>Low (specific criteria)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Completeness</strong></td>
+                        <td>Partial (missing edge cases)</td>
+                        <td>Complete (includes errors)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Testable</strong></td>
+                        <td>❌ No</td>
+                        <td>✅ Yes (each scenario = test)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Conversion time</strong></td>
+                        <td>Manual: 2-3 hours</td>
+                        <td>With agent: 2-3 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Human errors</strong></td>
+                        <td>Frequent</td>
+                        <td>Minimal</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MCP Integration -->
+        <div class="mcp-integration">
+            <h2 style="margin-bottom: 1rem;">🔗 Integration with MCP (Model Context Protocol)</h2>
+            <p style="color: #cbd5e1; margin-bottom: 1.5rem;">
+                Once stories are generated, MCP allows sending them directly to project management tools:
+            </p>
+
+            <div class="integration-steps">
+                <div class="integration-step">
+                    <div class="step-number">1</div>
+                    <h4 style="color: #8b5cf6; margin-bottom: 0.5rem;">Notes</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">PM writes notes in Markdown</p>
+                </div>
+                <div class="integration-step">
+                    <div class="step-number">2</div>
+                    <h4 style="color: #8b5cf6; margin-bottom: 0.5rem;">AI Agent</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Processes and structures in Gherkin</p>
+                </div>
+                <div class="integration-step">
+                    <div class="step-number">3</div>
+                    <h4 style="color: #8b5cf6; margin-bottom: 0.5rem;">MCP Server</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Connects with external APIs</p>
+                </div>
+                <div class="integration-step">
+                    <div class="step-number">4</div>
+                    <h4 style="color: #8b5cf6; margin-bottom: 0.5rem;">Linear/Jira</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Issues created automatically</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="comparison-section">
+            <h2>✨ Advantages of the Agent Approach</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3 style="color: #8b5cf6; margin-bottom: 0.5rem;">Speed</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">
+                        From 2-3 manual hours to 3 automated minutes. <strong>97% time savings.</strong>
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 style="color: #8b5cf6; margin-bottom: 0.5rem;">Consistency</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">
+                        All stories follow the same standard format, without human variations.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">✅</div>
+                    <h3 style="color: #8b5cf6; margin-bottom: 0.5rem;">Completeness</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">
+                        The agent detects edge cases that humans often forget.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔗</div>
+                    <h3 style="color: #8b5cf6; margin-bottom: 0.5rem;">Direct Integration</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">
+                        MCP connects with Linear, Jira, Azure DevOps without manual steps.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3 style="color: #8b5cf6; margin-bottom: 0.5rem;">Traceability</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">
+                        Each story linked to original notes. Complete process audit.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3 style="color: #8b5cf6; margin-bottom: 0.5rem;">Quality</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">
+                        Adds security validations and error cases automatically.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="comparison-section">
+            <h2>📈 Project Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Original notes</td>
+                        <td>1 informal document (50 lines)</td>
+                    </tr>
+                    <tr>
+                        <td>Generated stories</td>
+                        <td><strong style="color: #22c55e;">25 complete scenarios</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Gherkin lines</td>
+                        <td>350+ structured lines</td>
+                    </tr>
+                    <tr>
+                        <td>Transformation time</td>
+                        <td>~3 minutes <span style="color: #94a3b8;">(vs 2-3 hours manual)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Requirements coverage</td>
+                        <td><strong style="color: #22c55e;">100%</strong> (includes edge cases)</td>
+                    </tr>
+                    <tr>
+                        <td>Format</td>
+                        <td>Standard Gherkin (BDD)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Categories -->
+        <div class="comparison-section">
+            <h2>📚 Generated Story Categories (25 total)</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Authentication</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        6 scenarios: Registration, login, OAuth, recovery
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Dashboard</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        4 scenarios: Views, filters, progress
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Task Management</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        7 scenarios: CRUD, assignment, states
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Collaboration</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        2 scenarios: Comments, mentions
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Projects</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        2 scenarios: Creation, archiving
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Notifications</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        2 scenarios: Assignments, reminders
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Permissions</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        3 scenarios: Roles, invitations
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <strong style="color: #8b5cf6;">Reports</strong>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 0.5rem;">
+                        2 scenarios: Metrics, export
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
 
 /**
  * Navbar Component - Sticky navigation bar with smooth scroll links
  */
 export default function Navbar() {
+  const t = useTranslations('navbar');
   const [is_scrolled, set_is_scrolled] = useState(false);
   const [is_menu_open, set_is_menu_open] = useState(false);
 
@@ -21,9 +24,9 @@ export default function Navbar() {
   }, []);
 
   const nav_items = [
-    { label: 'Inicio', href: '#hero' },
-    { label: 'Mi trabajo', href: '#projects' },
-    { label: 'Blog', href: '#blog' },
+    { label: t('home'), href: '#hero' },
+    { label: t('work'), href: '#projects' },
+    { label: t('blog'), href: '#blog' },
   ];
 
   return (
@@ -58,8 +61,9 @@ export default function Navbar() {
               href="#contact"
               className="px-6 py-2.5 bg-accent-500 text-zinc-950 rounded-full font-semibold hover:bg-accent-500/90 transition-all duration-200 hover:scale-105"
             >
-              Contáctame
+              {t('contact')}
             </a>
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
@@ -98,8 +102,11 @@ export default function Navbar() {
                 onClick={() => set_is_menu_open(false)}
                 className="block text-center px-6 py-2.5 bg-accent-500 text-zinc-950 rounded-full font-semibold hover:bg-accent-500/90 transition-all duration-200"
               >
-                Contáctame
+                {t('contact')}
               </a>
+              <div className="pt-2">
+                <LanguageSwitcher />
+              </div>
             </div>
           </motion.div>
         )}

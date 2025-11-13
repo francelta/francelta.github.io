@@ -27,18 +27,72 @@ export async function GET(
     return new NextResponse(`Demo not found: ${resolvedParams.slug}`, { status: 404 });
   }
 
+  // Detectar locale desde query params o referer header
+  const url = new URL(request.url);
+  const localeParam = url.searchParams.get('locale');
+  const referer = request.headers.get('referer') || '';
+  let locale = localeParam || 'es'; // Default a español
+  
+  // Intentar detectar desde referer si no viene en query params
+  if (!localeParam && referer) {
+    const refererMatch = referer.match(/\/(es|en)\//);
+    if (refererMatch) {
+      locale = refererMatch[1];
+    }
+  }
+
+  // Determinar el nombre del archivo según el locale
+  const projectDir = demoPath.split('/')[0];
+  const demoFileName = locale === 'en' ? 'demo.en.html' : 'demo.html';
+  const localizedDemoPath = `${projectDir}/${demoFileName}`;
+
   try {
     // DEBUG: Log información del request
     console.log('=== DEMO API DEBUG START ===');
     console.log('Requested slug:', resolvedParams.slug);
-    console.log('Demo path:', demoPath);
-    console.log('All DEMO_CONTENT keys:', Object.keys(DEMO_CONTENT));
-    console.log('DEMO_CONTENT keys with content:', Object.keys(DEMO_CONTENT).filter(k => DEMO_CONTENT[k] && DEMO_CONTENT[k].trim().length > 0));
+    console.log('Detected locale:', locale);
+    console.log('Demo path (original):', demoPath);
+    console.log('Demo path (localized):', localizedDemoPath);
     
-    // Obtener el contenido del HTML desde el módulo que lo leyó durante el build
-    let htmlContent = DEMO_CONTENT[resolvedParams.slug];
+    // Intentar cargar la versión localizada primero
+    let htmlContent: string | undefined;
     
-    console.log(`Content for ${resolvedParams.slug}:`, {
+    // Primero intentar desde DEMO_CONTENT (si existe la versión localizada)
+    if (locale === 'en') {
+      const localizedKey = `${resolvedParams.slug}_en`;
+      htmlContent = DEMO_CONTENT[localizedKey];
+      console.log(`Looking for English version with key: ${localizedKey}`, {
+        exists: htmlContent !== undefined,
+        hasContent: htmlContent && htmlContent.trim().length > 0,
+        length: htmlContent?.length || 0
+      });
+      
+      // Si no está en DEMO_CONTENT, intentar leer directamente del filesystem
+      if (!htmlContent || htmlContent.trim().length === 0) {
+        console.log(`English version not in DEMO_CONTENT, trying filesystem...`);
+        const enFilePath = join(process.cwd(), 'public', 'demos', localizedDemoPath);
+        if (existsSync(enFilePath)) {
+          try {
+            htmlContent = readFileSync(enFilePath, 'utf-8');
+            console.log(`✓ Successfully loaded English version from filesystem, length: ${htmlContent.length}`);
+          } catch (err) {
+            console.error(`✗ Failed to read English version:`, err instanceof Error ? err.message : String(err));
+          }
+        }
+      }
+    }
+    
+    // Si no existe la versión localizada o es español, usar la versión por defecto
+    if (!htmlContent || htmlContent.trim().length === 0) {
+      htmlContent = DEMO_CONTENT[resolvedParams.slug];
+      console.log(`Using default (Spanish) version for ${resolvedParams.slug}`, {
+        exists: htmlContent !== undefined,
+        hasContent: htmlContent && htmlContent.trim().length > 0,
+        length: htmlContent?.length || 0
+      });
+    }
+    
+    console.log(`Final content for ${resolvedParams.slug} (locale: ${locale}):`, {
       exists: htmlContent !== undefined,
       isNull: htmlContent === null,
       isEmpty: htmlContent === '',
@@ -53,11 +107,15 @@ export async function GET(
       console.warn(`⚠️ Demo content empty for ${resolvedParams.slug}, attempting fallback methods...`);
       console.log('Current working directory:', process.cwd());
       
-      // Intentar múltiples rutas de fallback
+      // Intentar múltiples rutas de fallback (primero la localizada, luego la por defecto)
       const fallbackPaths = [
+        join(process.cwd(), 'public', 'demos', localizedDemoPath),
         join(process.cwd(), 'public', 'demos', demoPath),
+        join(process.cwd(), 'demos', localizedDemoPath),
         join(process.cwd(), 'demos', demoPath),
+        '/var/task/public/demos/' + localizedDemoPath,
         '/var/task/public/demos/' + demoPath,
+        '/vercel/path0/public/demos/' + localizedDemoPath,
         '/vercel/path0/public/demos/' + demoPath,
       ];
       
@@ -84,22 +142,33 @@ export async function GET(
         console.warn('⚠️ All filesystem methods failed, trying fetch from public URL...');
         
         try {
-          const url = new URL(request.url);
-          const baseUrl = `${url.protocol}//${url.host}`;
-          const publicUrl = `${baseUrl}/demos/${demoPath}`;
+          const requestUrl = new URL(request.url);
+          const baseUrl = `${requestUrl.protocol}//${requestUrl.host}`;
+          // Intentar primero la versión localizada, luego la por defecto
+          const publicUrls = [
+            `${baseUrl}/demos/${localizedDemoPath}`,
+            `${baseUrl}/demos/${demoPath}`,
+          ];
           
-          console.log(`Attempting fetch from: ${publicUrl}`);
-          const response = await fetch(publicUrl, {
-            headers: {
-              'User-Agent': 'Next.js-Demo-API-Internal',
-            },
-          });
-          
-          if (response.ok) {
-            htmlContent = await response.text();
-            console.log(`✓ Fetch successful, length: ${htmlContent.length}`);
-          } else {
-            console.error(`✗ Fetch failed: ${response.status} ${response.statusText}`);
+          for (const publicUrl of publicUrls) {
+            console.log(`Attempting fetch from: ${publicUrl}`);
+            try {
+              const response = await fetch(publicUrl, {
+                headers: {
+                  'User-Agent': 'Next.js-Demo-API-Internal',
+                },
+              });
+              
+              if (response.ok) {
+                htmlContent = await response.text();
+                console.log(`✓ Fetch successful from ${publicUrl}, length: ${htmlContent.length}`);
+                break;
+              } else {
+                console.log(`✗ Fetch failed: ${response.status} ${response.statusText}`);
+              }
+            } catch (fetchError) {
+              console.log(`✗ Fetch error for ${publicUrl}:`, fetchError instanceof Error ? fetchError.message : String(fetchError));
+            }
           }
         } catch (fetchError) {
           console.error('✗ Fetch error:', fetchError instanceof Error ? fetchError.message : String(fetchError));

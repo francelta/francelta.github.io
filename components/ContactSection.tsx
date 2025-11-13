@@ -2,26 +2,29 @@
 
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 /**
  * ContactSection Component - Contact information and social links
  */
 export default function ContactSection() {
+  const t = useTranslations('contact');
+  
   const social_links = [
     {
-      name: 'GitHub',
+      name: t('social.github'),
       icon: <Github className="w-6 h-6" />,
       url: 'https://github.com/francelta',
       color: 'hover:text-white',
     },
     {
-      name: 'LinkedIn',
+      name: t('social.linkedin'),
       icon: <Linkedin className="w-6 h-6" />,
       url: 'https://www.linkedin.com/in/francisco-jose-carrasco-guerrero-81a92533/',
       color: 'hover:text-blue-400',
     },
     {
-      name: 'Email',
+      name: t('social.email'),
       icon: <Mail className="w-6 h-6" />,
       url: 'mailto:francelta@gmail.com',
       color: 'hover:text-accent-500',
@@ -44,11 +47,10 @@ export default function ContactSection() {
           {/* Section Header */}
           <div className="mb-12">
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              Conectemos
+              {t('title')}
             </h2>
             <p className="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-              ¿Necesitas desarrollo full-stack, automatización o machine learning? 
-              Trabajo tanto remoto como presencial. Disponible para proyectos freelance y colaboraciones.
+              {t('description')}
             </p>
           </div>
 
@@ -61,11 +63,11 @@ export default function ContactSection() {
             className="mb-16"
           >
             <a
-              href="mailto:francelta@gmail.com"
+              href={`mailto:${t('email')}`}
               className="inline-flex items-center gap-3 px-10 py-4 bg-accent-500 text-zinc-950 rounded-full font-bold text-lg hover:bg-accent-500/90 transition-all duration-200 hover:scale-105 shadow-lg shadow-accent-500/20"
             >
               <Send className="w-6 h-6" />
-              francelta@gmail.com
+              {t('email')}
             </a>
           </motion.div>
 
@@ -77,7 +79,7 @@ export default function ContactSection() {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <p className="text-neutral-500 mb-6 text-sm uppercase tracking-wider font-semibold">
-              O encuéntrame en
+              {t('findMe')}
             </p>
             <div className="flex justify-center gap-6">
               {social_links.map((link, index) => (
@@ -108,7 +110,7 @@ export default function ContactSection() {
             className="mt-16 pt-8 border-t border-neutral-800"
           >
             <p className="text-neutral-500 text-sm">
-              Málaga, España • +6 años de experiencia • Disponible para remoto y presencial
+              {t('location')}
             </p>
           </motion.div>
         </motion.div>

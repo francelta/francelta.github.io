@@ -3,74 +3,78 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ExternalLink, Github } from 'lucide-react';
+import { useTranslations, useLocale } from 'next-intl';
 
 /**
  * ProjectsSection Component - Portfolio projects showcase
  */
 export default function ProjectsSection() {
+  const t = useTranslations('projects');
+  const locale = useLocale();
+  
   const projects = [
     {
-      title: 'Aceleración de MVP (Prototipo de Producción Rápida)',
-      description: 'De "Idea a URL en producción" en menos de 10 minutos. Portfolio QA Engineer con IA, modo oscuro profesional y despliegue automatizado',
+      title: t('items.mvp.title'),
+      description: t('items.mvp.description'),
       image: '/projects/project-1.png',
       tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Firebase Hosting'],
-      demo: '/api/demo/prototipo-produccion-rapida',
+      demo: `/api/demo/prototipo-produccion-rapida?locale=${locale}`,
       github: 'https://github.com/francelta/prototipo-produccion-rapida',
     },
     {
-      title: 'Desarrollo Contextualizado y Estandarizado',
-      description: 'Módulo TypeScript que demuestra control absoluto sobre IA generativa. Código generado que sigue estándares estrictos: snake_case, PascalCase, JSDoc completo',
+      title: t('items.standardized.title'),
+      description: t('items.standardized.description'),
       image: '/projects/project-2.png',
       tags: ['TypeScript', 'JSDoc', 'Code Standards', 'AI-Guided'],
-      demo: '/api/demo/desarrollo-contextualizado-estandarizado',
+      demo: `/api/demo/desarrollo-contextualizado-estandarizado?locale=${locale}`,
       github: 'https://github.com/francelta/desarrollo-contextualizado-estandarizado',
     },
     {
-      title: 'Orquestación y Auditoría de Agentes',
-      description: 'Análisis arquitectónico completo generado por agente IA: microservicios, diagramas Mermaid, seguridad OWASP y escalabilidad. De requisitos a documentación técnica profesional',
+      title: t('items.orchestration.title'),
+      description: t('items.orchestration.description'),
       image: '/projects/project-3.png',
       tags: ['AI Agents', 'Architecture', 'Microservices', 'Mermaid'],
-      demo: '/api/demo/orquestacion-auditoria-agentes',
+      demo: `/api/demo/orquestacion-auditoria-agentes?locale=${locale}`,
       github: 'https://github.com/francelta/orquestacion-auditoria-agentes',
     },
     {
-      title: 'Desarrollo Seguro con TDD',
-      description: 'Servicio de códigos OTP desarrollado con Test-Driven Development: 17 tests escritos ANTES del código. Demuestra TDD + estándares + seguridad OWASP con hashing y expiración',
+      title: t('items.tdd.title'),
+      description: t('items.tdd.description'),
       image: '/projects/project-4.png',
       tags: ['TDD', 'TypeScript', 'Vitest', 'Security'],
-      demo: '/api/demo/desarrollo-tdd',
+      demo: `/api/demo/desarrollo-tdd?locale=${locale}`,
       github: 'https://github.com/francelta/desarrollo-tdd',
     },
     {
-      title: 'Gestión de Requisitos y Flujo de Trabajo (MCP)',
-      description: 'Transformación automática de notas de reunión a historias Gherkin: de informal a estructurado en 3 minutos. Integración con Linear/Jira vía Model Context Protocol',
+      title: t('items.mcp.title'),
+      description: t('items.mcp.description'),
       image: '/projects/project-5.png',
       tags: ['MCP', 'Gherkin', 'BDD', 'Requirements'],
-      demo: '/api/demo/gestion-requisitos-flujo-trabajo-mcp',
+      demo: `/api/demo/gestion-requisitos-flujo-trabajo-mcp?locale=${locale}`,
       github: 'https://github.com/francelta/gestion-requisitos-flujo-trabajo-mcp',
     },
     {
-      title: 'Investigación y Aprendizaje Acelerado con Referencias',
-      description: 'Análisis técnico tipo Notebook LM: Python vs JavaScript para IA. 8 fuentes académicas sintetizadas en 3 minutos con citas, mapas mentales y referencias verificables',
+      title: t('items.research.title'),
+      description: t('items.research.description'),
       image: '/projects/project-6.png',
       tags: ['Research', 'Notebook LM', 'AI Analysis', 'Citations'],
-      demo: '/api/demo/investigacion-aprendizaje-acelerado-referencias',
+      demo: `/api/demo/investigacion-aprendizaje-acelerado-referencias?locale=${locale}`,
       github: 'https://github.com/francelta/investigacion-aprendizaje-acelerado-referencias',
     },
     {
-      title: 'Dashboard Analítico Empresarial',
-      description: 'Dashboard en tiempo real con Vue.js + Django REST + PostgreSQL: métricas de digitalización, análisis de ventas por canal, objetivos estratégicos y Chart.js para visualización',
+      title: t('items.dashboard.title'),
+      description: t('items.dashboard.description'),
       image: '/projects/project-6.png',
       tags: ['Vue.js', 'Django REST', 'PostgreSQL', 'Chart.js'],
-      demo: '/api/demo/dashboard-analitico-empresarial',
+      demo: `/api/demo/dashboard-analitico-empresarial?locale=${locale}`,
       github: 'https://github.com/francelta/dashboard-analitico-empresarial',
     },
     {
-      title: 'Workflow de Automatización con IA y N8N',
-      description: 'Sistema automatizado que genera posts para LinkedIn desde artículos de blog: RSS Feed → Web Scraping → Claude Haiku AI → LinkedIn. 100% automatizado, ahorra 15 min/artículo',
+      title: t('items.n8n.title'),
+      description: t('items.n8n.description'),
       image: '/projects/project-1.png',
       tags: ['n8n', 'Claude Haiku', 'Automation', 'LinkedIn API'],
-      demo: '/api/demo/workflow-automatizado-n8n',
+      demo: `/api/demo/workflow-automatizado-n8n?locale=${locale}`,
       github: 'https://github.com/francelta/workflow-automatizado-n8n',
     },
   ];
@@ -86,11 +90,10 @@ export default function ProjectsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            Mi trabajo
+            {t('title')}
           </h2>
           <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
-            Una selección de proyectos que demuestran mi experiencia en desarrollo full-stack, 
-            seguridad y arquitectura de sistemas
+            {t('subtitle')}
           </p>
         </motion.div>
 
@@ -147,7 +150,7 @@ export default function ProjectsSection() {
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-accent-500 text-zinc-950 rounded-lg font-semibold hover:bg-accent-500/90 transition-colors"
                   >
                     <ExternalLink size={18} />
-                    Demo
+                    {t('buttons.demo')}
                   </a>
                   <a
                     href={project.github}
@@ -156,7 +159,7 @@ export default function ProjectsSection() {
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-neutral-700 text-neutral-300 rounded-lg font-semibold hover:border-accent-500 hover:text-accent-500 transition-colors"
                   >
                     <Github size={18} />
-                    Código
+                    {t('buttons.code')}
                   </a>
                 </div>
               </div>

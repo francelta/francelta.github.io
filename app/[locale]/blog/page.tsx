@@ -2,49 +2,57 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Clock, Calendar } from 'lucide-react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Blog - Fran Carrasco',
-  description: 'Artículos sobre desarrollo con IA, TDD, OWASP y orquestación de agentes',
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> | { locale: string } }): Promise<Metadata> {
+  const { locale } = await Promise.resolve(params);
+  const t = await getTranslations({ locale, namespace: 'blog' });
+  
+  return {
+    title: `${t('pageTitle')} - Fran Carrasco`,
+    description: t('pageSubtitle'),
+  };
+}
 
 // Necesario para static export
 export function generateStaticParams() {
   return [{ locale: 'es' }, { locale: 'en' }];
 }
 
-const blog_posts = [
-  {
-    slug: 'vibe-coding',
-    title: 'Más Allá del "Vibe Coding": Por Qué Dejé de Escribir Código y Empecé a Dirigir Agentes',
-    excerpt: 'El 45% del código ya lo escribe una IA. El trabajo ya no es teclear, es orquestar. Esta es mi filosofía como "Piloto de IA".',
-    image: '/blog/blog-1.png',
-    date: '15 Oct 2024',
-    read_time: '8 min',
-    category: 'Filosofía',
-  },
-  {
-    slug: 'tdd-owasp',
-    title: 'La IA como "Becario" Vulnerable: Mi Flujo TDD y OWASP en la Era de GenAI',
-    excerpt: 'La IA genera código con vulnerabilidades (Vulnerability as a Service). Mi trabajo es aplicar "Seguridad por Diseño" y TDD para auditarla. La confianza cero es la nueva norma.',
-    image: '/blog/blog-2.png',
-    date: '3 Oct 2024',
-    read_time: '12 min',
-    category: 'Metodología',
-  },
-  {
-    slug: 'caso-estudio',
-    title: 'Caso de Estudio: Cómo Orquesté un Equipo de Agentes para Construir este Mismo Portafolio',
-    excerpt: 'Este sitio no fue escrito por mí, fue dirigido por mí. Desgloso el "equipo" de agentes (agente_bootstrap, agente_visual...) que usé en Cursor para clonar y personalizar este sitio en horas, no semanas.',
-    image: '/blog/blog-3.png',
-    date: '21 Sep 2024',
-    read_time: '10 min',
-    category: 'Caso Real',
-  },
-];
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
+  const { locale } = await Promise.resolve(params);
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'blog' });
 
-export default function BlogPage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+  const blog_posts = [
+    {
+      slug: 'vibe-coding',
+      title: t('posts.vibeCoding.title'),
+      excerpt: t('posts.vibeCoding.excerpt'),
+      image: '/blog/blog-1.png',
+      date: locale === 'es' ? '15 Oct 2024' : 'Oct 15, 2024',
+      read_time: '8 min',
+      category: t('categories.philosophy'),
+    },
+    {
+      slug: 'tdd-owasp',
+      title: t('posts.tddOwasp.title'),
+      excerpt: t('posts.tddOwasp.excerpt'),
+      image: '/blog/blog-2.png',
+      date: locale === 'es' ? '3 Oct 2024' : 'Oct 3, 2024',
+      read_time: '12 min',
+      category: t('categories.methodology'),
+    },
+    {
+      slug: 'caso-estudio',
+      title: t('posts.caseStudy.title'),
+      excerpt: t('posts.caseStudy.excerpt'),
+      image: '/blog/blog-3.png',
+      date: locale === 'es' ? '21 Sep 2024' : 'Sep 21, 2024',
+      read_time: '10 min',
+      category: t('categories.caseStudy'),
+    },
+  ];
   return (
     <div className="min-h-screen bg-zinc-950 text-neutral-300">
       {/* Header */}
@@ -55,13 +63,13 @@ export default function BlogPage({ params }: { params: { locale: string } }) {
             className="inline-flex items-center gap-2 text-neutral-400 hover:text-accent-500 transition-colors mb-6"
           >
             <ArrowLeft size={20} />
-            Volver al portafolio
+            {t('backToPortfolio')}
           </Link>
           <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Blog
+            {t('pageTitle')}
           </h1>
           <p className="text-xl text-neutral-400">
-            Artículos sobre desarrollo con IA, TDD, OWASP y orquestación de agentes
+            {t('pageSubtitle')}
           </p>
         </div>
       </header>
@@ -115,7 +123,7 @@ export default function BlogPage({ params }: { params: { locale: string } }) {
                     href={`/${locale}/blog/${post.slug}`}
                     className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-zinc-950 rounded-full font-semibold hover:bg-accent-500/90 transition-all duration-200 hover:scale-105"
                   >
-                    Leer artículo completo
+                    {t('readFullArticle')}
                   </Link>
                 </div>
               </div>

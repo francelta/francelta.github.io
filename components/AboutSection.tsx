@@ -2,31 +2,34 @@
 
 import { motion } from 'framer-motion';
 import { Code2, Shield, TestTube, Workflow } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 /**
  * AboutSection Component - About me and philosophy section
  */
 export default function AboutSection() {
+  const t = useTranslations('about');
+  
   const features = [
     {
       icon: <Workflow className="w-6 h-6" />,
-      title: 'Desarrollo Full-Stack',
-      description: 'Python (Django, Flask), JavaScript (React, Vue.js), PHP (Laravel) y bases de datos SQL',
+      title: t('features.fullstack.title'),
+      description: t('features.fullstack.description'),
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: 'Seguridad por Diseño',
-      description: 'OWASP Top 10, hashing robusto, prevención de ataques y auditorías de seguridad',
+      title: t('features.security.title'),
+      description: t('features.security.description'),
     },
     {
       icon: <TestTube className="w-6 h-6" />,
-      title: 'TDD & Automatización',
-      description: 'pytest, unittest, Jenkins CI/CD - Más de 40 tests por feature',
+      title: t('features.tdd.title'),
+      description: t('features.tdd.description'),
     },
     {
       icon: <Code2 className="w-6 h-6" />,
-      title: 'IA & Machine Learning',
-      description: 'TensorFlow, Keras, OpenCV - Redes neuronales con 97.83% de precisión',
+      title: t('features.ai.title'),
+      description: t('features.ai.description'),
     },
   ];
 
@@ -42,12 +45,10 @@ export default function AboutSection() {
           {/* Section Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              Sobre mí
+              {t('title')}
             </h2>
             <p className="text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
-              Desarrollador Full-Stack con <span className="text-accent-500 font-semibold">+6 años de experiencia</span> en 
-              aplicaciones web, automatización y machine learning. Especializado en <span className="text-accent-500 font-semibold">GenAI</span>, 
-              actúo como &quot;Arquitecto y Piloto&quot; orquestando agentes de IA para acelerar el desarrollo en un 55%.
+              {t('description')}
             </p>
           </div>
 

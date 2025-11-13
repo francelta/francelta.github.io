@@ -4,39 +4,42 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Clock } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 /**
  * BlogSection Component - Blog posts showcase
  */
 export default function BlogSection() {
+  const t = useTranslations('blog');
   const pathname = usePathname();
   const locale = pathname.split('/')[1] || 'es';
+  
   const blog_posts = [
     {
-      title: 'Más Allá del "Vibe Coding": Por Qué Dejé de Escribir Código y Empecé a Dirigir Agentes',
-      excerpt: 'El 45% del código ya lo escribe una IA. El trabajo ya no es teclear, es orquestar. Esta es mi filosofía como "Piloto de IA".',
+      title: t('posts.vibeCoding.title'),
+      excerpt: t('posts.vibeCoding.excerpt'),
       image: '/blog/blog-1.png',
       date: '15 Oct 2024',
       read_time: '8 min',
-      category: 'Filosofía',
+      category: t('categories.philosophy'),
       link: '/blog/vibe-coding',
     },
     {
-      title: 'La IA como "Becario" Vulnerable: Mi Flujo TDD y OWASP en la Era de GenAI',
-      excerpt: 'La IA genera código con vulnerabilidades (Vulnerability as a Service). Mi trabajo es aplicar "Seguridad por Diseño" y TDD para auditarla. La confianza cero es la nueva norma.',
+      title: t('posts.tddOwasp.title'),
+      excerpt: t('posts.tddOwasp.excerpt'),
       image: '/blog/blog-2.png',
       date: '3 Oct 2024',
       read_time: '12 min',
-      category: 'Metodología',
+      category: t('categories.methodology'),
       link: '/blog/tdd-owasp',
     },
     {
-      title: 'Caso de Estudio: Cómo Orquesté un Equipo de Agentes para Construir este Mismo Portafolio',
-      excerpt: 'Este sitio no fue escrito por mí, fue dirigido por mí. Desgloso el "equipo" de agentes (agente_bootstrap, agente_visual...) que usé en Cursor para clonar y personalizar este sitio en horas, no semanas.',
+      title: t('posts.caseStudy.title'),
+      excerpt: t('posts.caseStudy.excerpt'),
       image: '/blog/blog-3.png',
       date: '21 Sep 2024',
       read_time: '10 min',
-      category: 'Caso Real',
+      category: t('categories.caseStudy'),
       link: '/blog/caso-estudio',
     },
   ];
@@ -52,11 +55,10 @@ export default function BlogSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            También escribo...
+            {t('title')}
           </h2>
           <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
-            Comparto conocimientos sobre IA, desarrollo de software y mejores prácticas 
-            de ingeniería
+            {t('subtitle')}
           </p>
         </motion.div>
 
@@ -110,7 +112,7 @@ export default function BlogSection() {
                   href={`/${locale}${post.link}`}
                   className="inline-flex items-center gap-2 text-accent-500 font-semibold hover:gap-3 transition-all duration-200"
                 >
-                  Leer más
+                  {t('readMore')}
                   <ArrowRight size={18} />
                 </a>
               </div>
@@ -130,7 +132,7 @@ export default function BlogSection() {
             href={`/${locale}/blog`}
             className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-neutral-700 text-neutral-300 rounded-full font-semibold hover:border-accent-500 hover:text-accent-500 transition-all duration-200"
           >
-            Ver todos los artículos
+            {t('viewAll')}
             <ArrowRight size={20} />
           </a>
         </motion.div>

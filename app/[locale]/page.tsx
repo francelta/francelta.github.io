@@ -6,6 +6,7 @@ import ProjectsSection from '@/components/ProjectsSection';
 import BlogSection from '@/components/BlogSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import { setRequestLocale } from 'next-intl/server';
 
 // Necesario para static export con rutas dinámicas
 export function generateStaticParams() {
@@ -15,7 +16,14 @@ export function generateStaticParams() {
 /**
  * HomePage - Main portfolio page with all sections
  */
-export default function HomePage() {
+export default async function HomePage({
+  params
+}: {
+  params: Promise<{ locale: string }> | { locale: string };
+}) {
+  const { locale } = await Promise.resolve(params);
+  setRequestLocale(locale);
+
   return (
     <>
       <Navbar />

@@ -4,11 +4,14 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { MousePointerClick } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 /**
  * HeroSection Component - Main hero section with typing animation and profile image
  */
 export default function HeroSection() {
+  const t = useTranslations('hero');
+  
   return (
     <section id="hero" className="min-h-screen pt-20 md:pt-0 flex items-center">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
@@ -21,19 +24,19 @@ export default function HeroSection() {
             className="order-2 md:order-1"
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 leading-tight">
-              Fran Carrasco
+              {t('name')}
             </h1>
             
             <div className="text-2xl md:text-3xl lg:text-4xl text-neutral-300 mb-8 h-20 flex items-center">
               <TypeAnimation
                 sequence={[
-                  'Desarrollador Full-Stack',
+                  t('roles.fullstack'),
                   2000,
-                  'Arquitecto y Piloto de IA',
+                  t('roles.architect'),
                   2000,
-                  'Ingeniero de Machine Learning',
+                  t('roles.ml'),
                   2000,
-                  'Especialista en Automatización',
+                  t('roles.automation'),
                   2000,
                 ]}
                 wrapper="span"
@@ -44,8 +47,7 @@ export default function HeroSection() {
             </div>
 
             <p className="text-lg md:text-xl text-neutral-400 mb-12 leading-relaxed max-w-xl">
-              +6 años desarrollando aplicaciones web, automatizaciones y redes neuronales. 
-              Especializado en TDD, Security by Design y desarrollo asistido por IA (45% código con IA).
+              {t('description')}
             </p>
 
             <div className="flex gap-4">
@@ -53,14 +55,14 @@ export default function HeroSection() {
                 href="#projects"
                 className="px-8 py-3.5 bg-accent-500 text-zinc-950 rounded-full font-semibold hover:bg-accent-500/90 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
               >
-                Ver mi trabajo
+                {t('cta.viewWork')}
                 <MousePointerClick size={20} />
               </a>
               <a
                 href="#contact"
                 className="px-8 py-3.5 border-2 border-neutral-700 text-neutral-300 rounded-full font-semibold hover:border-accent-500 hover:text-accent-500 transition-all duration-200"
               >
-                Contacto
+                {t('cta.contact')}
               </a>
             </div>
 
@@ -77,7 +79,7 @@ export default function HeroSection() {
               className="mt-16 hidden md:flex items-center gap-2 text-neutral-500"
             >
               <MousePointerClick size={20} />
-              <span className="text-sm">Desplázate para explorar</span>
+              <span className="text-sm">{t('scrollIndicator')}</span>
             </motion.div>
           </motion.div>
 
@@ -96,7 +98,7 @@ export default function HeroSection() {
               <div className="relative aspect-square rounded-3xl overflow-hidden border-4 border-neutral-800 hover:border-accent-500 transition-all duration-300">
                 <Image
                   src="/fran-profile.jpg"
-                  alt="Fran Carrasco"
+                  alt={t('alt')}
                   fill
                   className="object-cover"
                   priority

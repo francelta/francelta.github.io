@@ -2,31 +2,34 @@
 
 import { motion } from 'framer-motion';
 import { Sparkles, Users, Target, Zap } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 /**
  * StudioSection Component - Philosophy and approach section
  */
 export default function StudioSection() {
+  const t = useTranslations('studio');
+  
   const principles = [
     {
       icon: <Sparkles className="w-8 h-8" />,
-      title: 'Orquestación de Agentes',
-      description: 'Dirijo sub-agentes especializados (PM, Testing, Arquitectura, Auditoría) como mini-J.A.R.V.I.S.',
+      title: t('principles.orchestration.title'),
+      description: t('principles.orchestration.description'),
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: 'TDD & Calidad',
-      description: 'Suites de 20-40 tests por feature, criterios GERKIN y reducción de bugs en producción',
+      title: t('principles.tdd.title'),
+      description: t('principles.tdd.description'),
     },
     {
       icon: <Target className="w-8 h-8" />,
-      title: 'Security by Design',
-      description: 'Mitigación de vulnerabilidades OWASP, código seguro y auditorías proactivas',
+      title: t('principles.security.title'),
+      description: t('principles.security.description'),
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: 'Automatización Total',
-      description: 'N8N workflows, scraping inteligente, CI/CD y eficiencia del 75% en validaciones',
+      title: t('principles.automation.title'),
+      description: t('principles.automation.description'),
     },
   ];
 
@@ -44,20 +47,21 @@ export default function StudioSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            Mi Filosofía 💡
+            {t('title')}
           </h2>
           <div className="max-w-3xl mx-auto">
             <p className="text-xl text-neutral-300 leading-relaxed mb-6">
-              Combino <span className="text-accent-500 font-semibold">+6 años de experiencia</span> en 
-              desarrollo tradicional con las capacidades de la{' '}
-              <span className="text-accent-500 font-semibold">IA generativa</span>, actuando como 
-              &quot;Arquitecto y Piloto&quot; que orquesta agentes especializados.
+              {t.rich('description1', {
+                experience: (chunks) => <span className="text-accent-500 font-semibold">{chunks}</span>,
+                genai: (chunks) => <span className="text-accent-500 font-semibold">{chunks}</span>,
+              })}
             </p>
             <p className="text-lg text-neutral-400 leading-relaxed">
-              Mi enfoque: <span className="text-accent-500">TDD</span> para calidad, 
-              <span className="text-accent-500"> Security by Design</span> para protección, y 
-              <span className="text-accent-500"> automatización</span> para eficiencia. Resultado: 
-              55% más rápido, 45% de código asistido por IA, 0% de compromiso en calidad.
+              {t.rich('description2', {
+                tdd: (chunks) => <span className="text-accent-500">{chunks}</span>,
+                security: (chunks) => <span className="text-accent-500">{chunks}</span>,
+                automation: (chunks) => <span className="text-accent-500">{chunks}</span>,
+              })}
             </p>
           </div>
         </motion.div>
